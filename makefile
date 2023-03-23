@@ -6,7 +6,7 @@ OBJ=main.o window.o
 MAIN=shootem
 BIN= ./bin/
 
-main: $(OBJ)
+all: $(OBJ)
 	$(CC) -o $(MAIN) $(REPOBJ) $(LDFLAGS)
 
 main.o: src/main.c
