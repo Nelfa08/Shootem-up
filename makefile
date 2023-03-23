@@ -1,19 +1,19 @@
 CC=gcc
-CFLAGS=-Wall -std=c17
+CFLAGS=-Wall
 LDFLAGS=-lMLV
-REPOBJ=bin/shootem.o bin/view.o
-OBJ=shootem.o view.o
+REPOBJ=bin/main.o bin/window.o
+OBJ=main.o window.o
 MAIN=shootem
 BIN= ./bin/
 
-shootem: $(OBJ)
+main: $(OBJ)
 	$(CC) -o $(MAIN) $(REPOBJ) $(LDFLAGS)
 
-shootem.o: src/shootem.c
-	$(CC) -c src/shootem.c $(CFLAGS) -o $(BIN)$@
+main.o: src/main.c
+	$(CC) -c src/main.c $(CFLAGS) -o $(BIN)$@
 
-view.o: src/view.c include/view.h
-	$(CC) -c src/view.c $(CFLAGS) -o $(BIN)$@
+window.o: src/window.c include/window.h include/const.h
+	$(CC) -c src/window.c $(CFLAGS) -o $(BIN)$@
 
 run:
 	./$(MAIN)
