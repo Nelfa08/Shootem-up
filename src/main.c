@@ -9,15 +9,15 @@
 /* Include des fichier .h */
 #include "../include/window.h"
 #include "../include/const.h"
+#include "../include/struct.h"
+#include "../include/player.h"
 
-/* vocabulaire : 
-    - frame : aspect de la fenetre à un moment T 
-    - window : fenetre d'affichage
-*/
-int main()
+int main(int argc, char const *argv[])
 {
     int end_game = 0;
     int time_frame;
+
+    Player player;
 
     MLV_Event event;
     MLV_Keyboard_button key;
@@ -25,10 +25,14 @@ int main()
 
     /* permet de récupérer les temps de début et de fin (pour vérifier si la frame est pas trop rapide)*/
     struct timespec start_time, end_time;
+
     /* création de la frame */
     init_window();
+
+    /* Initialisation de la game (création du player plus peut etre d'autres choses)*/
+    player = init_player();
     /*
-    Faire un draw menu ou on peut quitter le jeu ou jouer (peut etre choisir un niveau ??)
+    Faire un draw_menu() ou on peut quitter le jeu ou jouer (peut etre choisir un niveau ??)
     Pour faire ca, on écrit du texte à x et y pixel, et quand on clique sur le texte avec la souris, soit on quitte, soit on lance le jeu
     (améliorations : au survole de la souris sur le texte, mettre un encadré ou qqch du genre)
     */
@@ -38,27 +42,43 @@ int main()
         clock_gettime(CLOCK_REALTIME, &start_time);
 
         /* Ici le code */
-        /* Il faut refresh la frame */
+
+        /* refresh de la window*/
+        clear_window();
+        draw_window(player);
+        printf("%d\n", player.position.x);
 
         /* je ne sais pas comment on récupère les différentes touches du clavier */
         /* Proposition : on se déplace avec les flèches clavier + on tire avec la touche espace */
-        event = MLV_get_event(&key, NULL, NULL, NULL,NULL,NULL,NULL,NULL, &state);
-        draw_window();
+        event = MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
 
-        /* En fonction de l'event il faut faire des choses...*/
+        if(state == MLV_PRESSED) {
+            printf("touche\n");
+            player = move_player(player, key);
+        }
+
+        /* refresh de la window */
+
+        /* En fonction de l'event il faut faire des choses... */
+        /*  vérification que le joueur ne sort pas de l'écran. S'il est encore sur l'écran :
+            if flèche de gauche => déplacement à gauche (player.position.x-5)
+            if flèche de droite => déplacement à droite (player.position.x+5)
+            if flèche du haut => déplacement vers le haut (player.position.y-5)
+            if flèche du bas => déplacement vers le bas (player.position.y+5)
+        */
 
         /* Récupération de l'heure en fin */
         clock_gettime(CLOCK_REALTIME, &end_time);
         time_frame = (end_time.tv_sec - start_time.tv_sec) + ((end_time.tv_nsec - start_time.tv_nsec) / BILLION);
+
         /* Si la frame a été trop vite, on attend un peu */
         if (time_frame < (1.0 / 48.0))
         {
-            MLV_wait_seconds((int)(((1.0 / 48.0) - time_frame) * 1000));
-            end_game = 1;
+            MLV_wait_milliseconds((int)(((1.0 / 48.0) - time_frame) * 1000));
         }
     }
 
-    /* libération mémoire frame */
+    /* libération mémoire window */
     free_window();
-    return 0;
+    return EXIT_SUCCESS;
 }
