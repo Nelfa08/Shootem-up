@@ -1,4 +1,4 @@
 bin/*
 .vscode/*
 shootem
-generated-docs/
+generated-docs/*
