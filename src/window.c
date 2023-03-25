@@ -3,6 +3,11 @@
 #include "../include/const.h"
 #include "../include/struct.h"
 
+/**
+ * @brief initialisation de la window
+ * 
+ * @return int 
+ */
 int init_window()
 {
     MLV_create_window(NAME_FRAME, NULL, WIDTH_FRAME, HEIGHT_FRAME);
@@ -10,12 +15,23 @@ int init_window()
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief efface le contenu de la window
+ * 
+ * @return int 
+ */
 int clear_window()
 {
     MLV_clear_window(MLV_COLOR_WHITE);
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief redessine la window
+ * 
+ * @param player 
+ * @return int 
+ */
 int draw_window(Player player)
 {
     MLV_Image *img;
@@ -26,6 +42,11 @@ int draw_window(Player player)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief libère en mémoire la window
+ * 
+ * @return int 
+ */
 int free_window()
 {
     MLV_free_window();

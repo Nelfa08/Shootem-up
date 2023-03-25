@@ -1,7 +1,11 @@
 #include "../include/const.h"
 #include "../include/struct.h"
 
-/* Revoir les valeurs ici : je les ai mis au hasard*/
+/**
+ * @brief Initialisation des ennemies
+ * 
+ * @return Enemy 
+ */
 Enemy init_enemy() {
     Enemy enemy;
     enemy.health = 50;

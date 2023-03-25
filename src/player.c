@@ -3,6 +3,11 @@
 #include "../include/struct.h"
 #include "../include/const.h"
 
+/**
+ * @brief 
+ * 
+ * @return Player 
+ */
 Player init_player()
 {
     Player player;
@@ -16,6 +21,13 @@ Player init_player()
     return player;
 }
 
+/**
+ * @brief fonction permettant de gérer le déplacement du joueur
+ * 
+ * @param player 
+ * @param key 
+ * @return Player 
+ */
 Player move_player(Player player, MLV_Keyboard_button key)
 {
     if (key == MLV_KEYBOARD_UP)

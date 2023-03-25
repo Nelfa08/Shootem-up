@@ -12,6 +12,14 @@
 #include "../include/struct.h"
 #include "../include/player.h"
 
+/**
+ * @brief Fonction main du projet
+ * 
+ * @param argc Nombre d'argument passés au programme
+ * @param argv Tableau des arguments passés au programme
+ * @return int 0 si tout s'est bien passé. 1 sinon
+ */
+
 int main(int argc, char const *argv[])
 {
     int end_game = 0;

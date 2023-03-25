@@ -1,4 +1,5 @@
 /* Fichier de définition de l'ensemble des constantes.*/
+
 #ifndef __CONST__
 #define __CONST__
 
