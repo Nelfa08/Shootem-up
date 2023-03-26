@@ -5,6 +5,7 @@ Ce jeu a été développé par DJEBLOUN Yacine et RODDIER Corentin dans le cadre
 
 ## Compilation
 Pour compiler le jeu : `make`
+
 Pour lancer le jeu : `make run` 
 
 ## Documentation Doxygen
