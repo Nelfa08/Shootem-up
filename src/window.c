@@ -35,10 +35,10 @@ int clear_window()
 int draw_window(Player player)
 {
     MLV_Image *img;
-    MLV_Image *bg1;
-    MLV_Image *bg2;
+    // MLV_Image *bg1;
+    // MLV_Image *bg2;
 
-    scroll_bg();
+    // scroll_bg();
     img = MLV_load_image(player.path);
     MLV_resize_image_with_proportions(img, player.size, player.size);
     MLV_draw_image(img, player.position.x, player.position.y);
