@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall
+CFLAGS=-Wall -std=c17 -pthread
 LDFLAGS=-lMLV
 REPOBJ=bin/main.o bin/window.o bin/player.o bin/enemy.o
 OBJ=main.o window.o player.o enemy.o
