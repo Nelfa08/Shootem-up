@@ -11,10 +11,11 @@
 #include "../include/const.h"
 #include "../include/struct.h"
 #include "../include/player.h"
+#include "../include/keyboard_listener.h"
 
 /**
  * @brief Fonction main du projet
- * 
+ *
  * @param argc Nombre d'argument passés au programme
  * @param argv Tableau des arguments passés au programme
  * @return int 0 si tout s'est bien passé. 1 sinon
@@ -25,11 +26,12 @@ int main(int argc, char const *argv[])
     int end_game = 0;
     int time_frame;
 
-    Player player;
 
     MLV_Event event;
     MLV_Keyboard_button key;
     MLV_Button_state state;
+    Player player;
+    Pressed_key pk;
 
     /* permet de récupérer les temps de début et de fin (pour vérifier si la frame est pas trop rapide)*/
     struct timespec start_time, end_time;
@@ -39,6 +41,8 @@ int main(int argc, char const *argv[])
 
     /* Initialisation de la game (création du player plus peut etre d'autres choses)*/
     player = init_player();
+    init_pressed_key(pk);
+
     /*
     Faire un draw_menu() ou on peut quitter le jeu ou jouer (peut etre choisir un niveau ??)
     Pour faire ca, on écrit du texte à x et y pixel, et quand on clique sur le texte avec la souris, soit on quitte, soit on lance le jeu
@@ -49,22 +53,17 @@ int main(int argc, char const *argv[])
         /* Récupération de l'heure au début */
         clock_gettime(CLOCK_REALTIME, &start_time);
 
-        /* Ici le code */
-
         /* refresh de la window*/
         clear_window();
         draw_window(player);
-        printf("%d\n", player.position.x);
-
         /* je ne sais pas comment on récupère les différentes touches du clavier */
         /* Proposition : on se déplace avec les flèches clavier + on tire avec la touche espace */
         event = MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
-
-        if(state == MLV_PRESSED) {
-            printf("touche\n");
-            player = move_player(player, key);
+        if (state == MLV_PRESSED || state == MLV_RELEASED)
+        {
+            detect_key_pressed(pk);
+            player = move_player(player, pk);
         }
-
         /* refresh de la window */
 
         /* En fonction de l'event il faut faire des choses... */
