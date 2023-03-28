@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -std=c17 -pthread
 LDFLAGS=-lMLV
-REPOBJ=bin/main.o bin/window.o bin/player.o bin/enemy.o bin/keyboard_listener.o bin/party.o
+REPOBJ=$(BIN)main.o $(BIN)window.o $(BIN)player.o $(BIN)enemy.o $(BIN)keyboard_listener.o $(BIN)party.o
 OBJ=main.o window.o player.o enemy.o keyboard_listener.o party.o
 MAIN=shootem
 BIN= ./bin/
