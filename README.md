@@ -8,5 +8,8 @@ Pour compiler le jeu : `make`
 
 Pour lancer le jeu : `make run` 
 
+## Logs github
+Pour générer les logs github : `git log --pretty=format:"%cs (%an): %s" >> logs.txt`
+
 ## Documentation Doxygen
 Pour générer la documentation : ``doxygen Doxygen``
