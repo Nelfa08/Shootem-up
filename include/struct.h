@@ -5,41 +5,42 @@
 
 /* Structure représentant les différentes entités du jeu */
 
-typedef struct
+typedef struct position
 {
     int x;
     int y;
 } Position;
 
-typedef struct
+typedef struct player
 {
-    Position position;
+    Position *position;
     int size;
     int health;
     int speed;
-    char *path;
+    MLV_Image *image;
 } Player;
 
 /* Ajout d'un champ size pour avoir la possibilité de changer la taille de l'ennemy*/
-typedef struct
+typedef struct enemy
 {
-    Position position;
+    Position *position;
     int size;
     int health;
     int speed;
+    MLV_Image *image;
 } Enemy;
 
-typedef struct
+typedef struct bullet_enemy
 {
-    Position position;
+    Position *position;
     int size;
     int speed;
     int damage;
-} Bullet_player;
+} Bullet_enemy;
 
-typedef struct
+typedef struct background
 {
-    Position position;
+    Position *position;
     char *path;
 } Background;
 

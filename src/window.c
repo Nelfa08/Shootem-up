@@ -3,6 +3,8 @@
 #include "../include/const.h"
 #include "../include/struct.h"
 
+#include "../include/window.h"
+
 /**
  * @brief initialisation de la window
  * 
@@ -32,16 +34,16 @@ int clear_window()
  * @param player 
  * @return int 
  */
-int draw_window(Player player)
+int draw_window(Player *player)
 {
     MLV_Image *img;
     // MLV_Image *bg1;
     // MLV_Image *bg2;
 
     // scroll_bg();
-    img = MLV_load_image(player.path);
-    MLV_resize_image_with_proportions(img, player.size, player.size);
-    MLV_draw_image(img, player.position.x, player.position.y);
+    img = player->image;
+    MLV_resize_image_with_proportions(img, player->size, player->size);
+    MLV_draw_image(img, player->position->x, player->position->y);
     MLV_actualise_window();
     return EXIT_SUCCESS;
 }

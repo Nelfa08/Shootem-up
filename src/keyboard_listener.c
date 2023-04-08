@@ -3,6 +3,8 @@
 #include "../include/struct.h"
 #include "../include/const.h"
 
+#include "../include/keyboard_listener.h"
+
 int detect_key_pressed(Pressed_key pk)
 {
     if (MLV_get_keyboard_state(MLV_KEYBOARD_UP) == MLV_PRESSED)
@@ -39,4 +41,9 @@ int detect_key_pressed(Pressed_key pk)
     }
 
     return 0;
+}
+
+void print_key_pressed(Pressed_key pk)
+{
+    printf("UP: %d, RIGHT: %d, DOWN: %d, LEFT: %d\n", pk[0], pk[1], pk[2], pk[3]);
 }

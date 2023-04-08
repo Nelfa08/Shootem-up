@@ -2,53 +2,57 @@
 
 #include "../include/struct.h"
 #include "../include/const.h"
+#include "../include/keyboard_listener.h"
+
+#include "../include/player.h"
 
 /**
  * @brief
  *
  * @return Player
  */
-Player init_player()
+Player *create_player()
 {
-    Player player;
-    player.health = 5;
-    player.size = 100;
-    player.speed = 2;
-    player.position.x = WIDTH_FRAME / 2 - player.size;
-    player.position.y = HEIGHT_FRAME - (player.size * 2);
-    player.path = "data/ship.png";
+    Player *player = malloc(sizeof(Player));
+    player->position = malloc(sizeof(Position));
+    player->size = 100;
+    player->speed = 2;
+    player->health = 5;
+    player->position->x = 0;
+    player->position->y = 0;
+    player->image = MLV_load_image("data/ship.png");
     return player;
 }
 
-Player move_player(Player player, Pressed_key pk) {
-    if(pk[0] == 1) {
-        if(player.position.y < 0) {
-            printf("outhaut\n");
-            return player;
+Player *move_player(Player *player, Pressed_key pk)
+{
+    if (pk[0] == 1)
+    {
+        if (player->position->y > 0)
+        {
+            player->position->y -= player->speed * 5;
         }
-        player.position.y -= player.speed*5;
     }
-    if(pk[1] == 1) {
-        if(player.position.x+player.size > WIDTH_FRAME) {
-            printf("outdroit\n");
-            return player;
+    if (pk[1] == 1)
+    {
+        if (player->position->x + player->size < WIDTH_FRAME)
+        {
+            player->position->x += player->speed * 5;
         }
-        player.position.x += player.speed*5;
     }
-    if(pk[2] == 1) {
-        if(player.position.y+player.size > HEIGHT_FRAME) {
-            printf("outbas\n");
-            return player;
+    if (pk[2] == 1)
+    {
+        if (player->position->y + player->size < HEIGHT_FRAME)
+        {
+            player->position->y += player->speed * 5;
         }
-        player.position.y += player.speed*5;
     }
-    if(pk[3] == 1) {
-        if(player.position.x < 0) {
-            printf("outgauche\n");
-            return player;
+    if (pk[3] == 1)
+    {
+        if (player->position->x > 0)
+        {
+            player->position->x -= player->speed * 5;
         }
-        player.position.x -= player.speed*5;
     }
-
     return player;
 }

@@ -2,16 +2,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <getopt.h>
 
-/* Include de la libMLV*/
+/* Include de la libMLV */
 #include <MLV/MLV_all.h>
 
-/* Include des fichier .h */
+/* Include des fichiers d'entête */
 #include "../include/window.h"
 #include "../include/const.h"
 #include "../include/struct.h"
 #include "../include/player.h"
 #include "../include/keyboard_listener.h"
+#include "../include/party.h"
+
+void usage()
+{
+    printf("Usage: ./main [-v]\n");
+}
 
 /**
  * @brief Fonction main du projet
@@ -20,29 +27,42 @@
  * @param argv Tableau des arguments passés au programme
  * @return int 0 si tout s'est bien passé. 1 sinon
  */
-
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
-    int end_game = 0;
-    int time_frame;
-
-
     MLV_Event event;
     MLV_Keyboard_button key;
     MLV_Button_state state;
-    Player player;
+    Player *player;
     Pressed_key pk;
 
-    /* permet de récupérer les temps de début et de fin (pour vérifier si la frame est pas trop rapide)*/
+    /* Permet de récupérer les temps de début et de fin (pour vérifier si la frame est pas trop rapide) */
     struct timespec start_time, end_time;
 
-    /* création de la frame */
+    int end_game = 0;
+    int time_frame;
+    int opt;
+    int verbose_flag = 0;
+
+    /* Récupération des arguments */
+    while ((opt = getopt(argc, argv, "vw")) != -1)
+    {
+        switch (opt)
+        {
+        case 'v':
+            verbose_flag = 1;
+            break;
+        case '?':
+            usage();
+            return EXIT_FAILURE;
+        }
+    }
+
+    /* Création de la frame */
     init_window();
 
-    /* Initialisation de la game (création du player plus peut etre d'autres choses)*/
-    player = init_player();
+    /* Initialisation de la game (création du player plus peut etre d'autres choses) */
+    player = create_player();
     init_pressed_key(pk);
-
     /*
     Faire un draw_menu() ou on peut quitter le jeu ou jouer (peut etre choisir un niveau ??)
     Pour faire ca, on écrit du texte à x et y pixel, et quand on clique sur le texte avec la souris, soit on quitte, soit on lance le jeu
@@ -53,7 +73,7 @@ int main(int argc, char const *argv[])
         /* Récupération de l'heure au début */
         clock_gettime(CLOCK_REALTIME, &start_time);
 
-        /* refresh de la window*/
+        /* refresh de la window */
         clear_window();
         draw_window(player);
         /* je ne sais pas comment on récupère les différentes touches du clavier */
@@ -63,6 +83,11 @@ int main(int argc, char const *argv[])
         {
             detect_key_pressed(pk);
             player = move_player(player, pk);
+            if (verbose_flag == 1)
+            {
+                print_key_pressed(pk);
+                printf("pos_player: %d, %d\n", player->position->x, player->position->y);
+            }
         }
         /* refresh de la window */
 

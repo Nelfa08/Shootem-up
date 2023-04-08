@@ -4,5 +4,6 @@
 #include "../include/struct.h"
 
 int detect_key_pressed(Pressed_key pk);
+void print_key_pressed(Pressed_key pk);
 
 #endif
