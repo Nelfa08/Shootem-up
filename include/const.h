@@ -11,5 +11,6 @@
 #define NAME_FRAME "shootem up"
 
 #define SIZE_PLAYER 100
+#define PATH_PLAYER "data/img/ship.png"
 
 #endif

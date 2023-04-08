@@ -20,7 +20,7 @@ Player *create_player()
     player->health = 5;
     player->position->x = 0;
     player->position->y = 0;
-    player->image = MLV_load_image("data/ship.png");
+    player->image = MLV_load_image(PATH_PLAYER);
     return player;
 }
 
