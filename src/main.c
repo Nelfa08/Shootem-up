@@ -29,7 +29,6 @@ void usage()
  */
 int main(int argc, char *argv[])
 {
-    MLV_Event event;
     MLV_Keyboard_button key;
     MLV_Button_state state;
     Player *player;
@@ -78,7 +77,7 @@ int main(int argc, char *argv[])
         draw_window(player);
         /* je ne sais pas comment on récupère les différentes touches du clavier */
         /* Proposition : on se déplace avec les flèches clavier + on tire avec la touche espace */
-        event = MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
+        MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
         if (state == MLV_PRESSED || state == MLV_RELEASED)
         {
             detect_key_pressed(pk);

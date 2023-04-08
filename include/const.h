@@ -7,10 +7,11 @@
 
 #define HEIGHT_FRAME 800
 #define WIDTH_FRAME 1500
-
 #define NAME_FRAME "shootem up"
 
 #define SIZE_PLAYER 100
 #define PATH_PLAYER "data/img/ship.png"
+#define SPEED_PLAYER 5
+#define HEALTH_PLAYER 10
 
 #endif

@@ -16,8 +16,8 @@ Player *create_player()
     Player *player = malloc(sizeof(Player));
     player->position = malloc(sizeof(Position));
     player->size = 100;
-    player->speed = 2;
-    player->health = 5;
+    player->speed = SPEED_PLAYER;
+    player->health = HEALTH_PLAYER;
     player->position->x = 0;
     player->position->y = 0;
     player->image = MLV_load_image(PATH_PLAYER);
@@ -30,28 +30,28 @@ Player *move_player(Player *player, Pressed_key pk)
     {
         if (player->position->y > 0)
         {
-            player->position->y -= player->speed * 5;
+            player->position->y -= player->speed;
         }
     }
     if (pk[1] == 1)
     {
         if (player->position->x + player->size < WIDTH_FRAME)
         {
-            player->position->x += player->speed * 5;
+            player->position->x += player->speed;
         }
     }
     if (pk[2] == 1)
     {
         if (player->position->y + player->size < HEIGHT_FRAME)
         {
-            player->position->y += player->speed * 5;
+            player->position->y += player->speed;
         }
     }
     if (pk[3] == 1)
     {
         if (player->position->x > 0)
         {
-            player->position->x -= player->speed * 5;
+            player->position->x -= player->speed;
         }
     }
     return player;
