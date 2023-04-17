@@ -34,7 +34,7 @@ int clear_window()
  * @param player 
  * @return int 
  */
-int draw_window(Player *player)
+int draw_game(Player *player)
 {
     MLV_Image *img;
     // MLV_Image *bg1;

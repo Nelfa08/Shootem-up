@@ -5,7 +5,7 @@
 #include "const.h"
 
 int init_window();
-int draw_window(Player *player);
+int draw_game(Player *player);
 int clear_window();
 int free_window();
 

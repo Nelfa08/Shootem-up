@@ -32,15 +32,16 @@ int main(int argc, char *argv[])
     MLV_Keyboard_button key;
     MLV_Button_state state;
     Player *player;
+    Party *party;
     Pressed_key pk;
 
     /* Permet de récupérer les temps de début et de fin (pour vérifier si la frame est pas trop rapide) */
     struct timespec start_time, end_time;
 
-    int end_game = 0;
     int time_frame;
     int opt;
     int verbose_flag = 0;
+    int x, y;
 
     /* Récupération des arguments */
     while ((opt = getopt(argc, argv, "vw")) != -1)
@@ -55,26 +56,32 @@ int main(int argc, char *argv[])
             return EXIT_FAILURE;
         }
     }
-
-    /* Création de la frame */
     init_window();
-
-    /* Initialisation de la game (création du player plus peut etre d'autres choses) */
+    /* Initialisation de la party */
+    party = init_party();
     player = create_player();
     init_pressed_key(pk);
+    /* Création de la frame */
     /*
     Faire un draw_menu() ou on peut quitter le jeu ou jouer (peut etre choisir un niveau ??)
     Pour faire ca, on écrit du texte à x et y pixel, et quand on clique sur le texte avec la souris, soit on quitte, soit on lance le jeu
     (améliorations : au survole de la souris sur le texte, mettre un encadré ou qqch du genre)
     */
-    while (end_game == 0)
+    while (party->state == 0)
+    {
+        /* On attend que l'utilisateur clique sur le bouton de fermeture de la fenêtre */
+        // draw_window_menu();
+        party->state = 1;
+    }
+
+    while (party->state == 1)
     {
         /* Récupération de l'heure au début */
         clock_gettime(CLOCK_REALTIME, &start_time);
 
         /* refresh de la window */
         clear_window();
-        draw_window(player);
+        draw_game(player);
         /* je ne sais pas comment on récupère les différentes touches du clavier */
         /* Proposition : on se déplace avec les flèches clavier + on tire avec la touche espace */
         MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);

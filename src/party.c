@@ -10,6 +10,13 @@
 * Initialisation d'une structure party avec l'état (menu, en cours, fini), le niveau choisi, etc
 */
 
+Party *init_party()
+{
+    Party *party = malloc(sizeof(Party));
+    party->state = 0;
+    return party;
+}
+
 void init_pressed_key(Pressed_key pk)
 {
     for (int i = 0; i < 4; i++)

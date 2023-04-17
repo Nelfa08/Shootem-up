@@ -8,7 +8,6 @@
 /* Créer une structure level pour mettre le nbr d'ennemis, leurs vitesse, leur vie, etc et avoir la possibilité de changer en fonction du lvl*/
 typedef struct party {
     int state;
-    int score;
 } Party;
 
 typedef struct position
