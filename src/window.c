@@ -37,10 +37,12 @@ int clear_window()
 int draw_game(Player *player)
 {
     MLV_Image *img;
-    // MLV_Image *bg1;
+    MLV_Image *bg1 = MLV_load_image("data/img/bg.png");
     // MLV_Image *bg2;
+    MLV_resize_image_with_proportions(bg1, WIDTH_FRAME, HEIGHT_FRAME);
+    MLV_draw_image(bg1, 0, 0);
 
-    // scroll_bg();
+
     img = player->image;
     MLV_resize_image_with_proportions(img, player->size, player->size);
     MLV_draw_image(img, player->position->x, player->position->y);

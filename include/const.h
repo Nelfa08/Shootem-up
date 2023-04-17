@@ -11,7 +11,7 @@
 
 #define SIZE_PLAYER 100
 #define PATH_PLAYER "data/img/ship.png"
-#define SPEED_PLAYER 5
+#define SPEED_PLAYER 10
 #define HEALTH_PLAYER 10
 
 #endif
