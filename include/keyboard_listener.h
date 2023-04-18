@@ -3,7 +3,8 @@
 
 #include "../include/struct.h"
 
+int init_pressed_key(Pressed_key pk);
 int detect_key_pressed(Pressed_key pk);
-void print_key_pressed(Pressed_key pk);
+int print_key_pressed(Pressed_key pk);
 
 #endif

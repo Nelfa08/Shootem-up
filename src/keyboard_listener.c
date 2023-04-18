@@ -5,6 +5,15 @@
 
 #include "../include/keyboard_listener.h"
 
+int init_pressed_key(Pressed_key pk)
+{
+    for (int i = 0; i < 4; i++)
+    {
+        pk[i] = 0;
+    }
+    return EXIT_SUCCESS;
+}
+
 int detect_key_pressed(Pressed_key pk)
 {
     if (MLV_get_keyboard_state(MLV_KEYBOARD_UP) == MLV_PRESSED)
@@ -40,10 +49,11 @@ int detect_key_pressed(Pressed_key pk)
         pk[3] = 0;
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
-void print_key_pressed(Pressed_key pk)
+int print_key_pressed(Pressed_key pk)
 {
     printf("UP: %d, RIGHT: %d, DOWN: %d, LEFT: %d\n", pk[0], pk[1], pk[2], pk[3]);
+    return EXIT_SUCCESS;
 }

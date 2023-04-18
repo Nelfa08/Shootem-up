@@ -25,6 +25,9 @@ open-doc:
 clean-doc:
 	rm -rf generated-docs/
 
+run:
+	./$(MAIN)
+
 rebuild: 
 	make clean
 	make

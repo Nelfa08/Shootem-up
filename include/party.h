@@ -4,6 +4,6 @@
 #include "../include/struct.h"
 
 Party *init_party();
-void init_pressed_key(Pressed_key pk);
+int free_party(Party *party);
 
 #endif

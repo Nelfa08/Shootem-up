@@ -17,10 +17,8 @@ Party *init_party()
     return party;
 }
 
-void init_pressed_key(Pressed_key pk)
+int free_party(Party *party)
 {
-    for (int i = 0; i < 4; i++)
-    {
-        pk[i] = 0;
-    }
+    free(party);
+    return EXIT_SUCCESS;
 }

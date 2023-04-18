@@ -56,7 +56,9 @@ int main(int argc, char *argv[])
             return EXIT_FAILURE;
         }
     }
-    init_window();
+
+    init_window_menu();
+
     /* Initialisation de la party */
     party = init_party();
     player = create_player();
@@ -67,21 +69,60 @@ int main(int argc, char *argv[])
     Pour faire ca, on écrit du texte à x et y pixel, et quand on clique sur le texte avec la souris, soit on quitte, soit on lance le jeu
     (améliorations : au survole de la souris sur le texte, mettre un encadré ou qqch du genre)
     */
+
+    /* Différents états de la partie :
+     * 0 : menu
+     * 1 : crédits
+     * 2 : jeu
+     * 3 : fin
+     */
+    int x_tmp, y_tmp;
     while (party->state == 0)
     {
-        /* On attend que l'utilisateur clique sur le bouton de fermeture de la fenêtre */
-        // draw_window_menu();
-        party->state = 1;
+        draw_window_menu();
+        MLV_get_mouse_position(&x_tmp, &y_tmp);
+        printf("x_tmp = %d, y_tmp = %d\n", x_tmp, y_tmp);
+        MLV_wait_mouse(&x, &y);
+        if (x > 0 && x < 100 && y > 0 && y < 100) // coordonnées à changer
+        {
+            /* On affiche les crédits */
+            party->state = 1;
+        }
+        else if (x > 0 && x < 100 && y > 100 && y < 200) // coordonnées à changer
+        {
+            /* On lance le jeu */
+            party->state = 2;
+        }
+        else if (x > 0 && x < 100 && y > 200 && y < 300) // coordonnées à changer
+        {
+            /* On quitte le jeu */
+            party->state = 3;
+        }
+
+        party->state = 2;
     }
 
     while (party->state == 1)
+    {
+        draw_window_credits();
+        MLV_wait_mouse(&x, &y);
+        if (x > 0 && x < 100 && y > 0 && y < 100) // coordonnées à changer
+        {
+            /* On revient au menu */
+            party->state = 0;
+        }
+    }
+    
+
+    init_window_game();
+    while (party->state == 2)
     {
         /* Récupération de l'heure au début */
         clock_gettime(CLOCK_REALTIME, &start_time);
 
         /* refresh de la window */
         clear_window();
-        draw_game(player);
+        draw_frame_game(player);
         /* je ne sais pas comment on récupère les différentes touches du clavier */
         /* Proposition : on se déplace avec les flèches clavier + on tire avec la touche espace */
         MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
@@ -114,9 +155,18 @@ int main(int argc, char *argv[])
         {
             MLV_wait_milliseconds((int)(((1.0 / 48.0) - time_frame) * 1000));
         }
+
+        /* is win ? => party->state == 3 */
     }
 
+    if(party->state == 3)
+    {
+        /* On quitte le jeu */
+        free_party(party);
+        // free_player(player);
+        free_window();
+        return EXIT_SUCCESS;
+    }
     /* libération mémoire window */
-    free_window();
     return EXIT_SUCCESS;
 }
