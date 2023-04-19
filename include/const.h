@@ -16,7 +16,7 @@
 #define HEIGHT_FRAME_GAME 800
 #define WIDTH_FRAME_GAME 1500
 #define TOP_BORDER 260
-#define BOTTOM_BORDER 630+SIZE_PLAYER
+#define BOTTOM_BORDER 630 + SIZE_PLAYER
 #define NAME_FRAME_GAME "DofusRuner - Game"
 #define PATH_IMG_GAME "data/img/bg_game.png"
 

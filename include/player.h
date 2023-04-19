@@ -6,4 +6,5 @@
 
 Player *create_player();
 Player *move_player(Player *player, Pressed_key pk);
+int free_player(Player *player);
 #endif

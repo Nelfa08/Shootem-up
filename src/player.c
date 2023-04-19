@@ -56,3 +56,11 @@ Player *move_player(Player *player, Pressed_key pk)
     }
     return player;
 }
+
+int free_player(Player *player)
+{
+    free(player->position);
+    MLV_free_image(player->image);
+    free(player);
+    return EXIT_SUCCESS;
+}

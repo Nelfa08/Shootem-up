@@ -31,9 +31,9 @@ int main(int argc, char *argv[])
 {
     MLV_Keyboard_button key;
     MLV_Button_state state;
+    Pressed_key pk;
     Player *player;
     Party *party;
-    Pressed_key pk;
 
     /* Permet de récupérer les temps de début et de fin (pour vérifier si la frame est pas trop rapide) */
     struct timespec start_time, end_time;
@@ -76,43 +76,48 @@ int main(int argc, char *argv[])
      * 2 : jeu
      * 3 : fin
      */
-    int x_tmp, y_tmp;
-    while (party->state == 0)
+    while (party->state == 0 || party->state == 1)
     {
-        draw_window_menu();
-        MLV_get_mouse_position(&x_tmp, &y_tmp);
-        printf("x_tmp = %d, y_tmp = %d\n", x_tmp, y_tmp);
-        MLV_wait_mouse(&x, &y);
-        if (x > 0 && x < 100 && y > 0 && y < 100) // coordonnées à changer
+        if (party->state == 0)
         {
-            /* On affiche les crédits */
-            party->state = 1;
+            draw_window_menu();
+            MLV_wait_mouse(&x, &y);
+            if (x > 296 && x < 450 && y > 370 && y < 420)
+            {
+                /* On lance le jeu */
+                if (verbose_flag)
+                {
+                    printf("Lancement du jeu\n");
+                }
+                party->state = 2;
+            }
+            else if (x > 257 && x < 488 && y > 450 && y < 500)
+            {
+                /* On affiche les crédits */
+                if (verbose_flag)
+                {
+                    printf("Affichage des crédits\n");
+                }
+                party->state = 1;
+            }
+            else if (x > 305 && x < 488 && y > 540 && y < 590)
+            {
+                /* On quitte le jeu */
+                party->state = 3;
+            }
         }
-        else if (x > 0 && x < 100 && y > 100 && y < 200) // coordonnées à changer
+        else if (party->state == 1)
         {
-            /* On lance le jeu */
-            party->state = 2;
+            clear_window();
+            draw_window_credits();
+            MLV_wait_mouse(&x, &y);
+            if (x > 0 && x < 100 && y > 0 && y < 100)
+            {
+                /* On revient au menu */
+                party->state = 0;
+            }
         }
-        else if (x > 0 && x < 100 && y > 200 && y < 300) // coordonnées à changer
-        {
-            /* On quitte le jeu */
-            party->state = 3;
-        }
-
-        party->state = 2;
     }
-
-    while (party->state == 1)
-    {
-        draw_window_credits();
-        MLV_wait_mouse(&x, &y);
-        if (x > 0 && x < 100 && y > 0 && y < 100) // coordonnées à changer
-        {
-            /* On revient au menu */
-            party->state = 0;
-        }
-    }
-    
 
     init_window_game();
     while (party->state == 2)
@@ -159,14 +164,18 @@ int main(int argc, char *argv[])
         /* is win ? => party->state == 3 */
     }
 
-    if(party->state == 3)
+    if (party->state == 3)
     {
         /* On quitte le jeu */
+        if (verbose_flag)
+        {
+            printf("Fin du jeu\n");
+            printf("Libération de la mémoire\n");
+        }
         free_party(party);
-        // free_player(player);
+        free_player(player);
         free_window();
         return EXIT_SUCCESS;
     }
-    /* libération mémoire window */
-    return EXIT_SUCCESS;
+    return EXIT_FAILURE;
 }
