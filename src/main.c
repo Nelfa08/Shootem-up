@@ -111,9 +111,13 @@ int main(int argc, char *argv[])
             clear_window();
             draw_window_credits();
             MLV_wait_mouse(&x, &y);
-            if (x > 0 && x < 100 && y > 0 && y < 100)
+            if (x > 0 && x < 105 && y > 0 && y < 40)
             {
                 /* On revient au menu */
+                if (verbose_flag)
+                {
+                    printf("Retour au menu\n");
+                }
                 party->state = 0;
             }
         }

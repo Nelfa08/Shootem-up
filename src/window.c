@@ -43,11 +43,11 @@ int draw_window_menu()
 
     /*dessin du nom du jeu*/
     MLV_get_size_of_text_with_font(name_game, &width_name_game, &height_name_game, font_title);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_name_game / 2), HEIGHT_FRAME_GAME *2 / 10 - height_name_game / 2, name_game, font_title, MLV_rgba(13, 153, 68, 0));
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_name_game / 2), HEIGHT_FRAME_GAME * 2 / 10 - height_name_game / 2, name_game, font_title, MLV_rgba(13, 153, 68, 0));
 
     /*dessin du bouton jouer*/
     MLV_get_size_of_text_with_font(button_play, &width_button_play, &height_button_play, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_play / 2), (HEIGHT_FRAME_GAME *5 / 10 - height_button_play / 2), button_play, font, MLV_rgba(13, 153, 68, 0));
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_play / 2), (HEIGHT_FRAME_GAME * 5 / 10 - height_button_play / 2), button_play, font, MLV_rgba(13, 153, 68, 0));
 
     /*dessin du bouton crédits*/
     MLV_get_size_of_text_with_font(button_credits, &width_button_credits, &height_button_credits, font);
@@ -69,18 +69,31 @@ int draw_window_menu()
 int draw_window_credits()
 {
     MLV_Image *img = MLV_load_image(PATH_IMG_MENU);
-    MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 50);
+    MLV_Font *font_title = MLV_load_font(PATH_FONT_MENU, 76);
+    MLV_Font *font_back = MLV_load_font(PATH_FONT_MENU, 30);
     char *title = "CREDITS";
+    char *back = "BACK";
     int width_button_back, height_button_back;
+    int taille_interlinge = 10;
 
     MLV_resize_image_with_proportions(img, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
     MLV_draw_image(img, 0, 0);
 
-    MLV_get_size_of_text_with_font(title, &width_button_back, &height_button_back, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_back / 2), (HEIGHT_FRAME_GAME * 7 / 10 - height_button_back / 2), title, font, MLV_rgba(13, 153, 68, 0));
+    MLV_get_size_of_text_with_font(title, &width_button_back, &height_button_back, font_title);
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_back / 2), (HEIGHT_FRAME_GAME * 2 / 10 - height_button_back / 2), title, font_title, MLV_rgba(13, 153, 68, 0));
+
+    MLV_get_size_of_text_with_font(title, &width_button_back, &height_button_back, font_back);
+    MLV_draw_text_with_font(10, 0, back, font_back, MLV_COLOR_RED1);
+
+    MLV_draw_filled_rectangle(10, 150, 400, 200, MLV_rgba(0, 0, 0, 0));
+    MLV_draw_adapted_text_box(10, 150, "Même chose,\nmais le texte\nest justifié à gauche\nde la fenêtre.", taille_interlinge, MLV_COLOR_RED, MLV_COLOR_GREEN, MLV_COLOR_BLACK, MLV_TEXT_LEFT);
+
+    // http://www-igm.univ-mlv.fr/~boussica/mlv/api/French/html/beginner_204_texts_and_boxes_8c-example.html
+
     MLV_actualise_window();
     MLV_free_image(img);
-    MLV_free_font(font);
+    MLV_free_font(font_title);
+    MLV_free_font(font_back);
     return EXIT_SUCCESS;
 }
 
@@ -114,8 +127,6 @@ int draw_frame_game(Player *player)
     MLV_resize_image_with_proportions(player_img, player->size, player->size);
     MLV_draw_image(player_img, player->position->x, player->position->y);
     MLV_actualise_window();
-    MLV_free_image(bg1);
-    MLV_free_image(player_img);
     return EXIT_SUCCESS;
 }
 
