@@ -10,7 +10,12 @@
 #define WIDTH_FRAME_MENU 750
 #define NAME_FRAME_MENU "DofusRuner - Menu"
 #define PATH_IMG_MENU "data/img/bg_menu.png"
+#define PATH_IMG_SOUND_ON "data/img/sound_on.png"
+#define PATH_IMG_SOUND_OFF "data/img/sound_off.png"
 #define PATH_FONT_MENU "data/font/Talk_Comic.ttf"
+#define PATH_MUSIC_MENU "data/music.wav"
+#define VOL_MUSIC_MENU 0.1
+#define SIZE_ICON_MUSIC 50
 
 /* FRAME GAME */
 #define HEIGHT_FRAME_GAME 800

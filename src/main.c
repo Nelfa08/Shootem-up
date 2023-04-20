@@ -29,19 +29,28 @@ void usage()
  */
 int main(int argc, char *argv[])
 {
+    /* Déclaration des structures */
     MLV_Keyboard_button key;
     MLV_Button_state state;
     Pressed_key pk;
     Player *player;
     Party *party;
+    MLV_Music *music;
 
     /* Permet de récupérer les temps de début et de fin (pour vérifier si la frame est pas trop rapide) */
     struct timespec start_time, end_time;
-
     int time_frame;
+
+    /* Variable pour récupérer les arguments */
     int opt;
     int verbose_flag = 0;
+
+    /* Variables pour récupérer la position de la souris */
     int x, y;
+
+    /* Variables pour le son */
+    int border_sound = 10;
+    int state_sound = 1;
 
     /* Récupération des arguments */
     while ((opt = getopt(argc, argv, "vw")) != -1)
@@ -70,6 +79,16 @@ int main(int argc, char *argv[])
     (améliorations : au survole de la souris sur le texte, mettre un encadré ou qqch du genre)
     */
 
+   /* Initialisation de la musique */
+    if (MLV_init_audio())
+    {
+        fprintf(stderr, "Audio initialisation failed");
+        exit(1);
+    }
+    /* Chargement de la musique */
+    music = MLV_load_music(PATH_MUSIC_MENU);
+    MLV_play_music(music, VOL_MUSIC_MENU, -1);
+
     /* Différents états de la partie :
      * 0 : menu
      * 1 : crédits
@@ -80,23 +99,44 @@ int main(int argc, char *argv[])
     {
         if (party->state == 0)
         {
-            draw_window_menu();
+            draw_window_menu(state_sound, border_sound);
             MLV_wait_mouse(&x, &y);
             if (x > 296 && x < 450 && y > 370 && y < 420)
             {
                 /* On lance le jeu */
                 if (verbose_flag)
                 {
-                    printf("Lancement du jeu\n");
+                    printf("Start game\n");
                 }
                 party->state = 2;
+            }
+            else if (x > WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10) && x < (WIDTH_FRAME_MENU - 10) && y > 10 && y < SIZE_ICON_MUSIC + 10)
+            {
+                if (state_sound == 1)
+                {
+                    if (verbose_flag)
+                    {
+                        printf("Sound off\n");
+                    }
+                    state_sound = 0;
+                    MLV_stop_music();
+                }
+                else
+                {
+                    if (verbose_flag)
+                    {
+                        printf("Sound on\n");
+                    }
+                    state_sound = 1;
+                    MLV_play_music(music, VOL_MUSIC_MENU, -1);
+                }
             }
             else if (x > 257 && x < 488 && y > 450 && y < 500)
             {
                 /* On affiche les crédits */
                 if (verbose_flag)
                 {
-                    printf("Affichage des crédits\n");
+                    printf("Print credits\n");
                 }
                 party->state = 1;
             }
@@ -116,7 +156,7 @@ int main(int argc, char *argv[])
                 /* On revient au menu */
                 if (verbose_flag)
                 {
-                    printf("Retour au menu\n");
+                    printf("Back to menu\n");
                 }
                 party->state = 0;
             }
@@ -142,7 +182,7 @@ int main(int argc, char *argv[])
             if (verbose_flag == 1)
             {
                 print_key_pressed(pk);
-                printf("pos_player: %d, %d\n", player->position->x, player->position->y);
+                printf("Player position: %d, %d\n", player->position->x, player->position->y);
             }
         }
         /* refresh de la window */
@@ -160,9 +200,9 @@ int main(int argc, char *argv[])
         time_frame = (end_time.tv_sec - start_time.tv_sec) + ((end_time.tv_nsec - start_time.tv_nsec) / BILLION);
 
         /* Si la frame a été trop vite, on attend un peu */
-        if (time_frame < (1.0 / 48.0))
+        if (time_frame < (1.0 / 120.0))
         {
-            MLV_wait_milliseconds((int)(((1.0 / 48.0) - time_frame) * 1000));
+            MLV_wait_milliseconds((int)(((1.0 / 120.0) - time_frame) * 1000));
         }
 
         /* is win ? => party->state == 3 */
@@ -173,9 +213,12 @@ int main(int argc, char *argv[])
         /* On quitte le jeu */
         if (verbose_flag)
         {
-            printf("Fin du jeu\n");
-            printf("Libération de la mémoire\n");
+            printf("End of the game\n");
+            printf("Free memory\n");
         }
+        MLV_stop_music();
+        MLV_free_music(music);
+        MLV_free_audio();
         free_party(party);
         free_player(player);
         free_window();

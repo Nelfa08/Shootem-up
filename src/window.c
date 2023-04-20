@@ -23,9 +23,11 @@ int init_window_menu()
     return EXIT_SUCCESS;
 }
 
-int draw_window_menu()
+int draw_window_menu(int state_sound, int border_sound)
 {
     MLV_Image *img = MLV_load_image(PATH_IMG_MENU);
+    MLV_Image *img_sound_on = MLV_load_image(PATH_IMG_SOUND_ON);
+    MLV_Image *img_sound_off = MLV_load_image(PATH_IMG_SOUND_OFF);
     MLV_Font *font_title = MLV_load_font(PATH_FONT_MENU, 76);
     MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 50);
     char *name_game = "DofusRuner";
@@ -57,6 +59,19 @@ int draw_window_menu()
     MLV_get_size_of_text_with_font(button_quit, &width_button_quit, &height_button_quit, font);
     MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_quit / 2), (HEIGHT_FRAME_GAME * 7 / 10 - height_button_quit / 2), button_quit, font, MLV_rgba(13, 153, 68, 0));
 
+    if (state_sound == 1)
+    {
+        /*dessin du bouton son_on*/
+        MLV_resize_image_with_proportions(img_sound_on, 50, 50);
+        MLV_draw_image(img_sound_on, WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + border_sound), border_sound);
+    }
+    else
+    {
+        /*dessin du bouton son_off*/
+        MLV_resize_image_with_proportions(img_sound_off, 50, 50);
+        MLV_draw_image(img_sound_off, WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + border_sound), border_sound);
+    }
+
     /*On rafraichit la fenetre*/
     MLV_actualise_window();
     MLV_free_image(img);
@@ -71,24 +86,27 @@ int draw_window_credits()
     MLV_Image *img = MLV_load_image(PATH_IMG_MENU);
     MLV_Font *font_title = MLV_load_font(PATH_FONT_MENU, 76);
     MLV_Font *font_back = MLV_load_font(PATH_FONT_MENU, 30);
+    MLV_Font *font_text = MLV_load_font(PATH_FONT_MENU, 20);
     char *title = "CREDITS";
     char *back = "BACK";
     int width_button_back, height_button_back;
+    int width_text_title, height_text_title;
+    int width_text_credits, height_text_credits;
     int taille_interlinge = 10;
+    char *message_credits = "Developped by :\n  - RODDIER Corentin\n  - DJEBLOUN Yacine\n\n Music by :\n  - LEANO Tristan\n\n Design by :\n  - XXXX Ralph";
 
     MLV_resize_image_with_proportions(img, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
     MLV_draw_image(img, 0, 0);
 
-    MLV_get_size_of_text_with_font(title, &width_button_back, &height_button_back, font_title);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_back / 2), (HEIGHT_FRAME_GAME * 2 / 10 - height_button_back / 2), title, font_title, MLV_rgba(13, 153, 68, 0));
+    MLV_get_size_of_text_with_font(title, &width_text_title, &height_text_title, font_title);
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_text_title / 2), (HEIGHT_FRAME_GAME * 2 / 10 - height_text_title / 2), title, font_title, MLV_rgba(13, 153, 68, 0));
 
     MLV_get_size_of_text_with_font(title, &width_button_back, &height_button_back, font_back);
     MLV_draw_text_with_font(10, 0, back, font_back, MLV_COLOR_RED1);
 
-    MLV_draw_filled_rectangle(10, 150, 400, 200, MLV_rgba(0, 0, 0, 0));
-    MLV_draw_adapted_text_box(10, 150, "Même chose,\nmais le texte\nest justifié à gauche\nde la fenêtre.", taille_interlinge, MLV_COLOR_RED, MLV_COLOR_GREEN, MLV_COLOR_BLACK, MLV_TEXT_LEFT);
+    MLV_get_size_of_adapted_text_box_with_font(message_credits, font_text, taille_interlinge, &width_text_credits, &height_text_credits);
 
-    // http://www-igm.univ-mlv.fr/~boussica/mlv/api/French/html/beginner_204_texts_and_boxes_8c-example.html
+    MLV_draw_adapted_text_box_with_font((WIDTH_FRAME_MENU / 2) - (width_text_credits / 2), (HEIGHT_FRAME_GAME * 3 / 10 - height_button_back / 2), message_credits, font_text, taille_interlinge, MLV_ALPHA_TRANSPARENT, MLV_COLOR_GREEN, MLV_ALPHA_TRANSPARENT, MLV_TEXT_LEFT);
 
     MLV_actualise_window();
     MLV_free_image(img);

@@ -61,3 +61,17 @@ typedef struct background
 typedef int Pressed_key[4];
 
 #endif
+/*
+Bonjour à tous,
+Petit message pour faire un point sur l'avancé global du serveur.
+Initialement, nous avions prévu d'ouvrir le serveur Minecraft le week end qui arrive.
+Malheuresement, au vu de l'avancé actuelle, cette ouverture ne sera pas possible.
+Honnetement, je suis un peu deg parce que j'y croyais un peu à l'ouverture pour mi-avril, mais on y arrivera pas (tant pis rien de grave)...
+
+C'est pourquoi je vous propose de décaler l'ouverture à fin mai/mi juin max. Je pense que cette période peut etre une très bonne période d'ouverture : beaucoup de jeune vont commencer les vacances donc on va pouvoir ramener pas mal de gens je pense !
+
+Quoiqu'il en soit je trouve que globalement depuis que le serveur s'est remis à travailler, on avance très bien ! Il reste encore pas mal de chose à faire, surtout niveau build, mais globalement je trouve que ca avance très bien !
+
+Encore une fois, je vous remercie tous pour votre implication dans le projet : 
+
+*/

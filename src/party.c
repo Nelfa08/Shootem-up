@@ -6,9 +6,10 @@
 #include "../include/party.h"
 
 /*Ici il faut mettre la création de la party
-* Création du joueur, création de l'enemy, du niveau choisi, etc
 * Initialisation d'une structure party avec l'état (menu, en cours, fini), le niveau choisi, etc
 */
+
+/* Il faut aussi initialiser le table d'ennemies et de missile (soit le mettre ici soit dans ennemy.c et buller_ennemy(fichier à créer))*/
 
 Party *init_party()
 {
