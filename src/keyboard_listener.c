@@ -5,14 +5,15 @@
 
 #include "../include/keyboard_listener.h"
 
-int init_pressed_key(Pressed_key pk)
-{
-    for (int i = 0; i < 4; i++)
-    {
-        pk[i] = 0;
-    }
-    return EXIT_SUCCESS;
-}
+/* semble inutile */
+// int init_pressed_key(Pressed_key pk)
+// {
+//     for (int i = 0; i < 4; i++)
+//     {
+//         pk[i] = 0;
+//     }
+//     return EXIT_SUCCESS;
+// }
 
 int detect_key_pressed(Pressed_key pk)
 {

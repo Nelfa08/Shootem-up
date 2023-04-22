@@ -32,10 +32,10 @@ int main(int argc, char *argv[])
     /* Déclaration des structures */
     MLV_Keyboard_button key;
     MLV_Button_state state;
-    Pressed_key pk;
-    Player *player;
-    Party *party;
     MLV_Music *music;
+    // Pressed_key pk;
+    // Player *player;
+    Party *party;
 
     /* Permet de récupérer les temps de début et de fin (pour vérifier si la frame est pas trop rapide) */
     struct timespec start_time, end_time;
@@ -70,8 +70,6 @@ int main(int argc, char *argv[])
 
     /* Initialisation de la party */
     party = init_party();
-    player = create_player();
-    init_pressed_key(pk);
     /* Création de la frame */
     /*
     Faire un draw_menu() ou on peut quitter le jeu ou jouer (peut etre choisir un niveau ??)
@@ -164,6 +162,9 @@ int main(int argc, char *argv[])
     }
 
     init_window_game();
+    /* initialisation du tableau d'ennemis */
+    /* initialisation du tableau de missiles */
+    /* initialisation du tableau de bonus */
     while (party->state == 2)
     {
         /* Récupération de l'heure au début */
@@ -171,18 +172,18 @@ int main(int argc, char *argv[])
 
         /* refresh de la window */
         clear_window();
-        draw_frame_game(player);
+        draw_frame_game(party);
         /* je ne sais pas comment on récupère les différentes touches du clavier */
         /* Proposition : on se déplace avec les flèches clavier + on tire avec la touche espace */
         MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
         if (state == MLV_PRESSED || state == MLV_RELEASED)
         {
-            detect_key_pressed(pk);
-            player = move_player(player, pk);
+            detect_key_pressed(party->pk);
+            party->player = move_player(party->player, party->pk);
             if (verbose_flag == 1)
             {
-                print_key_pressed(pk);
-                printf("Player position: %d, %d\n", player->position->x, player->position->y);
+                print_key_pressed(party->pk);
+                printf("Player position: %d, %d\n", party->player->position->x, party->player->position->y);
             }
         }
         /* refresh de la window */
@@ -219,8 +220,8 @@ int main(int argc, char *argv[])
         MLV_stop_music();
         MLV_free_music(music);
         MLV_free_audio();
+        free_player(party->player);
         free_party(party);
-        free_player(player);
         free_window();
         return EXIT_SUCCESS;
     }

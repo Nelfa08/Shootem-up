@@ -134,18 +134,36 @@ int init_window_game()
  * @param player
  * @return int
  */
-int draw_frame_game(Player *player)
+int draw_frame_game(Party *party)
 {
-    MLV_Image *player_img = player->image;
-    MLV_Image *bg1 = MLV_load_image(PATH_IMG_GAME);
     // MLV_Image *bg2;
-    MLV_resize_image_with_proportions(bg1, WIDTH_FRAME_GAME, HEIGHT_FRAME_GAME);
-    MLV_draw_image(bg1, 0, 0);
 
-    MLV_resize_image_with_proportions(player_img, player->size, player->size);
-    MLV_draw_image(player_img, player->position->x, player->position->y);
+    /* Mettre un draw_background() */
+    draw_background(party->background);
+
+    /* Mettre un draw_player(party->player->position) */
+    draw_player(party->player);
+
+    /* Mettre un draw_enemy() (je ne sais pas ce que prend en paramètre la fonction pour le moment) */
+
     MLV_actualise_window();
     return EXIT_SUCCESS;
+}
+
+int draw_background(Background *background)
+{
+    MLV_Image *bg1 = MLV_load_image(PATH_IMG_GAME);
+    MLV_resize_image_with_proportions(bg1, WIDTH_FRAME_GAME, HEIGHT_FRAME_GAME);
+    MLV_draw_image(bg1, 0, 0);
+    MLV_free_image(bg1);
+    return EXIT_SUCCESS;
+}
+
+int draw_player(Player *player)
+{
+    MLV_resize_image_with_proportions(player->image, player->size, player->size);
+    MLV_draw_image(player->image, player->position->x, player->position->y);
+    return 0;
 }
 
 /**

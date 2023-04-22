@@ -4,6 +4,6 @@
 #include "struct.h"
 #include "const.h"
 
-Enemy *init_enemy();
+Enemy *create_enemy();
 
 #endif

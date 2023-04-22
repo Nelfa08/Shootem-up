@@ -28,9 +28,20 @@
 /* PLAYER */
 #define SIZE_PLAYER 100
 #define PATH_PLAYER "data/img/ship.png"
+#define PATH_IMG_BULLET_PLAYER "data/img/bullet_player.png"
 #define SPEED_PLAYER 20
 #define HEALTH_PLAYER 10
 #define SPAWN_PLAYER_X 0
 #define SPAWN_PLAYER_Y 260
+#define MAX_BULLET_PLAYER 20
+
+/* ENEMY */
+#define SIZE_ENEMY 100
+#define PATH_ENEMY "data/img/enemy.png"
+#define PATH_IMG_BULLET_ENEMY "data/img/bullet_enemy.png"
+#define SPEED_ENEMY 10
+#define HEALTH_ENEMY 10
+#define MAX_ENEMY 20
+#define MAX_BULLET_ENEMY 40
 
 #endif
