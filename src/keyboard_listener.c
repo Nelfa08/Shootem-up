@@ -6,14 +6,15 @@
 #include "../include/keyboard_listener.h"
 
 /* semble inutile */
-// int init_pressed_key(Pressed_key pk)
-// {
-//     for (int i = 0; i < 4; i++)
-//     {
-//         pk[i] = 0;
-//     }
-//     return EXIT_SUCCESS;
-// }
+Pressed_key *init_pressed_key()
+{
+    Pressed_key *pk = malloc(sizeof(Pressed_key));
+    for (int i = 0; i < 4; i++)
+    {
+        *(pk)[i] = 0;
+    }
+    return pk;
+}
 
 int detect_key_pressed(Pressed_key pk)
 {
@@ -50,11 +51,20 @@ int detect_key_pressed(Pressed_key pk)
         pk[3] = 0;
     }
 
+    if (MLV_get_keyboard_state(MLV_KEYBOARD_SPACE) == MLV_PRESSED)
+    {
+        pk[4] = 1;
+    }
+    else
+    {
+        pk[4] = 0;
+    }
+
     return EXIT_SUCCESS;
 }
 
 int print_key_pressed(Pressed_key pk)
 {
-    printf("UP: %d, RIGHT: %d, DOWN: %d, LEFT: %d\n", pk[0], pk[1], pk[2], pk[3]);
+    printf("UP: %d, RIGHT: %d, DOWN: %d, LEFT: %d, SPACE: %d\n", pk[0], pk[1], pk[2], pk[3], pk[4]);
     return EXIT_SUCCESS;
 }

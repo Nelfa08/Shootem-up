@@ -5,6 +5,7 @@
 
 #include "../include/window.h"
 
+
 /**
  * @brief efface le contenu de la window
  *
@@ -23,9 +24,9 @@ int init_window_menu()
     return EXIT_SUCCESS;
 }
 
-int draw_window_menu(int state_sound, int border_sound)
+int draw_window_menu(Party *party, int border_sound)
 {
-    MLV_Image *img = MLV_load_image(PATH_IMG_MENU);
+    MLV_Image *img = party->menu->background->image;
     MLV_Image *img_sound_on = MLV_load_image(PATH_IMG_SOUND_ON);
     MLV_Image *img_sound_off = MLV_load_image(PATH_IMG_SOUND_OFF);
     MLV_Font *font_title = MLV_load_font(PATH_FONT_MENU, 76);
@@ -59,7 +60,7 @@ int draw_window_menu(int state_sound, int border_sound)
     MLV_get_size_of_text_with_font(button_quit, &width_button_quit, &height_button_quit, font);
     MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_quit / 2), (HEIGHT_FRAME_GAME * 7 / 10 - height_button_quit / 2), button_quit, font, MLV_rgba(13, 153, 68, 0));
 
-    if (state_sound == 1)
+    if (party->sound == 1)
     {
         /*dessin du bouton son_on*/
         MLV_resize_image_with_proportions(img_sound_on, 50, 50);
@@ -74,16 +75,13 @@ int draw_window_menu(int state_sound, int border_sound)
 
     /*On rafraichit la fenetre*/
     MLV_actualise_window();
-    MLV_free_image(img);
-    MLV_free_font(font_title);
-    MLV_free_font(font);
 
     return EXIT_SUCCESS;
 }
 
 int draw_window_credits()
 {
-    MLV_Image *img = MLV_load_image(PATH_IMG_MENU);
+    MLV_Image *img = MLV_load_image(PATH_IMG_BG_MENU);
     MLV_Font *font_title = MLV_load_font(PATH_FONT_MENU, 76);
     MLV_Font *font_back = MLV_load_font(PATH_FONT_MENU, 30);
     MLV_Font *font_text = MLV_load_font(PATH_FONT_MENU, 20);
@@ -93,7 +91,7 @@ int draw_window_credits()
     int width_text_title, height_text_title;
     int width_text_credits, height_text_credits;
     int taille_interlinge = 10;
-    char *message_credits = "Developped by :\n  - RODDIER Corentin\n  - DJEBLOUN Yacine\n\n Music by :\n  - LEANO Tristan\n\n Design by :\n  - XXXX Ralph";
+    char *message_credits = "Developped by :\n    RODDIER Corentin\n    DJEBLOUN Yacine\n\n Music by :\n    LEANO Tristan\n\n Design by :\n    AGRA Ralph";
 
     MLV_resize_image_with_proportions(img, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
     MLV_draw_image(img, 0, 0);
@@ -136,33 +134,107 @@ int init_window_game()
  */
 int draw_frame_game(Party *party)
 {
-    // MLV_Image *bg2;
+    draw_background(party->scenery1->background);
+    draw_background(party->scenery2->background);
 
-    /* Mettre un draw_background() */
-    draw_background(party->background);
+    draw_player(party);
+    draw_bullet_player(party);
+    draw_enemies(party);
 
-    /* Mettre un draw_player(party->player->position) */
-    draw_player(party->player);
-
-    /* Mettre un draw_enemy() (je ne sais pas ce que prend en paramètre la fonction pour le moment) */
-
+    draw_foreground(party->scenery1->foreground);
+    draw_foreground(party->scenery2->foreground);
+    draw_score(party);
     MLV_actualise_window();
+    return EXIT_SUCCESS;
+}
+
+int move_scenery(Scenery *scenery1, Scenery *scenery2)
+{
+    scenery1->background->position->x -= SPEED_BG_GAME;
+    scenery1->foreground->position->x -= SPEED_BG_GAME;
+    scenery2->background->position->x -= SPEED_BG_GAME;
+    scenery2->foreground->position->x -= SPEED_BG_GAME;
+    if (scenery1->background->position->x <= -WIDTH_FRAME_GAME)
+    {
+        scenery1->background->position->x = WIDTH_FRAME_GAME;
+    }
+    if (scenery1->foreground->position->x <= -WIDTH_FRAME_GAME)
+    {
+        scenery1->foreground->position->x = WIDTH_FRAME_GAME;
+    }
+    if (scenery2->background->position->x <= -WIDTH_FRAME_GAME)
+    {
+        scenery2->background->position->x = WIDTH_FRAME_GAME;
+    }
+    if (scenery2->foreground->position->x <= -WIDTH_FRAME_GAME)
+    {
+        scenery2->foreground->position->x = WIDTH_FRAME_GAME;
+    }
     return EXIT_SUCCESS;
 }
 
 int draw_background(Background *background)
 {
-    MLV_Image *bg1 = MLV_load_image(PATH_IMG_GAME);
+    MLV_Image *bg1 = background->image;
     MLV_resize_image_with_proportions(bg1, WIDTH_FRAME_GAME, HEIGHT_FRAME_GAME);
-    MLV_draw_image(bg1, 0, 0);
-    MLV_free_image(bg1);
+    MLV_draw_image(bg1, background->position->x, background->position->y);
     return EXIT_SUCCESS;
 }
 
-int draw_player(Player *player)
+int draw_foreground(Foreground *foreground)
 {
-    MLV_resize_image_with_proportions(player->image, player->size, player->size);
-    MLV_draw_image(player->image, player->position->x, player->position->y);
+    MLV_Image *fg1 = foreground->image;
+    MLV_resize_image_with_proportions(fg1, WIDTH_FRAME_GAME, HEIGHT_FRAME_GAME);
+    MLV_draw_image(fg1, foreground->position->x, foreground->position->y);
+    return EXIT_SUCCESS;
+}
+
+int draw_player(Party *party)
+{
+    MLV_resize_image_with_proportions(party->image_player, party->player->size, party->player->size);
+    MLV_draw_image(party->image_player, party->player->position->x, party->player->position->y);
+    /* dessine les hitbox */
+    MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->size, party->player->size, MLV_COLOR_RED);
+    return 0;
+}
+
+int draw_enemies(Party *party)
+{
+    int i;
+    for (i = 0; i < MAX_ENEMY; i++)
+    {
+        if (party->enemies[i]->visible == 1)
+        {
+            MLV_resize_image_with_proportions(party->image_enemy, party->enemies[i]->size, party->enemies[i]->size);
+            MLV_draw_image(party->image_enemy, party->enemies[i]->position->x, party->enemies[i]->position->y);
+            /* dessine les hitbox */
+            MLV_draw_rectangle(party->enemies[i]->position->x, party->enemies[i]->position->y, party->enemies[i]->size, party->enemies[i]->size, MLV_COLOR_RED);
+        }
+    }
+    return 0;
+}
+
+int draw_score(Party *party)
+{
+    char score[1000];
+    sprintf(score, "Score: %ld", party->score);
+    MLV_draw_text(10, 10, score, MLV_COLOR_RED);
+    return 0;
+}
+
+int draw_bullet_player(Party *party)
+{
+    int i;
+    for (i = 0; i < MAX_BULLET_PLAYER; i++)
+    {
+        if (party->bullets_player[i]->visible == 1)
+        {
+            MLV_resize_image_with_proportions(party->image_bullet_player, party->bullets_player[i]->size, party->bullets_player[i]->size);
+            MLV_draw_image(party->image_bullet_player, party->bullets_player[i]->position->x, party->bullets_player[i]->position->y);
+            /* dessine les hitbox */
+            MLV_draw_rectangle(party->bullets_player[i]->position->x, party->bullets_player[i]->position->y, party->bullets_player[i]->size, party->bullets_player[i]->size, MLV_COLOR_RED);
+        }
+    }
     return 0;
 }
 

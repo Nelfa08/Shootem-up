@@ -20,7 +20,7 @@ typedef struct player
     int size;
     int health;
     int speed;
-    MLV_Image *image;
+    int delay_shoot;
 } Player;
 
 typedef struct bullet_player
@@ -29,6 +29,7 @@ typedef struct bullet_player
     int size;
     int speed;
     int damage;
+    int visible;
 } Bullet_player;
 
 /* Ajout d'un champ size pour avoir la possibilité de changer la taille de l'enemy*/
@@ -38,6 +39,7 @@ typedef struct enemy
     int size;
     int health;
     int speed;
+    int visible;
 } Enemy;
 
 typedef struct bullet_enemy
@@ -46,25 +48,57 @@ typedef struct bullet_enemy
     int size;
     int speed;
     int damage;
+    int visible;
 } Bullet_enemy;
 
 typedef struct background
 {
     Position *position;
-    char *path;
+    MLV_Image *image;
 } Background;
 
-typedef int Pressed_key[4];
+typedef struct foreground
+{
+    Position *position;
+    MLV_Image *image;
+} Foreground;
+
+typedef struct scenery
+{
+    Background *background;
+    Foreground *foreground;
+    int speed;
+    int scroll;
+} Scenery;
+
+typedef struct menu
+{
+    Background *background;
+    MLV_Font *font_text;
+    MLV_Font *font_title;
+    MLV_Image *img_sound_on;
+    MLV_Image *img_sound_off;
+} Menu;
+
+typedef int Pressed_key[5];
 
 typedef struct party
 {
     int state;
+    int sound;
+    unsigned long int score;
     Player *player;
     Enemy *enemies[MAX_ENEMY];
-    Bullet_enemy *bullets_enemy[MAX_BULLET_ENEMY];
+    // Bullet_enemy *bullets_enemy[MAX_BULLET_ENEMY];
     Bullet_player *bullets_player[MAX_BULLET_PLAYER];
+    Scenery *scenery1;
+    Scenery *scenery2;
+    Menu *menu;
     Pressed_key pk;
-    Background *background;
+    MLV_Image *image_player;
+    MLV_Image *image_bullet_player;
+    MLV_Image *image_enemy;
+    MLV_Image *image_bullet_enemy;
 } Party;
 
 #endif

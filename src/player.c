@@ -15,12 +15,12 @@ Player *create_player()
 {
     Player *player = malloc(sizeof(Player));
     player->position = malloc(sizeof(Position));
-    player->size = 100;
+    player->size = SIZE_PLAYER;
     player->speed = SPEED_PLAYER;
     player->health = HEALTH_PLAYER;
     player->position->x = SPAWN_PLAYER_X;
     player->position->y = SPAWN_PLAYER_Y;
-    player->image = MLV_load_image(PATH_PLAYER);
+    player->delay_shoot = DELAY_SHOOT_PLAYER;
     return player;
 }
 
@@ -42,7 +42,7 @@ Player *move_player(Player *player, Pressed_key pk)
     }
     if (pk[2] == 1)
     {
-        if ((player->position->y + player->size) < BOTTOM_BORDER)
+        if ((player->position->y) < BOTTOM_BORDER)
         {
             player->position->y += player->speed;
         }
@@ -60,7 +60,6 @@ Player *move_player(Player *player, Pressed_key pk)
 int free_player(Player *player)
 {
     free(player->position);
-    MLV_free_image(player->image);
     free(player);
     return EXIT_SUCCESS;
 }

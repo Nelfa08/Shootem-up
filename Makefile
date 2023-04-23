@@ -1,11 +1,11 @@
 CC=gcc
-CFLAGS=-Wall -pthread -g
+CFLAGS=-Wall -pthread -g -lm
 LDFLAGS=-lMLV
 BIN= bin/
 SRC=src/
 INCLUDE=include/
-REPBIN= $(BIN)main.o $(BIN)window.o $(BIN)player.o $(BIN)enemy.o $(BIN)keyboard_listener.o $(BIN)party.o
-OBJ= main.o window.o player.o enemy.o keyboard_listener.o party.o
+REPBIN= $(BIN)main.o $(BIN)window.o $(BIN)player.o $(BIN)enemy.o $(BIN)keyboard_listener.o $(BIN)party.o $(BIN)bullet_player.o
+OBJ= main.o window.o player.o enemy.o keyboard_listener.o party.o bullet_player.o
 MAIN=shootemup
 
 all: $(MAIN)

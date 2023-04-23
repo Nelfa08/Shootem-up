@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <sys/time.h>
 #include <getopt.h>
+#include <math.h>
 
 /* Include de la libMLV */
 #include <MLV/MLV_all.h>
@@ -14,6 +16,13 @@
 #include "../include/player.h"
 #include "../include/keyboard_listener.h"
 #include "../include/party.h"
+#include "../include/enemy.h"
+#include "../include/bullet_player.h"
+
+double normal_delay(double mean)
+{
+    return -mean * log(1 - ((double)rand() / RAND_MAX));
+}
 
 void usage()
 {
@@ -33,13 +42,18 @@ int main(int argc, char *argv[])
     MLV_Keyboard_button key;
     MLV_Button_state state;
     MLV_Music *music;
-    // Pressed_key pk;
+    // Pressed_key *pk;
     // Player *player;
     Party *party;
 
     /* Permet de récupérer les temps de début et de fin (pour vérifier si la frame est pas trop rapide) */
     struct timespec start_time, end_time;
     int time_frame;
+
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+
+    srand(tv.tv_sec * 1000 + tv.tv_usec / 1000);
 
     /* Variable pour récupérer les arguments */
     int opt;
@@ -50,7 +64,6 @@ int main(int argc, char *argv[])
 
     /* Variables pour le son */
     int border_sound = 10;
-    int state_sound = 1;
 
     /* Récupération des arguments */
     while ((opt = getopt(argc, argv, "vw")) != -1)
@@ -66,26 +79,24 @@ int main(int argc, char *argv[])
         }
     }
 
-    init_window_menu();
-
     /* Initialisation de la party */
+    init_window_menu();
+    printf("start init party\n");
     party = init_party();
-    /* Création de la frame */
-    /*
-    Faire un draw_menu() ou on peut quitter le jeu ou jouer (peut etre choisir un niveau ??)
-    Pour faire ca, on écrit du texte à x et y pixel, et quand on clique sur le texte avec la souris, soit on quitte, soit on lance le jeu
-    (améliorations : au survole de la souris sur le texte, mettre un encadré ou qqch du genre)
-    */
+    printf("end init party\n");
 
-   /* Initialisation de la musique */
+    /* Initialisation de la musique */
     if (MLV_init_audio())
     {
-        fprintf(stderr, "Audio initialisation failed");
+        fprintf(stderr, "Audio initialisation failed\n");
         exit(1);
     }
     /* Chargement de la musique */
     music = MLV_load_music(PATH_MUSIC_MENU);
-    MLV_play_music(music, VOL_MUSIC_MENU, -1);
+    if (party->sound == 1)
+    {
+        MLV_play_music(music, VOL_MUSIC_MENU, -1);
+    }
 
     /* Différents états de la partie :
      * 0 : menu
@@ -97,7 +108,7 @@ int main(int argc, char *argv[])
     {
         if (party->state == 0)
         {
-            draw_window_menu(state_sound, border_sound);
+            draw_window_menu(party, border_sound);
             MLV_wait_mouse(&x, &y);
             if (x > 296 && x < 450 && y > 370 && y < 420)
             {
@@ -110,13 +121,13 @@ int main(int argc, char *argv[])
             }
             else if (x > WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10) && x < (WIDTH_FRAME_MENU - 10) && y > 10 && y < SIZE_ICON_MUSIC + 10)
             {
-                if (state_sound == 1)
+                if (party->sound == 1)
                 {
                     if (verbose_flag)
                     {
                         printf("Sound off\n");
                     }
-                    state_sound = 0;
+                    party->sound = 0;
                     MLV_stop_music();
                 }
                 else
@@ -125,7 +136,7 @@ int main(int argc, char *argv[])
                     {
                         printf("Sound on\n");
                     }
-                    state_sound = 1;
+                    party->sound = 1;
                     MLV_play_music(music, VOL_MUSIC_MENU, -1);
                 }
             }
@@ -172,7 +183,15 @@ int main(int argc, char *argv[])
 
         /* refresh de la window */
         clear_window();
+        if (normal_delay(1) < 0.05) // 0.0175
+        {
+            add_enemy(party->enemies);
+        }
         draw_frame_game(party);
+        move_scenery(party->scenery1, party->scenery2);
+        move_enemies(party->enemies);
+        move_bullets_player(party);
+        collision_bullets_player(party);
         /* je ne sais pas comment on récupère les différentes touches du clavier */
         /* Proposition : on se déplace avec les flèches clavier + on tire avec la touche espace */
         MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
@@ -186,24 +205,39 @@ int main(int argc, char *argv[])
                 printf("Player position: %d, %d\n", party->player->position->x, party->player->position->y);
             }
         }
-        /* refresh de la window */
+        if (party->pk[4] == 1)
+        {
+            if (party->player->delay_shoot == DELAY_SHOOT_PLAYER)
+            {
+                add_bullet_player(party);
+                party->player->delay_shoot = DELAY_SHOOT_PLAYER;
+                party->player->delay_shoot -= 1;
+            } else if(party->player->delay_shoot == 0) {
+                party->player->delay_shoot = DELAY_SHOOT_PLAYER;
+            } else {
+                party->player->delay_shoot -= 1;
+            }
+        } else {
+            party->player->delay_shoot = DELAY_SHOOT_PLAYER;
+        }
 
-        /* En fonction de l'event il faut faire des choses... */
-        /*  vérification que le joueur ne sort pas de l'écran. S'il est encore sur l'écran :
-            if flèche de gauche => déplacement à gauche (player.position.x-5)
-            if flèche de droite => déplacement à droite (player.position.x+5)
-            if flèche du haut => déplacement vers le haut (player.position.y-5)
-            if flèche du bas => déplacement vers le bas (player.position.y+5)
-        */
+        /* Si le joueur appuie sur espace => ajouter un ennemie*/
+
+        /* Si le joueur n'a plus de vie : il perd */
+        if (party->player->health <= 0)
+        {
+            party->state = 3;
+        }
+        party->score += 1;
 
         /* Récupération de l'heure en fin */
         clock_gettime(CLOCK_REALTIME, &end_time);
         time_frame = (end_time.tv_sec - start_time.tv_sec) + ((end_time.tv_nsec - start_time.tv_nsec) / BILLION);
 
         /* Si la frame a été trop vite, on attend un peu */
-        if (time_frame < (1.0 / 120.0))
+        if (time_frame < (1.0 / 48.0))
         {
-            MLV_wait_milliseconds((int)(((1.0 / 120.0) - time_frame) * 1000));
+            MLV_wait_milliseconds((int)(((1.0 / 48.0) - time_frame) * 1000));
         }
 
         /* is win ? => party->state == 3 */
@@ -220,7 +254,6 @@ int main(int argc, char *argv[])
         MLV_stop_music();
         MLV_free_music(music);
         MLV_free_audio();
-        free_player(party->player);
         free_party(party);
         free_window();
         return EXIT_SUCCESS;
