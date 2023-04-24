@@ -192,8 +192,7 @@ int main(int argc, char *argv[])
         move_enemies(party->enemies);
         move_bullets_player(party);
         collision_bullets_player(party);
-        /* je ne sais pas comment on récupère les différentes touches du clavier */
-        /* Proposition : on se déplace avec les flèches clavier + on tire avec la touche espace */
+        // collision_bullets_enemies(party);
         MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
         if (state == MLV_PRESSED || state == MLV_RELEASED)
         {

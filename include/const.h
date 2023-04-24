@@ -35,7 +35,6 @@
 /* PLAYER */
 #define SIZE_PLAYER 100
 #define PATH_PLAYER "data/img/player.png"
-#define PATH_IMG_BULLET_PLAYER "data/img/shuriken.png"
 #define SPEED_PLAYER 10
 #define HEALTH_PLAYER 3
 #define SPAWN_PLAYER_X 0
@@ -43,6 +42,7 @@
 #define DELAY_SHOOT_PLAYER 7
 
 /* BULLET PLAYER */
+#define PATH_IMG_BULLET_PLAYER "data/img/shuriken.png"
 #define SIZE_BULLET_PLAYER 50
 #define SPEED_BULLET_PLAYER 30
 #define DAMAGE_BULLET_PLAYER 1
@@ -51,10 +51,22 @@
 /* ENEMY */
 #define SIZE_ENEMY 100
 #define PATH_ENEMY "data/img/dragon.png"
-#define PATH_IMG_BULLET_ENEMY "data/img/bullet_enemy.png"
 #define SPEED_ENEMY 3
 #define HEALTH_ENEMY 1
 #define MAX_ENEMY 100
 #define MAX_BULLET_ENEMY 40
+
+/* BULLET ENEMY */
+#define PATH_IMG_BULLET_ENEMY "data/img/bullet_enemy.png"
+
+/* BONUS */
+#define SIZE_BONUS 50
+#define MAX_BONUS 100
+#define SPEED_BONUS 5
+
+/* PENALTIES */
+#define SIZE_PENALTY 50
+#define MAX_PENALTY 100
+#define SPEED_PENALTY 5
 
 #endif

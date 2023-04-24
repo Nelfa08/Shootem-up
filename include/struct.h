@@ -82,6 +82,38 @@ typedef struct menu
 
 typedef int Pressed_key[5];
 
+typedef enum bonus_kind
+{
+    SHIELD,
+    SPEED,
+    HEALTH,
+    BOMB,
+    RANDOM
+} Bonus_kind;
+
+typedef enum penalty_kind
+{
+    SLOW,
+    REVERSE,
+    RANDOM
+} Penalty_kind;
+
+typedef struct bonus {
+    Position *position;
+    Bonus_kind kind;
+    int size;
+    int speed;
+    int visible;
+} Bonus;
+
+typedef struct penalty {
+    Position *position;
+    Penalty_kind kind;
+    int size;
+    int speed;
+    int visible;
+} Penalty;
+
 typedef struct party
 {
     int state;
@@ -91,6 +123,8 @@ typedef struct party
     Enemy *enemies[MAX_ENEMY];
     // Bullet_enemy *bullets_enemy[MAX_BULLET_ENEMY];
     Bullet_player *bullets_player[MAX_BULLET_PLAYER];
+    Bonus *bonus[MAX_BONUS];
+    Penalty *penalty[MAX_PENALTY];
     Scenery *scenery1;
     Scenery *scenery2;
     Menu *menu;
