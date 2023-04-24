@@ -95,6 +95,7 @@ typedef enum penalty_kind
 {
     SLOW,
     REVERSE,
+    DAMAGE,
     RANDOM
 } Penalty_kind;
 
