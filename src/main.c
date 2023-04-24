@@ -18,6 +18,7 @@
 #include "../include/party.h"
 #include "../include/enemy.h"
 #include "../include/bullet_player.h"
+#include "../include/bullet_enemy.h"
 
 double normal_delay(double mean)
 {
@@ -173,6 +174,7 @@ int main(int argc, char *argv[])
     }
 
     init_window_game();
+    
     /* initialisation du tableau d'ennemis */
     /* initialisation du tableau de missiles */
     /* initialisation du tableau de bonus */
@@ -183,26 +185,25 @@ int main(int argc, char *argv[])
 
         /* refresh de la window */
         clear_window();
-        if (normal_delay(1) < 0.05) // 0.0175
+        if (normal_delay(1) < 0.00775)
         {
             add_enemy(party->enemies);
         }
         draw_frame_game(party);
         move_scenery(party->scenery1, party->scenery2);
-        move_enemies(party->enemies);
+        move_enemies(party);
         move_bullets_player(party);
-        collision_bullets_player(party);
-        // collision_bullets_enemies(party);
+        player_kill_ennemy(party);
+        fire_enemy(party);
+        move_bullets_enemy(party);
+        enemy_kill_player(party);
         MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
-        if (state == MLV_PRESSED || state == MLV_RELEASED)
+        detect_key_pressed(party->pk);
+        party->player = move_player(party->player, party->pk);
+        if (verbose_flag == 1)
         {
-            detect_key_pressed(party->pk);
-            party->player = move_player(party->player, party->pk);
-            if (verbose_flag == 1)
-            {
-                print_key_pressed(party->pk);
-                printf("Player position: %d, %d\n", party->player->position->x, party->player->position->y);
-            }
+            print_key_pressed(party->pk);
+            printf("Player position: %d, %d\n", party->player->position->x, party->player->position->y);
         }
         if (party->pk[4] == 1)
         {
@@ -211,12 +212,18 @@ int main(int argc, char *argv[])
                 add_bullet_player(party);
                 party->player->delay_shoot = DELAY_SHOOT_PLAYER;
                 party->player->delay_shoot -= 1;
-            } else if(party->player->delay_shoot == 0) {
+            }
+            else if (party->player->delay_shoot == 0)
+            {
                 party->player->delay_shoot = DELAY_SHOOT_PLAYER;
-            } else {
+            }
+            else
+            {
                 party->player->delay_shoot -= 1;
             }
-        } else {
+        }
+        else
+        {
             party->player->delay_shoot = DELAY_SHOOT_PLAYER;
         }
 
@@ -245,6 +252,10 @@ int main(int argc, char *argv[])
     if (party->state == 3)
     {
         /* On quitte le jeu */
+        printf("End of the game\n");
+        printf("Score : %ld\n", party->score);
+        return EXIT_SUCCESS;
+    }
         if (verbose_flag)
         {
             printf("End of the game\n");
@@ -255,7 +266,5 @@ int main(int argc, char *argv[])
         MLV_free_audio();
         free_party(party);
         free_window();
-        return EXIT_SUCCESS;
-    }
     return EXIT_FAILURE;
 }

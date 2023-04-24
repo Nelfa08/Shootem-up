@@ -9,6 +9,7 @@
 #include "../include/enemy.h"
 #include "../include/keyboard_listener.h"
 #include "../include/bullet_player.h"
+#include "../include/bullet_enemy.h"
 
 /*Ici il faut mettre la création de la party
 * Initialisation d'une structure party avec l'état (menu, en cours, fini), le niveau choisi, etc
@@ -28,6 +29,7 @@ Party *init_party()
 
     init_tab_enemy(party);
     init_bullets_player(party);
+    init_bullets_enemy(party);
 
     /* A mettre dans des sous fonctions */
     party->scenery1 = malloc(sizeof(Scenery));
@@ -71,6 +73,8 @@ Party *init_party()
     party->image_bullet_player = MLV_load_image(PATH_IMG_BULLET_PLAYER);
     party->image_enemy = MLV_load_image(PATH_ENEMY);
     party->image_bullet_enemy = MLV_load_image(PATH_IMG_BULLET_ENEMY);
+    party->image_heart_empty = MLV_load_image(PATH_IMG_HEART_EMPTY);
+    party->image_heart_full = MLV_load_image(PATH_IMG_HEART_FULL);
 
     return party;
 }

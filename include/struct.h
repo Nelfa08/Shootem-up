@@ -87,16 +87,14 @@ typedef enum bonus_kind
     SHIELD,
     SPEED,
     HEALTH,
-    BOMB,
-    RANDOM
+    BOMB
 } Bonus_kind;
 
 typedef enum penalty_kind
 {
     SLOW,
     REVERSE,
-    DAMAGE,
-    RANDOM
+    DAMAGE
 } Penalty_kind;
 
 typedef struct bonus {
@@ -122,7 +120,7 @@ typedef struct party
     unsigned long int score;
     Player *player;
     Enemy *enemies[MAX_ENEMY];
-    // Bullet_enemy *bullets_enemy[MAX_BULLET_ENEMY];
+    Bullet_enemy *bullets_enemy[MAX_BULLET_ENEMY];
     Bullet_player *bullets_player[MAX_BULLET_PLAYER];
     Bonus *bonus[MAX_BONUS];
     Penalty *penalty[MAX_PENALTY];
@@ -131,6 +129,8 @@ typedef struct party
     Menu *menu;
     Pressed_key pk;
     MLV_Image *image_player;
+    MLV_Image *image_heart_full;
+    MLV_Image *image_heart_empty;
     MLV_Image *image_bullet_player;
     MLV_Image *image_enemy;
     MLV_Image *image_bullet_enemy;

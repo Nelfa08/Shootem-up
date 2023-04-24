@@ -35,6 +35,9 @@
 /* PLAYER */
 #define SIZE_PLAYER 100
 #define PATH_PLAYER "data/img/player.png"
+#define PATH_IMG_HEART_FULL "data/img/heart_full.png"
+#define PATH_IMG_HEART_EMPTY "data/img/heart.png"
+#define SIZE_HEART 20
 #define SPEED_PLAYER 10
 #define HEALTH_PLAYER 3
 #define SPAWN_PLAYER_X 0
@@ -51,13 +54,16 @@
 /* ENEMY */
 #define SIZE_ENEMY 100
 #define PATH_ENEMY "data/img/dragon.png"
-#define SPEED_ENEMY 3
+#define SPEED_ENEMY 1
 #define HEALTH_ENEMY 1
 #define MAX_ENEMY 100
-#define MAX_BULLET_ENEMY 40
 
 /* BULLET ENEMY */
 #define PATH_IMG_BULLET_ENEMY "data/img/bullet_enemy.png"
+#define SIZE_BULLET_ENEMY 40
+#define SPEED_BULLET_ENEMY 3
+#define DAMAGE_BULLET_ENEMY 1
+#define MAX_BULLET_ENEMY 100
 
 /* BONUS */
 #define SIZE_BONUS 50

@@ -60,16 +60,17 @@ int add_enemy(Enemy **enemies)
     exit(1);
 }
 
-int move_enemies(Enemy **enemies)
+int move_enemies(Party *party)
 {
     for (int i = 0; i < MAX_ENEMY; i++)
     {
-        if (enemies[i]->visible == 1)
+        if (party->enemies[i]->visible == 1)
         {
-            enemies[i]->position->x -= enemies[i]->speed;
-            if (enemies[i]->position->x < -enemies[i]->size)
+            party->enemies[i]->position->x -= party->enemies[i]->speed;
+            if (party->enemies[i]->position->x < -party->enemies[i]->size)
             {
-                enemies[i]->visible = 0;
+                party->player->health -= 1;
+                party->enemies[i]->visible = 0;
             }
         }
     }

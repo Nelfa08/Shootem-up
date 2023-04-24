@@ -19,5 +19,7 @@ int draw_enemies(Party *party);
 int move_scenery(Scenery *scenery1, Scenery *scenery2);
 int draw_score(Party *party);
 int draw_bullet_player(Party *party);
+int draw_health(Party *party);
+int draw_bullet_enemy(Party *party);
 
 #endif

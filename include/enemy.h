@@ -9,7 +9,7 @@ Enemy *create_enemy();
 int free_enemy(Enemy *enemy);
 int add_enemy(Enemy **enemies);
 Enemy *init_enemy();
-int move_enemies(Enemy **enemies);
+int move_enemies(Party *party);
 int print_enemies(Enemy **enemies);
 
 #endif

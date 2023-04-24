@@ -5,7 +5,6 @@
 
 #include "../include/window.h"
 
-
 /**
  * @brief efface le contenu de la window
  *
@@ -137,9 +136,11 @@ int draw_frame_game(Party *party)
     draw_background(party->scenery1->background);
     draw_background(party->scenery2->background);
 
+    draw_health(party);
     draw_player(party);
     draw_bullet_player(party);
     draw_enemies(party);
+    draw_bullet_enemy(party);
 
     draw_foreground(party->scenery1->foreground);
     draw_foreground(party->scenery2->foreground);
@@ -189,6 +190,24 @@ int draw_foreground(Foreground *foreground)
     return EXIT_SUCCESS;
 }
 
+int draw_health(Party *party)
+{
+    for (int i = 0; i < HEALTH_PLAYER; i++)
+    {
+        if (party->player->health > i)
+        {
+            MLV_resize_image_with_proportions(party->image_heart_full, SIZE_HEART, SIZE_HEART);
+            MLV_draw_image(party->image_heart_full, SIZE_HEART + (i * SIZE_HEART), SIZE_HEART);
+        }
+        else
+        {
+            MLV_resize_image_with_proportions(party->image_heart_empty, SIZE_HEART, SIZE_HEART);
+            MLV_draw_image(party->image_heart_empty, SIZE_HEART + (i * SIZE_HEART), SIZE_HEART);
+        }
+    }
+    return EXIT_SUCCESS;
+}
+
 int draw_player(Party *party)
 {
     MLV_resize_image_with_proportions(party->image_player, party->player->size, party->player->size);
@@ -233,6 +252,22 @@ int draw_bullet_player(Party *party)
             MLV_draw_image(party->image_bullet_player, party->bullets_player[i]->position->x, party->bullets_player[i]->position->y);
             /* dessine les hitbox */
             MLV_draw_rectangle(party->bullets_player[i]->position->x, party->bullets_player[i]->position->y, party->bullets_player[i]->size, party->bullets_player[i]->size, MLV_COLOR_RED);
+        }
+    }
+    return 0;
+}
+
+int draw_bullet_enemy(Party *party)
+{
+    int i;
+    for (i = 0; i < MAX_BULLET_ENEMY; i++)
+    {
+        if (party->bullets_enemy[i]->visible == 1)
+        {
+            MLV_resize_image_with_proportions(party->image_bullet_enemy, party->bullets_enemy[i]->size, party->bullets_enemy[i]->size);
+            MLV_draw_image(party->image_bullet_enemy, party->bullets_enemy[i]->position->x, party->bullets_enemy[i]->position->y);
+            /* dessine les hitbox */
+            MLV_draw_rectangle(party->bullets_enemy[i]->position->x, party->bullets_enemy[i]->position->y, party->bullets_enemy[i]->size, party->bullets_enemy[i]->size, MLV_COLOR_RED);
         }
     }
     return 0;

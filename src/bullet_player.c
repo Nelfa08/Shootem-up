@@ -71,7 +71,7 @@ int move_bullets_player(Party *party)
     return 0;
 }
 
-int collision_bullets_player(Party *party)
+int player_kill_ennemy(Party *party)
 {
     for (int i = 0; i < MAX_BULLET_PLAYER; i++)
     {
@@ -81,17 +81,30 @@ int collision_bullets_player(Party *party)
             {
                 if (party->enemies[j]->visible == 1)
                 {
-                    if (party->bullets_player[i]->position->x + party->bullets_player[i]->size >= party->enemies[j]->position->x &&
-                        party->bullets_player[i]->position->x <= party->enemies[j]->position->x + party->enemies[j]->size &&
-                        party->bullets_player[i]->position->y + party->bullets_player[i]->size >= party->enemies[j]->position->y &&
-                        party->bullets_player[i]->position->y <= party->enemies[j]->position->y + party->enemies[j]->size)
+                    if (check_collisions_bullet_player(party->bullets_player[i], party->enemies[j]))
                     {
                         party->bullets_player[i]->visible = 0;
-                        party->enemies[j]->visible = 0;
+                        party->enemies[j]->health -= party->bullets_player[i]->damage;
+                        if (party->enemies[j]->health == 0)
+                        {
+                            party->enemies[j]->visible = 0;
+                        }
                     }
                 }
             }
         }
+    }
+    return 0;
+}
+
+int check_collisions_bullet_player(Bullet_player *bullet, Enemy *enemy)
+{
+    if (bullet->position->x + bullet->size >= enemy->position->x &&
+        bullet->position->x <= enemy->position->x + enemy->size &&
+        bullet->position->y + bullet->size >= enemy->position->y &&
+        bullet->position->y <= enemy->position->y + enemy->size)
+    {
+        return 1;
     }
     return 0;
 }
