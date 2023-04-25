@@ -74,7 +74,10 @@ int move_bullets_enemy(Party *party)
 
 int check_collisions_bullet_enemy(Bullet_enemy *bullet, Player *player)
 {
-    if (bullet->position->x + bullet->size == player->position->x && bullet->position->x == player->position->x + player->size && bullet->position->y + bullet->size == player->position->y && bullet->position->y == player->position->y + player->size)
+    if (bullet->position->x <= player->position->x + player->size &&
+        bullet->position->x + bullet->size >= player->position->x &&
+        bullet->position->y <= player->position->y + player->size &&
+        bullet->position->y + bullet->size >= player->position->y)
     {
         return 1;
     }
@@ -87,18 +90,10 @@ int enemy_kill_player(Party *party)
     {
         if (party->bullets_enemy[i]->visible == 1)
         {
-            if (party->bullets_enemy[i]->position->x <= party->player->position->x + party->player->size)
+            if (check_collisions_bullet_enemy(party->bullets_enemy[i], party->player) == 1)
             {
-                if (party->bullets_enemy[i]->position->y >= party->player->position->y && party->bullets_enemy[i]->position->y <= party->player->position->y + party->player->size)
-                {
-                    party->bullets_enemy[i]->visible = 0;
-                    party->player->health -= party->bullets_enemy[i]->damage;
-                    if (party->player->health <= 0)
-                    {
-                        party->player->health = 0;
-                        return 1;
-                    }
-                }
+                party->player->health -= party->bullets_enemy[i]->damage;
+                party->bullets_enemy[i]->visible = 0;
             }
         }
     }
