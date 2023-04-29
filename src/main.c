@@ -4,7 +4,6 @@
 #include <time.h>
 #include <sys/time.h>
 #include <getopt.h>
-#include <math.h>
 
 /* Include de la libMLV */
 #include <MLV/MLV_all.h>
@@ -19,11 +18,6 @@
 #include "../include/enemy.h"
 #include "../include/bullet_player.h"
 #include "../include/bullet_enemy.h"
-
-double normal_delay(double mean)
-{
-    return -mean * log(1 - ((double)rand() / RAND_MAX));
-}
 
 void usage()
 {
@@ -67,7 +61,7 @@ int main(int argc, char *argv[])
     int border_sound = 10;
 
     /* Récupération des arguments */
-    while ((opt = getopt(argc, argv, "vw")) != -1)
+    while ((opt = getopt(argc, argv, "v")) != -1)
     {
         switch (opt)
         {
@@ -185,9 +179,9 @@ int main(int argc, char *argv[])
 
         /* refresh de la window */
         clear_window();
-        if (normal_delay(1) < 0.00775)
+        if (normal_delay(1) < 0.01)
         {
-            add_enemy(party->enemies);
+            add_enemy(party);
         }
         draw_frame_game(party);
         move_scenery(party->scenery1, party->scenery2);

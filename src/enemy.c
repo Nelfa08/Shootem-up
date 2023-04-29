@@ -43,16 +43,16 @@ Enemy *create_enemy()
     return enemy;
 }
 
-int add_enemy(Enemy **enemies)
+int add_enemy(Party *party)
 {
     Enemy *new_enemy = create_enemy();
     new_enemy->visible = 1;
+    new_enemy->health = (party->score / 500) + 1;
     for (int i = 0; i < MAX_ENEMY; i++)
     {
-        if (enemies[i]->visible == 0)
+        if (party->enemies[i]->visible == 0)
         {
-            enemies[i] = new_enemy;
-            // print_enemies(enemies);
+            party->enemies[i] = new_enemy;
             return 0;
         }
     }

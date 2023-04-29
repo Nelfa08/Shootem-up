@@ -45,7 +45,8 @@ typedef struct enemy
 typedef struct bullet_enemy
 {
     Position *position;
-    int size;
+    int width;
+    int height;
     int speed;
     int damage;
     int visible;

@@ -1,5 +1,5 @@
 #include <MLV/MLV_all.h>
-
+#include <math.h>
 
 #include "../include/struct.h"
 #include "../include/const.h"
@@ -17,6 +17,10 @@
 
 /* Il faut aussi initialiser le table d'ennemies et de missile (soit le mettre ici soit dans enemy.c et buller_enemy(fichier à créer))*/
 
+double normal_delay(double mean)
+{
+    return -mean * log(1 - ((double)rand() / RAND_MAX));
+}
 
 Party *init_party()
 {

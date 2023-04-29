@@ -46,7 +46,7 @@
 
 /* BULLET PLAYER */
 #define PATH_IMG_BULLET_PLAYER "data/img/shuriken.png"
-#define SIZE_BULLET_PLAYER 50
+#define SIZE_BULLET_PLAYER 30
 #define SPEED_BULLET_PLAYER 30
 #define DAMAGE_BULLET_PLAYER 1
 #define MAX_BULLET_PLAYER 100
@@ -54,14 +54,15 @@
 /* ENEMY */
 #define SIZE_ENEMY 100
 #define PATH_ENEMY "data/img/dragon.png"
-#define SPEED_ENEMY 1
+#define SPEED_ENEMY 3
 #define HEALTH_ENEMY 1
 #define MAX_ENEMY 100
 
 /* BULLET ENEMY */
 #define PATH_IMG_BULLET_ENEMY "data/img/bullet_enemy.png"
-#define SIZE_BULLET_ENEMY 40
-#define SPEED_BULLET_ENEMY 3
+#define WIDTH_BULLET_ENEMY 40
+#define HEIGHT_BULLET_ENEMY 20
+#define SPEED_BULLET_ENEMY 5
 #define DAMAGE_BULLET_ENEMY 1
 #define MAX_BULLET_ENEMY 100
 

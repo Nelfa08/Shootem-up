@@ -21,5 +21,6 @@ int draw_score(Party *party);
 int draw_bullet_player(Party *party);
 int draw_health(Party *party);
 int draw_bullet_enemy(Party *party);
+int draw_loading_screen();
 
 #endif

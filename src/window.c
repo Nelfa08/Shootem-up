@@ -20,6 +20,15 @@ int init_window_menu()
 {
     MLV_create_window(NAME_FRAME_MENU, NULL, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
     clear_window();
+    draw_loading_screen();
+    MLV_actualise_window();
+    return EXIT_SUCCESS;
+}
+
+int draw_loading_screen()
+{
+    // @todo: dessiner un écran de chargement
+    MLV_draw_text(WIDTH_FRAME_MENU / 2 - 100, HEIGHT_FRAME_MENU / 2 - 50, "Loading...", MLV_COLOR_WHITE);
     return EXIT_SUCCESS;
 }
 
@@ -251,9 +260,11 @@ int draw_bullet_player(Party *party)
             MLV_resize_image_with_proportions(party->image_bullet_player, party->bullets_player[i]->size, party->bullets_player[i]->size);
             MLV_draw_image(party->image_bullet_player, party->bullets_player[i]->position->x, party->bullets_player[i]->position->y);
             /* dessine les hitbox */
+
             MLV_draw_rectangle(party->bullets_player[i]->position->x, party->bullets_player[i]->position->y, party->bullets_player[i]->size, party->bullets_player[i]->size, MLV_COLOR_RED);
         }
     }
+
     return 0;
 }
 
@@ -264,12 +275,14 @@ int draw_bullet_enemy(Party *party)
     {
         if (party->bullets_enemy[i]->visible == 1)
         {
-            MLV_resize_image_with_proportions(party->image_bullet_enemy, party->bullets_enemy[i]->size, party->bullets_enemy[i]->size);
+            MLV_resize_image_with_proportions(party->image_bullet_enemy, party->bullets_enemy[i]->width, party->bullets_enemy[i]->height);
             MLV_draw_image(party->image_bullet_enemy, party->bullets_enemy[i]->position->x, party->bullets_enemy[i]->position->y);
             /* dessine les hitbox */
-            MLV_draw_rectangle(party->bullets_enemy[i]->position->x, party->bullets_enemy[i]->position->y, party->bullets_enemy[i]->size, party->bullets_enemy[i]->size, MLV_COLOR_RED);
+
+            MLV_draw_rectangle(party->bullets_enemy[i]->position->x, party->bullets_enemy[i]->position->y, party->bullets_enemy[i]->width, party->bullets_enemy[i]->height, MLV_COLOR_RED);
         }
     }
+
     return 0;
 }
 
