@@ -21,6 +21,7 @@ typedef struct player
     int health;
     int speed;
     int delay_shoot;
+    char *name;
 } Player;
 
 typedef struct bullet_player
@@ -114,6 +115,14 @@ typedef struct penalty {
     int visible;
 } Penalty;
 
+typedef struct scoreboard
+{
+    char *name;
+    unsigned long int score;
+    char *date;
+    char *time;
+} Scoreboard;
+
 typedef struct party
 {
     int state;
@@ -129,6 +138,8 @@ typedef struct party
     Scenery *scenery2;
     Menu *menu;
     Pressed_key pk;
+    int size_file_scoreboard;
+    Scoreboard *scoreboard[10];
     MLV_Image *image_player;
     MLV_Image *image_heart_full;
     MLV_Image *image_heart_empty;

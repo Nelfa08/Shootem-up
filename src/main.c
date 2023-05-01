@@ -168,7 +168,7 @@ int main(int argc, char *argv[])
     }
 
     init_window_game();
-    
+
     /* initialisation du tableau d'ennemis */
     /* initialisation du tableau de missiles */
     /* initialisation du tableau de bonus */
@@ -245,20 +245,34 @@ int main(int argc, char *argv[])
 
     if (party->state == 3)
     {
-        /* On quitte le jeu */
+        /* Fin du jeu */
+
+        /* Pour le fin du jeu :
+            On reste sur l'écran de jeu de la partie et on affiche un champs pour demander le nom du joueur + son score.
+            Une fois le nom renseigné, on stocke le score dans un fichier et on affiche le classement des meilleurs scores + (bonus) on affiche son classement
+        */
+        /* draw_input_name = */
+
+        draw_input_name(party);
+        write_scoreboard(party);
+        read_scoreboard(party);
+        print_scoreboard(party);
+        return EXIT_SUCCESS;
+
+        draw_window_end(party);
         printf("End of the game\n");
         printf("Score : %ld\n", party->score);
-        return EXIT_SUCCESS;
     }
-        if (verbose_flag)
-        {
-            printf("End of the game\n");
-            printf("Free memory\n");
-        }
-        MLV_stop_music();
-        MLV_free_music(music);
-        MLV_free_audio();
-        free_party(party);
-        free_window();
-    return EXIT_FAILURE;
+    if (verbose_flag)
+    {
+        printf("End of the game\n");
+        printf("Free memory\n");
+    }
+    free(party->player->name); // voir la doc
+    MLV_stop_music();
+    MLV_free_music(music);
+    MLV_free_audio();
+    free_party(party);
+    free_window();
+    return EXIT_SUCCESS;
 }

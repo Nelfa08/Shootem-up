@@ -1,5 +1,7 @@
 #include <MLV/MLV_all.h>
 #include <math.h>
+#include <time.h>
+#include <string.h>
 
 #include "../include/struct.h"
 #include "../include/const.h"
@@ -12,8 +14,8 @@
 #include "../include/bullet_enemy.h"
 
 /*Ici il faut mettre la création de la party
-* Initialisation d'une structure party avec l'état (menu, en cours, fini), le niveau choisi, etc
-*/
+ * Initialisation d'une structure party avec l'état (menu, en cours, fini), le niveau choisi, etc
+ */
 
 /* Il faut aussi initialiser le table d'ennemies et de missile (soit le mettre ici soit dans enemy.c et buller_enemy(fichier à créer))*/
 
@@ -80,7 +82,77 @@ Party *init_party()
     party->image_heart_empty = MLV_load_image(PATH_IMG_HEART_EMPTY);
     party->image_heart_full = MLV_load_image(PATH_IMG_HEART_FULL);
 
+    for (int i = 0; i < 10; i++)
+    {
+        party->scoreboard[i] = malloc(sizeof(Scoreboard));
+        party->scoreboard[i]->name = malloc(sizeof(char) * 20);
+        party->scoreboard[i]->date = malloc(sizeof(char) * 20);
+        party->scoreboard[i]->time = malloc(sizeof(char) * 20);
+    }
+
     return party;
+}
+
+int write_scoreboard(Party *party)
+{
+    FILE *file = fopen(PATH_SCORE, "a");
+
+    time_t current_time;
+    struct tm *time_info;
+    char time_string[20];
+
+    time(&current_time);
+    time_info = localtime(&current_time);
+
+    strftime(time_string, sizeof(time_string), "%Y/%m/%d %H:%M:%S", time_info);
+    printf("%s\n", time_string);
+    if (file == NULL)
+    {
+        fprintf(stderr, "Error: can't open file %s\n", PATH_SCORE);
+        return EXIT_FAILURE;
+    }
+
+    fprintf(file, "%s %ld %s\n", party->player->name, party->score, time_string);
+
+    fclose(file);
+    return EXIT_SUCCESS;
+}
+
+int read_scoreboard(Party *party)
+{
+    FILE *file = fopen(PATH_SCORE, "r");
+    if (file == NULL)
+    {
+        fprintf(stderr, "Error: can't open file %s\n", PATH_SCORE);
+        return EXIT_FAILURE;
+    }
+
+    char name[20];
+    long score;
+    char time_string[20];
+    char date_string[20];
+    int i = 0;
+    while (fscanf(file, "%s %ld %s %s", name, &score, date_string, time_string) == 4 && i < 10)
+    {
+        strcpy(party->scoreboard[i]->name, name);
+        party->scoreboard[i]->score = score;
+        strcpy(party->scoreboard[i]->date, date_string);
+        strcpy(party->scoreboard[i]->time, time_string);
+        i++;
+    }
+
+    party->size_file_scoreboard = i;
+
+    fclose(file);
+    return EXIT_SUCCESS;
+}
+int print_scoreboard(Party *party)
+{
+    for (int i = 0; i < party->size_file_scoreboard; i++)
+    {
+        printf("%s %ld %s %s\n", party->scoreboard[i]->name, party->scoreboard[i]->score, party->scoreboard[i]->date, party->scoreboard[i]->time);
+    }
+    return EXIT_SUCCESS;
 }
 
 int free_party(Party *party)

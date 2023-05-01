@@ -286,6 +286,34 @@ int draw_bullet_enemy(Party *party)
     return 0;
 }
 
+int draw_window_end(Party *party)
+{
+    MLV_Image *img = party->menu->background->image;
+    MLV_change_window_size(WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
+    clear_window();
+
+    MLV_resize_image_with_proportions(img, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
+    MLV_draw_image(img, 0, 0);
+
+    MLV_actualise_window();
+    return EXIT_SUCCESS;
+}
+
+int draw_input_name(Party *party)
+{
+    char *player_name;
+    MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 30);
+
+    MLV_wait_input_box_with_font(WIDTH_FRAME_GAME / 4, HEIGHT_FRAME_GAME / 4, WIDTH_FRAME_GAME / 4 + 100, HEIGHT_FRAME_GAME / 4 + 100, MLV_ALPHA_TRANSPARENT, MLV_COLOR_WHITE, MLV_COLOR_BLACK, "Player name: ", &player_name, font);
+
+    MLV_actualise_window();
+
+    party->player->name = player_name;
+
+    MLV_free_font(font);
+    return EXIT_SUCCESS;
+}
+
 /**
  * @brief libère en mémoire la window
  *

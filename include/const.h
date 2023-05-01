@@ -5,6 +5,10 @@
 
 #define BILLION 1000000000
 
+/* PARTY */
+
+#define PATH_SCORE "data/score.txt"
+
 /* FRAME MENU */
 #define HEIGHT_FRAME_MENU 750
 #define WIDTH_FRAME_MENU 750
