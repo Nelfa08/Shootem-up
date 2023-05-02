@@ -150,6 +150,13 @@ int draw_frame_game(Party *party)
     draw_bullet_player(party);
     draw_enemies(party);
     draw_bullet_enemy(party);
+    draw_bonus(party);
+    draw_penalties(party);
+
+    if(party->player->shield == 1)
+    {
+        draw_shield(party);
+    }
 
     draw_foreground(party->scenery1->foreground);
     draw_foreground(party->scenery2->foreground);
@@ -222,7 +229,10 @@ int draw_player(Party *party)
     MLV_resize_image_with_proportions(party->image_player, party->player->size, party->player->size);
     MLV_draw_image(party->image_player, party->player->position->x, party->player->position->y);
     /* dessine les hitbox */
-    MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->size, party->player->size, MLV_COLOR_RED);
+    if (party->hitbox_flag == 1)
+    {
+        MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->size, party->player->size, MLV_COLOR_RED);
+    }
     return 0;
 }
 
@@ -236,7 +246,10 @@ int draw_enemies(Party *party)
             MLV_resize_image_with_proportions(party->image_enemy, party->enemies[i]->size, party->enemies[i]->size);
             MLV_draw_image(party->image_enemy, party->enemies[i]->position->x, party->enemies[i]->position->y);
             /* dessine les hitbox */
-            MLV_draw_rectangle(party->enemies[i]->position->x, party->enemies[i]->position->y, party->enemies[i]->size, party->enemies[i]->size, MLV_COLOR_RED);
+            if (party->hitbox_flag == 1)
+            {
+                MLV_draw_rectangle(party->enemies[i]->position->x, party->enemies[i]->position->y, party->enemies[i]->size, party->enemies[i]->size, MLV_COLOR_RED);
+            }
         }
     }
     return 0;
@@ -260,8 +273,10 @@ int draw_bullet_player(Party *party)
             MLV_resize_image_with_proportions(party->image_bullet_player, party->bullets_player[i]->size, party->bullets_player[i]->size);
             MLV_draw_image(party->image_bullet_player, party->bullets_player[i]->position->x, party->bullets_player[i]->position->y);
             /* dessine les hitbox */
-
-            MLV_draw_rectangle(party->bullets_player[i]->position->x, party->bullets_player[i]->position->y, party->bullets_player[i]->size, party->bullets_player[i]->size, MLV_COLOR_RED);
+            if (party->hitbox_flag == 1)
+            {
+                MLV_draw_rectangle(party->bullets_player[i]->position->x, party->bullets_player[i]->position->y, party->bullets_player[i]->size, party->bullets_player[i]->size, MLV_COLOR_RED);
+            }
         }
     }
 
@@ -278,8 +293,10 @@ int draw_bullet_enemy(Party *party)
             MLV_resize_image_with_proportions(party->image_bullet_enemy, party->bullets_enemy[i]->width, party->bullets_enemy[i]->height);
             MLV_draw_image(party->image_bullet_enemy, party->bullets_enemy[i]->position->x, party->bullets_enemy[i]->position->y);
             /* dessine les hitbox */
-
-            MLV_draw_rectangle(party->bullets_enemy[i]->position->x, party->bullets_enemy[i]->position->y, party->bullets_enemy[i]->width, party->bullets_enemy[i]->height, MLV_COLOR_RED);
+            if (party->hitbox_flag == 1)
+            {
+                MLV_draw_rectangle(party->bullets_enemy[i]->position->x, party->bullets_enemy[i]->position->y, party->bullets_enemy[i]->width, party->bullets_enemy[i]->height, MLV_COLOR_RED);
+            }
         }
     }
 
@@ -312,6 +329,88 @@ int draw_input_name(Party *party)
 
     MLV_free_font(font);
     return EXIT_SUCCESS;
+}
+
+int draw_bonus(Party *party)
+{
+    int i;
+    MLV_Image *image_bonus;
+    for (i = 0; i < MAX_BONUS; i++)
+    {
+        if (party->bonus[i]->visible == 1)
+        {
+            switch (party->bonus[i]->kind)
+            {
+            case SHIELD:
+                image_bonus = party->image_shield_bonus;
+                break;
+            case SPEED:
+                image_bonus = party->image_speed_bonus;
+                break;
+            case HEALTH:
+                image_bonus = party->image_health_bonus;
+                break;
+            case BOMB:
+                image_bonus = party->image_bomb_bonus;
+                break;
+            }
+            MLV_resize_image_with_proportions(image_bonus, party->bonus[i]->size, party->bonus[i]->size);
+            MLV_draw_image(image_bonus, party->bonus[i]->position->x, party->bonus[i]->position->y);
+            /* dessine les hitbox */
+            if (party->hitbox_flag == 1)
+            {
+                MLV_draw_rectangle(party->bonus[i]->position->x, party->bonus[i]->position->y, party->bonus[i]->size, party->bonus[i]->size, MLV_COLOR_RED);
+            }
+        }
+    }
+    return 0;
+}
+
+int draw_penalties(Party *party)
+{
+    int i;
+    MLV_Image *image_penalty;
+    for (i = 0; i < MAX_PENALTY; i++)
+    {
+        if (party->penalty[i]->visible == 1)
+        {
+            switch (party->penalty[i]->kind)
+            {
+            case SLOW:
+                image_penalty = party->image_slow_penalty;
+                break;
+            case REVERSE:
+                image_penalty = party->image_reverse_penalty;
+                break;
+            case DAMAGE:
+                image_penalty = party->image_damage_penalty;
+                break;
+            }
+            MLV_resize_image_with_proportions(image_penalty, party->penalty[i]->size, party->penalty[i]->size);
+            MLV_draw_image(image_penalty, party->penalty[i]->position->x, party->penalty[i]->position->y);
+            /* dessine les hitbox */
+            if (party->hitbox_flag == 1)
+            {
+                MLV_draw_rectangle(party->penalty[i]->position->x, party->penalty[i]->position->y, party->penalty[i]->size, party->penalty[i]->size, MLV_COLOR_RED);
+            }
+        }
+    }
+    return 0;
+}
+
+int draw_shield(Party *party)
+{
+    if (party->player->shield == 1)
+    {
+        MLV_resize_image_with_proportions(party->image_shield, party->player->size, party->player->size);
+        MLV_draw_image(party->image_shield, party->player->position->x, party->player->position->y);
+        /* dessine les hitbox */
+        if (party->hitbox_flag == 1)
+        {
+            MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->size, party->player->size, MLV_COLOR_RED);
+        }
+    }
+    return 0;
 }
 
 /**

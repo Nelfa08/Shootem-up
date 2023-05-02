@@ -12,6 +12,8 @@
 #include "../include/keyboard_listener.h"
 #include "../include/bullet_player.h"
 #include "../include/bullet_enemy.h"
+#include "../include/penalty.h"
+#include "../include/bonus.h"
 
 /*Ici il faut mettre la création de la party
  * Initialisation d'une structure party avec l'état (menu, en cours, fini), le niveau choisi, etc
@@ -24,18 +26,22 @@ double normal_delay(double mean)
     return -mean * log(1 - ((double)rand() / RAND_MAX));
 }
 
-Party *init_party()
+Party *init_party(int verbose_flag, int hitbox_flag)
 {
     Party *party = malloc(sizeof(Party));
     party->state = 0;
     party->sound = 0;
     party->score = 0;
+    party->verbose_flag = verbose_flag;
+    party->hitbox_flag = hitbox_flag;
 
     party->player = create_player();
 
     init_tab_enemy(party);
     init_bullets_player(party);
     init_bullets_enemy(party);
+    init_tab_penalty(party);
+    init_tab_bonus(party);
 
     /* A mettre dans des sous fonctions */
     party->scenery1 = malloc(sizeof(Scenery));
@@ -89,6 +95,15 @@ Party *init_party()
         party->scoreboard[i]->date = malloc(sizeof(char) * 20);
         party->scoreboard[i]->time = malloc(sizeof(char) * 20);
     }
+
+    party->image_shield_bonus = MLV_load_image(PATH_IMG_SHIELD_BONUS);
+    party->image_speed_bonus = MLV_load_image(PATH_IMG_SPEED_BONUS);
+    party->image_health_bonus = MLV_load_image(PATH_IMG_HEALTH_BONUS);
+    party->image_bomb_bonus = MLV_load_image(PATH_IMG_BOMB_BONUS);
+    party->image_slow_penalty = MLV_load_image(PATH_IMG_SLOW_PENALTY);
+    party->image_reverse_penalty = MLV_load_image(PATH_IMG_REVERSE_PENALTY);
+    party->image_damage_penalty = MLV_load_image(PATH_IMG_DAMAGE_PENALTY);
+    party->image_shield = MLV_load_image(PATH_IMG_SHIELD);
 
     return party;
 }
@@ -161,3 +176,25 @@ int free_party(Party *party)
     free(party);
     return EXIT_SUCCESS;
 }
+
+void generate_bonus_or_penalty(Party *party)
+{
+    // Génère un nombre entier aléatoire entre 0 et 1 pour sélectionner le type de bonus ou de pénalité
+    int random_type = rand() % 2;
+    // int random_type = 1;
+
+    // Génère les propriétés communes à tous les bonus et pénalités
+
+    // Crée un bonus ou une pénalité en fonction du type aléatoire généré
+    if (random_type == 0)
+    {
+        add_bonus(party);
+        printf("Bonus created\n");
+    }
+    else
+    {
+        add_penalty(party);
+        printf("Penalty created\n");
+    }
+}
+

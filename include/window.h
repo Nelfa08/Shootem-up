@@ -24,5 +24,8 @@ int draw_bullet_enemy(Party *party);
 int draw_loading_screen();
 int draw_window_end(Party *party);
 int draw_input_name(Party *party);
+int draw_bonus(Party *party);
+int draw_penalties(Party *party);
+int draw_shield(Party *party);
 
 #endif

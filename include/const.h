@@ -47,6 +47,7 @@
 #define SPAWN_PLAYER_X 0
 #define SPAWN_PLAYER_Y 260
 #define DELAY_SHOOT_PLAYER 7
+#define PATH_IMG_SHIELD "data/img/force-field.png"
 
 /* BULLET PLAYER */
 #define PATH_IMG_BULLET_PLAYER "data/img/shuriken.png"
@@ -73,11 +74,18 @@
 /* BONUS */
 #define SIZE_BONUS 50
 #define MAX_BONUS 100
-#define SPEED_BONUS 5
+#define SPEED_BONUS 1
+#define PATH_IMG_SHIELD_BONUS "data/img/bonus/shield.png"
+#define PATH_IMG_SPEED_BONUS "data/img/bonus/speed.png"
+#define PATH_IMG_HEALTH_BONUS "data/img/bonus/health.png"
+#define PATH_IMG_BOMB_BONUS "data/img/bonus/bomb.png"
 
 /* PENALTIES */
 #define SIZE_PENALTY 50
 #define MAX_PENALTY 100
-#define SPEED_PENALTY 5
+#define SPEED_PENALTY 1
+#define PATH_IMG_SLOW_PENALTY "data/img/penalty/slow.png"
+#define PATH_IMG_REVERSE_PENALTY "data/img/penalty/reverse.png"
+#define PATH_IMG_DAMAGE_PENALTY "data/img/penalty/damage.png"
 
 #endif

@@ -22,6 +22,7 @@ typedef struct player
     int speed;
     int delay_shoot;
     char *name;
+    int shield;
 } Player;
 
 typedef struct bullet_player
@@ -125,6 +126,8 @@ typedef struct scoreboard
 
 typedef struct party
 {
+    int verbose_flag;
+    int hitbox_flag;
     int state;
     int sound;
     unsigned long int score;
@@ -146,6 +149,15 @@ typedef struct party
     MLV_Image *image_bullet_player;
     MLV_Image *image_enemy;
     MLV_Image *image_bullet_enemy;
+    
+    MLV_Image *image_shield_bonus;
+    MLV_Image *image_speed_bonus;
+    MLV_Image *image_health_bonus;
+    MLV_Image *image_bomb_bonus;
+    MLV_Image *image_slow_penalty;
+    MLV_Image *image_reverse_penalty;
+    MLV_Image *image_damage_penalty;
+    MLV_Image *image_shield;
 } Party;
 
 #endif

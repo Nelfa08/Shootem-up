@@ -88,6 +88,15 @@ int print_enemies(Enemy **enemies)
     return 0;
 }
 
+int kill_all_enemies(Party *party)
+{
+    for (int i = 0; i < MAX_ENEMY; i++)
+    {
+        party->enemies[i]->visible = 0;
+    }
+    return 0;
+}
+
 int free_enemy(Enemy *enemy)
 {
     free(enemy->position);

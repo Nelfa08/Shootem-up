@@ -1,3 +1,14 @@
+/**
+ * @file main.c
+ * @author Corentin RODDIER Yacine DJEBLOUN
+ * @brief 
+ * @version 1.0
+ * @date 2023-05-01
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 /* Include des librairies C */
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,18 +29,24 @@
 #include "../include/enemy.h"
 #include "../include/bullet_player.h"
 #include "../include/bullet_enemy.h"
+#include "../include/penalty.h"
+#include "../include/bonus.h"
 
+/**
+ * @brief Print usage of the program
+ * 
+ */
 void usage()
 {
     printf("Usage: ./main [-v]\n");
 }
 
 /**
- * @brief Fonction main du projet
- *
- * @param argc Nombre d'argument passés au programme
- * @param argv Tableau des arguments passés au programme
- * @return int 0 si tout s'est bien passé. 1 sinon
+ * @brief Main function of the program
+ * 
+ * @param argc Number of arguments
+ * @param argv Arguments
+ * @return int 0 if no error, 1 if error
  */
 int main(int argc, char *argv[])
 {
@@ -37,8 +54,6 @@ int main(int argc, char *argv[])
     MLV_Keyboard_button key;
     MLV_Button_state state;
     MLV_Music *music;
-    // Pressed_key *pk;
-    // Player *player;
     Party *party;
 
     /* Permet de récupérer les temps de début et de fin (pour vérifier si la frame est pas trop rapide) */
@@ -53,6 +68,7 @@ int main(int argc, char *argv[])
     /* Variable pour récupérer les arguments */
     int opt;
     int verbose_flag = 0;
+    int hitbox_flag = 0;
 
     /* Variables pour récupérer la position de la souris */
     int x, y;
@@ -61,12 +77,15 @@ int main(int argc, char *argv[])
     int border_sound = 10;
 
     /* Récupération des arguments */
-    while ((opt = getopt(argc, argv, "v")) != -1)
+    while ((opt = getopt(argc, argv, "vh")) != -1)
     {
         switch (opt)
         {
         case 'v':
             verbose_flag = 1;
+            break;
+        case 'h':
+            hitbox_flag = 1;
             break;
         case '?':
             usage();
@@ -77,7 +96,7 @@ int main(int argc, char *argv[])
     /* Initialisation de la party */
     init_window_menu();
     printf("start init party\n");
-    party = init_party();
+    party = init_party(verbose_flag, hitbox_flag);
     printf("end init party\n");
 
     /* Initialisation de la musique */
@@ -169,6 +188,8 @@ int main(int argc, char *argv[])
 
     init_window_game();
 
+    party->player->shield = 1;
+
     /* initialisation du tableau d'ennemis */
     /* initialisation du tableau de missiles */
     /* initialisation du tableau de bonus */
@@ -183,6 +204,11 @@ int main(int argc, char *argv[])
         {
             add_enemy(party);
         }
+        if(normal_delay(1) < 0.00005)
+        {
+            printf("add bonus random\n");
+            generate_bonus_or_penalty(party);
+        }
         draw_frame_game(party);
         move_scenery(party->scenery1, party->scenery2);
         move_enemies(party);
@@ -191,14 +217,17 @@ int main(int argc, char *argv[])
         fire_enemy(party);
         move_bullets_enemy(party);
         enemy_kill_player(party);
+        move_bonus(party);
+        move_penalty(party);
+        player_get_bonus(party);
         MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
         detect_key_pressed(party->pk);
         party->player = move_player(party->player, party->pk);
-        if (verbose_flag == 1)
-        {
-            print_key_pressed(party->pk);
-            printf("Player position: %d, %d\n", party->player->position->x, party->player->position->y);
-        }
+        // if (verbose_flag == 1)
+        // {
+        //     // print_key_pressed(party->pk);
+        //     printf("Player position: %d, %d\n", party->player->position->x, party->player->position->y);
+        // }
         if (party->pk[4] == 1)
         {
             if (party->player->delay_shoot == DELAY_SHOOT_PLAYER)
@@ -221,14 +250,19 @@ int main(int argc, char *argv[])
             party->player->delay_shoot = DELAY_SHOOT_PLAYER;
         }
 
-        /* Si le joueur appuie sur espace => ajouter un ennemie*/
-
         /* Si le joueur n'a plus de vie : il perd */
         if (party->player->health <= 0)
         {
             party->state = 3;
         }
+
+        /* Incrémentation du score */
         party->score += 1;
+
+        if(party->score % 250 == 0)
+        {
+            generate_bonus_or_penalty(party);
+        }
 
         /* Récupération de l'heure en fin */
         clock_gettime(CLOCK_REALTIME, &end_time);

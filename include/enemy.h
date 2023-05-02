@@ -11,5 +11,6 @@ int add_enemy(Party *party);
 Enemy *init_enemy();
 int move_enemies(Party *party);
 int print_enemies(Enemy **enemies);
+int kill_all_enemies(Party *party);
 
 #endif
