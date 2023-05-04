@@ -146,6 +146,7 @@ int draw_frame_game(Party *party)
     draw_background(party->scenery2->background);
 
     draw_health(party);
+    draw_speed(party);
     draw_player(party);
     draw_bullet_player(party);
     draw_enemies(party);
@@ -153,7 +154,7 @@ int draw_frame_game(Party *party)
     draw_bonus(party);
     draw_penalties(party);
 
-    if(party->player->shield == 1)
+    if (party->player->shield == 1)
     {
         draw_shield(party);
     }
@@ -260,7 +261,7 @@ int draw_score(Party *party)
     char score[1000];
     sprintf(score, "Score: %ld", party->score);
     MLV_draw_text(10, 10, score, MLV_COLOR_RED);
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 int draw_bullet_player(Party *party)
@@ -411,6 +412,14 @@ int draw_shield(Party *party)
         }
     }
     return 0;
+}
+
+int draw_speed(Party *party)
+{
+    char score[1000];
+    sprintf(score, "Speed: %d", party->player->speed);
+    MLV_draw_text(10, 50, score, MLV_COLOR_RED);
+    return EXIT_SUCCESS;
 }
 
 /**

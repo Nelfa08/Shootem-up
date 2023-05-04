@@ -220,9 +220,10 @@ int main(int argc, char *argv[])
         move_bonus(party);
         move_penalty(party);
         player_get_bonus(party);
+        player_get_penalty(party);
         MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
         detect_key_pressed(party->pk);
-        party->player = move_player(party->player, party->pk);
+        move_player(party->player, party->pk);
         // if (verbose_flag == 1)
         // {
         //     // print_key_pressed(party->pk);
@@ -259,7 +260,7 @@ int main(int argc, char *argv[])
         /* Incrémentation du score */
         party->score += 1;
 
-        if(party->score % 250 == 0)
+        if(party->score % 500 == 0)
         {
             generate_bonus_or_penalty(party);
         }

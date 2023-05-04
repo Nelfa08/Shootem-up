@@ -94,8 +94,10 @@ int enemy_kill_player(Party *party)
         {
             if (check_collisions_bullet_enemy(party->bullets_enemy[i], party->player) == 1)
             {
-                party->player->health -= party->bullets_enemy[i]->damage;
                 party->bullets_enemy[i]->visible = 0;
+                if(party->player->shield == 0) {
+                    party->player->health -= party->bullets_enemy[i]->damage;
+                }
             }
         }
     }

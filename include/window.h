@@ -27,5 +27,6 @@ int draw_input_name(Party *party);
 int draw_bonus(Party *party);
 int draw_penalties(Party *party);
 int draw_shield(Party *party);
+int draw_speed(Party *party);
 
 #endif

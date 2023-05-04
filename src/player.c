@@ -21,10 +21,11 @@ Player *create_player()
     player->position->x = SPAWN_PLAYER_X;
     player->position->y = SPAWN_PLAYER_Y;
     player->delay_shoot = DELAY_SHOOT_PLAYER;
+    player->boost_start_shield = 0;
     return player;
 }
 
-Player *move_player(Player *player, Pressed_key pk)
+int move_player(Player *player, Pressed_key pk)
 {
     if (pk[0] == 1)
     {
@@ -54,7 +55,15 @@ Player *move_player(Player *player, Pressed_key pk)
             player->position->x -= player->speed;
         }
     }
-    return player;
+    if (player->boost_start_shield != 0)
+    {
+        if (MLV_get_time() - player->boost_start_shield > TIME_BOOST_SHIELD)
+        {
+            player->shield = 0;
+            player->boost_start_shield = 0;
+        }
+    }
+    return EXIT_SUCCESS;
 }
 
 int free_player(Player *player)

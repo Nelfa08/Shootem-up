@@ -56,3 +56,47 @@ void move_penalty(Party *party)
         }
     }
 }
+
+int collision_penalty(Party *party)
+{
+    for (int i = 0; i < MAX_PENALTY; i++)
+    {
+        if (party->penalty[i]->visible == 1)
+        {
+            if (party->penalty[i]->position->x <= party->player->position->x + party->player->size &&
+                party->penalty[i]->position->x + party->penalty[i]->size >= party->player->position->x &&
+                party->penalty[i]->position->y <= party->player->position->y + party->player->size &&
+                party->penalty[i]->position->y + party->penalty[i]->size >= party->player->position->y)
+            {
+                party->penalty[i]->visible = 0;
+                return i;
+            }
+        }
+    }
+    return -1;
+}
+
+int player_get_penalty(Party *party)
+{
+    int penalty_collision = collision_penalty(party);
+    if (penalty_collision != -1)
+    {
+        if (party->penalty[penalty_collision]->kind == 0)
+        {
+            printf("player_get_penalty: SLOW\n");
+            if(party->player->speed > 5) {
+                party->player->speed -= 5;
+            }
+        }
+        else if (party->penalty[penalty_collision]->kind == 1)
+        {
+            printf("player_get_penalty: REVERSE\n");
+        }
+        else if (party->penalty[penalty_collision]->kind == 2)
+        {
+            printf("player_get_penalty: DAMAGE\n");
+            party->player->health -= 1;
+        }
+    }
+    return 0;
+}

@@ -18,7 +18,7 @@
 #define PATH_IMG_SOUND_OFF "data/img/sound_off.png"
 #define PATH_FONT_MENU "data/font/Talk_Comic.ttf"
 #define PATH_MUSIC_MENU "data/music/music.wav"
-#define VOL_MUSIC_MENU 0.1
+#define VOL_MUSIC_MENU 0.1 
 #define SIZE_ICON_MUSIC 50
 
 /* FRAME CREDITS */
@@ -79,6 +79,7 @@
 #define PATH_IMG_SPEED_BONUS "data/img/bonus/speed.png"
 #define PATH_IMG_HEALTH_BONUS "data/img/bonus/health.png"
 #define PATH_IMG_BOMB_BONUS "data/img/bonus/bomb.png"
+#define TIME_BOOST_SHIELD 10000
 
 /* PENALTIES */
 #define SIZE_PENALTY 50

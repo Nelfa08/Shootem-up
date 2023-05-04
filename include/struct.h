@@ -6,8 +6,6 @@
 
 /* Structure représentant les différentes entités du jeu */
 
-/* Créer une structure level pour mettre le nbr d'ennemis, leurs vitesse, leur vie, etc et avoir la possibilité de changer en fonction du lvl*/
-
 typedef struct position
 {
     int x;
@@ -23,6 +21,8 @@ typedef struct player
     int delay_shoot;
     char *name;
     int shield;
+    unsigned long int boost_start_shield;
+    unsigned long int boost_start_speed;
 } Player;
 
 typedef struct bullet_player
@@ -34,7 +34,6 @@ typedef struct bullet_player
     int visible;
 } Bullet_player;
 
-/* Ajout d'un champ size pour avoir la possibilité de changer la taille de l'enemy*/
 typedef struct enemy
 {
     Position *position;
