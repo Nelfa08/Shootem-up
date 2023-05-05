@@ -32,7 +32,7 @@ int draw_loading_screen()
     return EXIT_SUCCESS;
 }
 
-int draw_window_menu(Party *party, int border_sound)
+int draw_window_menu(Party *party)
 {
     MLV_Image *img = party->menu->background->image;
     MLV_Image *img_sound_on = MLV_load_image(PATH_IMG_SOUND_ON);
@@ -72,14 +72,23 @@ int draw_window_menu(Party *party, int border_sound)
     {
         /*dessin du bouton son_on*/
         MLV_resize_image_with_proportions(img_sound_on, 50, 50);
-        MLV_draw_image(img_sound_on, WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + border_sound), border_sound);
+        MLV_draw_image(img_sound_on, WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10), 10);
     }
     else
     {
         /*dessin du bouton son_off*/
         MLV_resize_image_with_proportions(img_sound_off, 50, 50);
-        MLV_draw_image(img_sound_off, WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + border_sound), border_sound);
+        MLV_draw_image(img_sound_off, WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10), 10);
     }
+
+    MLV_draw_image(party->player->sprite_idle->frames[party->player->sprite_idle->current_frame], 0, 0);
+    party->player->sprite_idle->current_frame++;
+    if (party->player->sprite_idle->current_frame >= party->player->sprite_idle->nb_frames)
+    {
+        party->player->sprite_idle->current_frame = 0;
+    }
+
+    MLV_wait_milliseconds(500 / party->player->sprite_idle->nb_frames);
 
     /*On rafraichit la fenetre*/
     MLV_actualise_window();
@@ -154,7 +163,7 @@ int draw_frame_game(Party *party)
     draw_bonus(party);
     draw_penalties(party);
 
-    if (party->player->shield == 1)
+    if (party->player->shield != 0)
     {
         draw_shield(party);
     }
@@ -227,13 +236,61 @@ int draw_health(Party *party)
 
 int draw_player(Party *party)
 {
-    MLV_resize_image_with_proportions(party->image_player, party->player->size, party->player->size);
-    MLV_draw_image(party->image_player, party->player->position->x, party->player->position->y);
-    /* dessine les hitbox */
-    if (party->hitbox_flag == 1)
+    if (party->player->sprite_attack->status == 1)
     {
-        MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->size, party->player->size, MLV_COLOR_RED);
+        MLV_draw_image(party->player->sprite_attack->frames[party->player->sprite_attack->current_frame], party->player->position->x, party->player->position->y);
+        party->player->sprite_attack->current_frame++;
+        if (party->player->sprite_attack->current_frame >= party->player->sprite_attack->nb_frames)
+        {
+            party->player->sprite_attack->current_frame = 0;
+            party->player->sprite_attack->status = 0;
+        }
+
+        /* dessine les hitbox */
+        if (party->hitbox_flag == 1)
+        {
+            MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->width, party->player->height, MLV_COLOR_RED);
+        }
     }
+    else if(party->player->sprite_run->status == 1) {
+        MLV_draw_image(party->player->sprite_run->frames[party->player->sprite_run->current_frame], party->player->position->x, party->player->position->y);
+        party->player->sprite_run->current_frame++;
+        if (party->player->sprite_run->current_frame >= party->player->sprite_run->nb_frames)
+        {
+            party->player->sprite_run->current_frame = 0;
+        }
+    }
+    else
+    {
+        MLV_draw_image(party->player->sprite_walk->frames[party->player->sprite_walk->current_frame], party->player->position->x, party->player->position->y);
+        party->player->sprite_walk->current_frame++;
+        if (party->player->sprite_walk->current_frame >= party->player->sprite_walk->nb_frames)
+        {
+            party->player->sprite_walk->current_frame = 0;
+        }
+
+        /* dessine les hitbox */
+        if (party->hitbox_flag == 1)
+        {
+            MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->width, party->player->height, MLV_COLOR_RED);
+        }
+    }
+    // else
+    // {
+    //     MLV_draw_image(party->player->sprite_idle->frames[party->player->sprite_idle->current_frame], party->player->position->x, party->player->position->y);
+    //     party->player->sprite_idle->current_frame++;
+    //     if (party->player->sprite_idle->current_frame >= party->player->sprite_idle->nb_frames)
+    //     {
+    //         party->player->sprite_idle->current_frame = 0;
+    //     }
+
+    //     /* dessine les hitbox */
+    //     if (party->hitbox_flag == 1)
+    //     {
+    //         MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->width, party->player->height, MLV_COLOR_RED);
+    //     }
+    // }
+    MLV_wait_milliseconds(15);
     return 0;
 }
 
@@ -401,15 +458,12 @@ int draw_penalties(Party *party)
 
 int draw_shield(Party *party)
 {
-    if (party->player->shield == 1)
+    MLV_resize_image_with_proportions(party->image_shield, party->player->width, party->player->height);
+    MLV_draw_image(party->image_shield, party->player->position->x, party->player->position->y);
+    /* dessine les hitbox */
+    if (party->hitbox_flag == 1)
     {
-        MLV_resize_image_with_proportions(party->image_shield, party->player->size, party->player->size);
-        MLV_draw_image(party->image_shield, party->player->position->x, party->player->position->y);
-        /* dessine les hitbox */
-        if (party->hitbox_flag == 1)
-        {
-            MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->size, party->player->size, MLV_COLOR_RED);
-        }
+        MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->width, party->player->height, MLV_COLOR_RED);
     }
     return 0;
 }

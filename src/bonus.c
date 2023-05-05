@@ -24,8 +24,8 @@ int add_bonus(Party *party)
     int rand_y = (rand() % (BOTTOM_BORDER - TOP_BORDER + 1)) + TOP_BORDER;
     new_bonus->visible = 1;
     new_bonus->position->y = rand_y;
-    new_bonus->kind = rand() % 4;
-    // new_bonus->kind = 0;
+    // new_bonus->kind = rand() % 4;
+    new_bonus->kind = 0;
     for (int i = 0; i < MAX_BONUS; i++)
     {
         if (party->bonus[i]->visible == 0)
@@ -64,9 +64,9 @@ int collision_bonus(Party *party)
     {
         if (party->bonus[i]->visible == 1)
         {
-            if (party->bonus[i]->position->x <= party->player->position->x + party->player->size &&
+            if (party->bonus[i]->position->x <= party->player->position->x + party->player->width &&
                 party->bonus[i]->position->x + party->bonus[i]->size >= party->player->position->x &&
-                party->bonus[i]->position->y <= party->player->position->y + party->player->size &&
+                party->bonus[i]->position->y <= party->player->position->y + party->player->height &&
                 party->bonus[i]->position->y + party->bonus[i]->size >= party->player->position->y)
             {
                 party->bonus[i]->visible = 0;
@@ -85,8 +85,7 @@ int player_get_bonus(Party *party)
         if (party->bonus[bonus_collision]->kind == 0)
         {
             printf("player_win_bonus: SHIELD\n");
-            party->player->boost_start_shield = MLV_get_time();
-            party->player->shield = 1;
+            party->player->shield = 3;
         }
         else if (party->bonus[bonus_collision]->kind == 1)
         {

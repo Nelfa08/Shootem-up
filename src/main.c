@@ -1,12 +1,12 @@
 /**
  * @file main.c
  * @author Corentin RODDIER Yacine DJEBLOUN
- * @brief 
+ * @brief
  * @version 1.0
  * @date 2023-05-01
- * 
+ *
  * @copyright Copyright (c) 2023
- * 
+ *
  */
 
 /* Include des librairies C */
@@ -34,7 +34,7 @@
 
 /**
  * @brief Print usage of the program
- * 
+ *
  */
 void usage()
 {
@@ -43,7 +43,7 @@ void usage()
 
 /**
  * @brief Main function of the program
- * 
+ *
  * @param argc Number of arguments
  * @param argv Arguments
  * @return int 0 if no error, 1 if error
@@ -72,9 +72,6 @@ int main(int argc, char *argv[])
 
     /* Variables pour récupérer la position de la souris */
     int x, y;
-
-    /* Variables pour le son */
-    int border_sound = 10;
 
     /* Récupération des arguments */
     while ((opt = getopt(argc, argv, "vh")) != -1)
@@ -122,51 +119,54 @@ int main(int argc, char *argv[])
     {
         if (party->state == 0)
         {
-            draw_window_menu(party, border_sound);
-            MLV_wait_mouse(&x, &y);
-            if (x > 296 && x < 450 && y > 370 && y < 420)
+            draw_window_menu(party);
+            if (MLV_get_mouse_button_state(MLV_BUTTON_LEFT) == MLV_PRESSED)
             {
-                /* On lance le jeu */
-                if (verbose_flag)
+                MLV_get_mouse_position(&x, &y);
+                if (x > 296 && x < 450 && y > 370 && y < 420)
                 {
-                    printf("Start game\n");
-                }
-                party->state = 2;
-            }
-            else if (x > WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10) && x < (WIDTH_FRAME_MENU - 10) && y > 10 && y < SIZE_ICON_MUSIC + 10)
-            {
-                if (party->sound == 1)
-                {
+                    /* On lance le jeu */
                     if (verbose_flag)
                     {
-                        printf("Sound off\n");
+                        printf("Start game\n");
                     }
-                    party->sound = 0;
-                    MLV_stop_music();
+                    party->state = 2;
                 }
-                else
+                else if (x > WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10) && x < (WIDTH_FRAME_MENU - 10) && y > 10 && y < SIZE_ICON_MUSIC + 10)
                 {
+                    if (party->sound == 1)
+                    {
+                        if (verbose_flag)
+                        {
+                            printf("Sound off\n");
+                        }
+                        party->sound = 0;
+                        MLV_stop_music();
+                    }
+                    else
+                    {
+                        if (verbose_flag)
+                        {
+                            printf("Sound on\n");
+                        }
+                        party->sound = 1;
+                        MLV_play_music(music, VOL_MUSIC_MENU, -1);
+                    }
+                }
+                else if (x > 257 && x < 488 && y > 450 && y < 500)
+                {
+                    /* On affiche les crédits */
                     if (verbose_flag)
                     {
-                        printf("Sound on\n");
+                        printf("Print credits\n");
                     }
-                    party->sound = 1;
-                    MLV_play_music(music, VOL_MUSIC_MENU, -1);
+                    party->state = 1;
                 }
-            }
-            else if (x > 257 && x < 488 && y > 450 && y < 500)
-            {
-                /* On affiche les crédits */
-                if (verbose_flag)
+                else if (x > 305 && x < 488 && y > 540 && y < 590)
                 {
-                    printf("Print credits\n");
+                    /* On quitte le jeu */
+                    party->state = 3;
                 }
-                party->state = 1;
-            }
-            else if (x > 305 && x < 488 && y > 540 && y < 590)
-            {
-                /* On quitte le jeu */
-                party->state = 3;
             }
         }
         else if (party->state == 1)
@@ -188,8 +188,6 @@ int main(int argc, char *argv[])
 
     init_window_game();
 
-    party->player->shield = 1;
-
     /* initialisation du tableau d'ennemis */
     /* initialisation du tableau de missiles */
     /* initialisation du tableau de bonus */
@@ -204,7 +202,7 @@ int main(int argc, char *argv[])
         {
             add_enemy(party);
         }
-        if(normal_delay(1) < 0.00005)
+        if (normal_delay(1) < 0.00005)
         {
             printf("add bonus random\n");
             generate_bonus_or_penalty(party);
@@ -231,6 +229,8 @@ int main(int argc, char *argv[])
         // }
         if (party->pk[4] == 1)
         {
+            party->player->sprite_attack->status = 1;
+            party->player->sprite_walk->status = 0;
             if (party->player->delay_shoot == DELAY_SHOOT_PLAYER)
             {
                 add_bullet_player(party);
@@ -249,6 +249,8 @@ int main(int argc, char *argv[])
         else
         {
             party->player->delay_shoot = DELAY_SHOOT_PLAYER;
+            party->player->sprite_attack->status = 0;
+            party->player->sprite_walk->status = 1;
         }
 
         /* Si le joueur n'a plus de vie : il perd */
@@ -260,7 +262,7 @@ int main(int argc, char *argv[])
         /* Incrémentation du score */
         party->score += 1;
 
-        if(party->score % 500 == 0)
+        if (party->score % 500 == 0)
         {
             generate_bonus_or_penalty(party);
         }

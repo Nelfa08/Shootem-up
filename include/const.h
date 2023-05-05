@@ -37,22 +37,26 @@
 #define SPEED_BG_GAME 1
 
 /* PLAYER */
-#define SIZE_PLAYER 100
-#define PATH_PLAYER "data/img/player.png"
-#define PATH_IMG_HEART_FULL "data/img/heart_full.png"
-#define PATH_IMG_HEART_EMPTY "data/img/heart.png"
-#define SIZE_HEART 20
+#define PLAYER_SPRITE_PATH "data/img/player/Enchantress"
+#define NB_FRAMES_PLAYER_WALK 8
+#define NB_FRAMES_PLAYER_ATTACK 10
+#define NB_FRAMES_PLAYER_DEAD 5
+#define NB_FRAMES_PLAYER_RUN 8
+#define NB_FRAMES_PLAYER_IDLE 5
 #define SPEED_PLAYER 10
 #define HEALTH_PLAYER 3
 #define SPAWN_PLAYER_X 0
 #define SPAWN_PLAYER_Y 260
-#define DELAY_SHOOT_PLAYER 7
+#define DELAY_SHOOT_PLAYER 10
 #define PATH_IMG_SHIELD "data/img/force-field.png"
+#define PATH_IMG_HEART_FULL "data/img/heart_full.png"
+#define PATH_IMG_HEART_EMPTY "data/img/heart.png"
+#define SIZE_HEART 20
 
 /* BULLET PLAYER */
-#define PATH_IMG_BULLET_PLAYER "data/img/shuriken.png"
-#define SIZE_BULLET_PLAYER 30
-#define SPEED_BULLET_PLAYER 30
+#define PATH_IMG_BULLET_PLAYER "data/img/player/Enchantress/bullet_enchantress.png"
+#define SIZE_BULLET_PLAYER 18
+#define SPEED_BULLET_PLAYER 20
 #define DAMAGE_BULLET_PLAYER 1
 #define MAX_BULLET_PLAYER 100
 

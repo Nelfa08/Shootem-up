@@ -81,7 +81,6 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->menu->img_sound_on = MLV_load_image(PATH_IMG_SOUND_ON);
     party->menu->img_sound_off = MLV_load_image(PATH_IMG_SOUND_OFF);
 
-    party->image_player = MLV_load_image(PATH_PLAYER);
     party->image_bullet_player = MLV_load_image(PATH_IMG_BULLET_PLAYER);
     party->image_enemy = MLV_load_image(PATH_ENEMY);
     party->image_bullet_enemy = MLV_load_image(PATH_IMG_BULLET_ENEMY);
@@ -180,8 +179,8 @@ int free_party(Party *party)
 void generate_bonus_or_penalty(Party *party)
 {
     // Génère un nombre entier aléatoire entre 0 et 1 pour sélectionner le type de bonus ou de pénalité
-    int random_type = rand() % 2;
-    // int random_type = 1;
+    // int random_type = rand() % 2;
+    int random_type = 0;
 
     // Génère les propriétés communes à tous les bonus et pénalités
 

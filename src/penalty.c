@@ -63,9 +63,9 @@ int collision_penalty(Party *party)
     {
         if (party->penalty[i]->visible == 1)
         {
-            if (party->penalty[i]->position->x <= party->player->position->x + party->player->size &&
+            if (party->penalty[i]->position->x <= party->player->position->x + party->player->width &&
                 party->penalty[i]->position->x + party->penalty[i]->size >= party->player->position->x &&
-                party->penalty[i]->position->y <= party->player->position->y + party->player->size &&
+                party->penalty[i]->position->y <= party->player->position->y + party->player->height &&
                 party->penalty[i]->position->y + party->penalty[i]->size >= party->player->position->y)
             {
                 party->penalty[i]->visible = 0;

@@ -6,7 +6,7 @@
 
 
 int init_window_menu();
-int draw_window_menu(Party *party, int border_sound);
+int draw_window_menu(Party *party);
 int draw_window_credits();
 int init_window_game();
 int draw_frame_game(Party *party);

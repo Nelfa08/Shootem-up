@@ -30,8 +30,8 @@ int add_bullet_player(Party *party)
 {
     Bullet_player *new_bullet = create_bullet_player();
     new_bullet->visible = 1;
-    new_bullet->position->x = party->player->position->x + party->player->size;
-    new_bullet->position->y = party->player->position->y + (party->player->size / 4);
+    new_bullet->position->x = party->player->position->x + party->player->width;
+    new_bullet->position->y = party->player->position->y + (party->player->height / 2);
     for (int i = 0; i < MAX_BULLET_PLAYER; i++)
     {
         if (party->bullets_player[i]->visible == 0)

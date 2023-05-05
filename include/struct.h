@@ -12,22 +12,36 @@ typedef struct position
     int y;
 } Position;
 
+typedef struct sprite
+{
+    MLV_Image **frames;
+    int nb_frames;
+    int current_frame;
+    int status;
+} Sprite;
+
 typedef struct player
 {
     Position *position;
-    int size;
     int health;
     int speed;
     int delay_shoot;
     char *name;
     int shield;
-    unsigned long int boost_start_shield;
-    unsigned long int boost_start_speed;
+    Sprite *sprite_walk;
+    Sprite *sprite_attack;
+    Sprite *sprite_dead;
+    Sprite *sprite_run;
+    Sprite *sprite_idle;
+    int height;
+    int width;
 } Player;
 
 typedef struct bullet_player
 {
     Position *position;
+    int height;
+    int width;
     int size;
     int speed;
     int damage;
@@ -142,7 +156,6 @@ typedef struct party
     Pressed_key pk;
     int size_file_scoreboard;
     Scoreboard *scoreboard[10];
-    MLV_Image *image_player;
     MLV_Image *image_heart_full;
     MLV_Image *image_heart_empty;
     MLV_Image *image_bullet_player;
