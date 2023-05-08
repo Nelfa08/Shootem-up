@@ -1,6 +1,8 @@
 #include "../include/const.h"
 #include "../include/struct.h"
 
+#include "../include/enemy.h"
+
 #include "../include/penalty.h"
 
 Penalty *create_penalty()
@@ -94,8 +96,10 @@ int player_get_penalty(Party *party)
         }
         else if (party->penalty[penalty_collision]->kind == 2)
         {
-            printf("player_get_penalty: DAMAGE\n");
-            party->player->health -= 1;
+            printf("player_get_penalty: BOSS\n");
+            for(int i = 0 ; i < 10 ; i++) { 
+                add_enemy(party);
+            }
         }
     }
     return 0;

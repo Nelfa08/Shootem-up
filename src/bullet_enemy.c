@@ -33,7 +33,7 @@ int add_bullet_enemy(Party *party, Enemy *enemy)
     Bullet_enemy *new_bullet = create_bullet_enemy();
     new_bullet->visible = 1;
     new_bullet->position->x = enemy->position->x - new_bullet->width;
-    new_bullet->position->y = enemy->position->y + (enemy->size / 4);
+    new_bullet->position->y = enemy->position->y + (enemy->height / 4);
     for (int i = 0; i < MAX_BULLET_ENEMY; i++)
     {
         if (party->bullets_enemy[i]->visible == 0)
@@ -116,6 +116,7 @@ int fire_enemy(Party *party)
     if (party->enemies[number_enemy]->visible == 1 && rand_shoot < 0.005)
     {
         add_bullet_enemy(party, party->enemies[number_enemy]);
+        party->enemies[number_enemy]->sprite_attack->status = 1;
     }
     return 0;
 }

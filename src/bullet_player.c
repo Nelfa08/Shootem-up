@@ -100,9 +100,9 @@ int player_kill_ennemy(Party *party)
 int check_collisions_bullet_player(Bullet_player *bullet, Enemy *enemy)
 {
     if (bullet->position->x + bullet->size >= enemy->position->x &&
-        bullet->position->x <= enemy->position->x + enemy->size &&
+        bullet->position->x <= enemy->position->x + enemy->width &&
         bullet->position->y + bullet->size >= enemy->position->y &&
-        bullet->position->y <= enemy->position->y + enemy->size)
+        bullet->position->y <= enemy->position->y + enemy->height)
     {
         return 1;
     }

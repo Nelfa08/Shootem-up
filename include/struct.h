@@ -12,6 +12,16 @@ typedef struct position
     int y;
 } Position;
 
+/* inutilisée pour le moment */
+typedef enum game_status
+{
+    MENU,
+    CREDITS,
+    GAME,
+    GAME_OVER,
+    QUIT
+} Game_status;
+
 typedef struct sprite
 {
     MLV_Image **frames;
@@ -51,10 +61,14 @@ typedef struct bullet_player
 typedef struct enemy
 {
     Position *position;
-    int size;
+    int height;
+    int width;
     int health;
     int speed;
     int visible;
+    Sprite *sprite_walk;
+    Sprite *sprite_attack;
+    Sprite *sprite_dead;
 } Enemy;
 
 typedef struct bullet_enemy
@@ -104,13 +118,17 @@ typedef enum bonus_kind
     SPEED,
     HEALTH,
     BOMB
+    /*
+        - tires font + de dégats 
+        - 
+    */
 } Bonus_kind;
 
 typedef enum penalty_kind
 {
     SLOW,
     REVERSE,
-    DAMAGE
+    BOSS
 } Penalty_kind;
 
 typedef struct bonus {
@@ -141,8 +159,8 @@ typedef struct party
 {
     int verbose_flag;
     int hitbox_flag;
-    int state;
     int sound;
+    int status;
     unsigned long int score;
     Player *player;
     Enemy *enemies[MAX_ENEMY];
@@ -159,7 +177,6 @@ typedef struct party
     MLV_Image *image_heart_full;
     MLV_Image *image_heart_empty;
     MLV_Image *image_bullet_player;
-    MLV_Image *image_enemy;
     MLV_Image *image_bullet_enemy;
     
     MLV_Image *image_shield_bonus;

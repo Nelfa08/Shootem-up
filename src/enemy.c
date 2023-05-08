@@ -2,28 +2,9 @@
 #include "../include/const.h"
 #include "../include/struct.h"
 
+#include "../include/sprite.h"
+
 #include "../include/enemy.h"
-
-Enemy *init_enemy()
-{
-    Enemy *enemy = malloc(sizeof(Enemy));
-    enemy->position = malloc(sizeof(Position));
-    enemy->position->x = 0;
-    enemy->position->y = 0;
-    enemy->speed = SPEED_ENEMY;
-    enemy->health = HEALTH_ENEMY;
-    enemy->size = SIZE_ENEMY;
-    return enemy;
-}
-
-void init_tab_enemy(Party *party)
-{
-    int i;
-    for (i = 0; i < MAX_ENEMY; i++)
-    {
-        party->enemies[i] = init_enemy();
-    }
-}
 
 /**
  * @brief Initialisation des ennemies
@@ -32,22 +13,37 @@ void init_tab_enemy(Party *party)
  */
 Enemy *create_enemy()
 {
-    int rand_y = (rand() % (BOTTOM_BORDER - TOP_BORDER + 1)) + TOP_BORDER;
     Enemy *enemy = malloc(sizeof(Enemy));
     enemy->position = malloc(sizeof(Position));
     enemy->position->x = WIDTH_FRAME_GAME;
-    enemy->position->y = rand_y;
+    enemy->position->y = 0;
+    enemy->health = 1;
     enemy->speed = SPEED_ENEMY;
-    enemy->health = HEALTH_ENEMY;
-    enemy->size = SIZE_ENEMY;
+    enemy->visible = 0;
+    enemy->sprite_walk = create_sprite(ENEMY_SPRITE_PATH, NB_FRAMES_ENEMY_WALK, 0);
+    enemy->sprite_attack = create_sprite(ENEMY_SPRITE_PATH, NB_FRAMES_ENEMY_ATTACK, 1);
+    enemy->height = MLV_get_image_height(enemy->sprite_walk->frames[0]);
+    enemy->width = MLV_get_image_width(enemy->sprite_walk->frames[0]);
     return enemy;
+}
+
+void init_enemies(Party *party)
+{
+    int i;
+    for (i = 0; i < MAX_ENEMY; i++)
+    {
+        party->enemies[i] = create_enemy();
+    }
 }
 
 int add_enemy(Party *party)
 {
     Enemy *new_enemy = create_enemy();
+    int rand_y = (rand() % (BOTTOM_BORDER - TOP_BORDER + 1)) + TOP_BORDER;
+
     new_enemy->visible = 1;
     new_enemy->health = (party->score / 500) + 1;
+    new_enemy->position->y = rand_y;
     for (int i = 0; i < MAX_ENEMY; i++)
     {
         if (party->enemies[i]->visible == 0)
@@ -67,7 +63,7 @@ int move_enemies(Party *party)
         if (party->enemies[i]->visible == 1)
         {
             party->enemies[i]->position->x -= party->enemies[i]->speed;
-            if (party->enemies[i]->position->x < -party->enemies[i]->size)
+            if (party->enemies[i]->position->x < -party->enemies[i]->width)
             {
                 party->player->health -= 1;
                 party->enemies[i]->visible = 0;

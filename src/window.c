@@ -82,7 +82,9 @@ int draw_window_menu(Party *party)
     }
 
     MLV_draw_image(party->player->sprite_idle->frames[party->player->sprite_idle->current_frame], 0, 0);
+
     party->player->sprite_idle->current_frame++;
+
     if (party->player->sprite_idle->current_frame >= party->player->sprite_idle->nb_frames)
     {
         party->player->sprite_idle->current_frame = 0;
@@ -252,9 +254,13 @@ int draw_player(Party *party)
             MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->width, party->player->height, MLV_COLOR_RED);
         }
     }
-    else if(party->player->sprite_run->status == 1) {
+    else if (party->player->sprite_run->status == 1)
+    {
         MLV_draw_image(party->player->sprite_run->frames[party->player->sprite_run->current_frame], party->player->position->x, party->player->position->y);
-        party->player->sprite_run->current_frame++;
+        if (party->score % 2 == 0)
+        {
+            party->player->sprite_run->current_frame++;
+        }
         if (party->player->sprite_run->current_frame >= party->player->sprite_run->nb_frames)
         {
             party->player->sprite_run->current_frame = 0;
@@ -263,7 +269,10 @@ int draw_player(Party *party)
     else
     {
         MLV_draw_image(party->player->sprite_walk->frames[party->player->sprite_walk->current_frame], party->player->position->x, party->player->position->y);
-        party->player->sprite_walk->current_frame++;
+        if (party->score % 2 == 0)
+        {
+            party->player->sprite_walk->current_frame++;
+        }
         if (party->player->sprite_walk->current_frame >= party->player->sprite_walk->nb_frames)
         {
             party->player->sprite_walk->current_frame = 0;
@@ -275,22 +284,7 @@ int draw_player(Party *party)
             MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->width, party->player->height, MLV_COLOR_RED);
         }
     }
-    // else
-    // {
-    //     MLV_draw_image(party->player->sprite_idle->frames[party->player->sprite_idle->current_frame], party->player->position->x, party->player->position->y);
-    //     party->player->sprite_idle->current_frame++;
-    //     if (party->player->sprite_idle->current_frame >= party->player->sprite_idle->nb_frames)
-    //     {
-    //         party->player->sprite_idle->current_frame = 0;
-    //     }
-
-    //     /* dessine les hitbox */
-    //     if (party->hitbox_flag == 1)
-    //     {
-    //         MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->width, party->player->height, MLV_COLOR_RED);
-    //     }
-    // }
-    MLV_wait_milliseconds(15);
+    MLV_wait_milliseconds(100 / party->player->sprite_walk->nb_frames);
     return 0;
 }
 
@@ -301,12 +295,39 @@ int draw_enemies(Party *party)
     {
         if (party->enemies[i]->visible == 1)
         {
-            MLV_resize_image_with_proportions(party->image_enemy, party->enemies[i]->size, party->enemies[i]->size);
-            MLV_draw_image(party->image_enemy, party->enemies[i]->position->x, party->enemies[i]->position->y);
-            /* dessine les hitbox */
-            if (party->hitbox_flag == 1)
+            if (party->enemies[i]->sprite_attack->status == 1)
             {
-                MLV_draw_rectangle(party->enemies[i]->position->x, party->enemies[i]->position->y, party->enemies[i]->size, party->enemies[i]->size, MLV_COLOR_RED);
+                MLV_draw_image(party->enemies[i]->sprite_attack->frames[party->enemies[i]->sprite_attack->current_frame], party->enemies[i]->position->x, party->enemies[i]->position->y);
+                party->enemies[i]->sprite_attack->current_frame++;
+                if (party->enemies[i]->sprite_attack->current_frame >= party->enemies[i]->sprite_attack->nb_frames)
+                {
+                    party->enemies[i]->sprite_attack->current_frame = 0;
+                    party->enemies[i]->sprite_attack->status = 0;
+                }
+
+                /* dessine les hitbox */
+                if (party->hitbox_flag == 1)
+                {
+                    MLV_draw_rectangle(party->enemies[i]->position->x, party->enemies[i]->position->y, party->enemies[i]->width, party->enemies[i]->height, MLV_COLOR_RED);
+                }
+            }
+            else
+            {
+                MLV_draw_image(party->enemies[i]->sprite_walk->frames[party->enemies[i]->sprite_walk->current_frame], party->enemies[i]->position->x, party->enemies[i]->position->y);
+                if (party->score % 2 == 0)
+                {
+                    party->enemies[i]->sprite_walk->current_frame++;
+                }
+                if (party->enemies[i]->sprite_walk->current_frame >= party->enemies[i]->sprite_walk->nb_frames)
+                {
+                    party->enemies[i]->sprite_walk->current_frame = 0;
+                }
+
+                /* dessine les hitbox */
+                if (party->hitbox_flag == 1)
+                {
+                    MLV_draw_rectangle(party->enemies[i]->position->x, party->enemies[i]->position->y, party->enemies[i]->width, party->enemies[i]->height, MLV_COLOR_RED);
+                }
             }
         }
     }
@@ -440,7 +461,7 @@ int draw_penalties(Party *party)
             case REVERSE:
                 image_penalty = party->image_reverse_penalty;
                 break;
-            case DAMAGE:
+            case BOSS:
                 image_penalty = party->image_damage_penalty;
                 break;
             }

@@ -28,20 +28,49 @@ double normal_delay(double mean)
 
 Party *init_party(int verbose_flag, int hitbox_flag)
 {
+    if (verbose_flag)
+    {
+        printf("--------------------------------\n");
+        printf("Party initialization started: \n");
+    }
     Party *party = malloc(sizeof(Party));
-    party->state = 0;
+    party->status = 0;
     party->sound = 0;
     party->score = 0;
     party->verbose_flag = verbose_flag;
     party->hitbox_flag = hitbox_flag;
 
     party->player = create_player();
+    if (verbose_flag)
+    {
+        printf("\tPlayer created\n");
+    }
 
-    init_tab_enemy(party);
+    init_enemies(party);
+    if (verbose_flag)
+    {
+        printf("\tEnemies created\n");
+    }
     init_bullets_player(party);
+    if (verbose_flag)
+    {
+        printf("\tBullets player created\n");
+    }
     init_bullets_enemy(party);
+    if (verbose_flag)
+    {
+        printf("\tBullets enemy created\n");
+    }
     init_tab_penalty(party);
+    if (verbose_flag)
+    {
+        printf("\tPenalties created\n");
+    }
     init_tab_bonus(party);
+    if (verbose_flag)
+    {
+        printf("\tBonuses created\n");
+    }
 
     /* A mettre dans des sous fonctions */
     party->scenery1 = malloc(sizeof(Scenery));
@@ -57,6 +86,10 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->scenery1->foreground->image = MLV_load_image(PATH_IMG_FG_GAME);
     party->scenery1->scroll = 1;
     party->scenery1->speed = SPEED_BG_GAME;
+    if (verbose_flag)
+    {
+        printf("\tScenery 1 created\n");
+    }
 
     party->scenery2 = malloc(sizeof(Scenery));
     party->scenery2->background = malloc(sizeof(Background));
@@ -69,6 +102,12 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->scenery2->foreground->position->x = WIDTH_FRAME_GAME;
     party->scenery2->foreground->position->y = 0;
     party->scenery2->foreground->image = MLV_load_image(PATH_IMG_FG_GAME);
+    party->scenery2->scroll = 1;
+    party->scenery2->speed = SPEED_BG_GAME;
+    if (verbose_flag)
+    {
+        printf("\tScenery 2 created\n");
+    }
 
     party->menu = malloc(sizeof(Menu));
     party->menu->background = malloc(sizeof(Background));
@@ -80,21 +119,15 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->menu->font_title = MLV_load_font(PATH_FONT_MENU, 76);
     party->menu->img_sound_on = MLV_load_image(PATH_IMG_SOUND_ON);
     party->menu->img_sound_off = MLV_load_image(PATH_IMG_SOUND_OFF);
+    if (verbose_flag)
+    {
+        printf("\tMenu created\n");
+    }
 
     party->image_bullet_player = MLV_load_image(PATH_IMG_BULLET_PLAYER);
-    party->image_enemy = MLV_load_image(PATH_ENEMY);
     party->image_bullet_enemy = MLV_load_image(PATH_IMG_BULLET_ENEMY);
     party->image_heart_empty = MLV_load_image(PATH_IMG_HEART_EMPTY);
     party->image_heart_full = MLV_load_image(PATH_IMG_HEART_FULL);
-
-    for (int i = 0; i < 10; i++)
-    {
-        party->scoreboard[i] = malloc(sizeof(Scoreboard));
-        party->scoreboard[i]->name = malloc(sizeof(char) * 20);
-        party->scoreboard[i]->date = malloc(sizeof(char) * 20);
-        party->scoreboard[i]->time = malloc(sizeof(char) * 20);
-    }
-
     party->image_shield_bonus = MLV_load_image(PATH_IMG_SHIELD_BONUS);
     party->image_speed_bonus = MLV_load_image(PATH_IMG_SPEED_BONUS);
     party->image_health_bonus = MLV_load_image(PATH_IMG_HEALTH_BONUS);
@@ -103,7 +136,23 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->image_reverse_penalty = MLV_load_image(PATH_IMG_REVERSE_PENALTY);
     party->image_damage_penalty = MLV_load_image(PATH_IMG_DAMAGE_PENALTY);
     party->image_shield = MLV_load_image(PATH_IMG_SHIELD);
+    if (verbose_flag)
+    {
+        printf("\tImages loaded\n");
+    }
 
+    for (int i = 0; i < 10; i++)
+    {
+        party->scoreboard[i] = malloc(sizeof(Scoreboard));
+        party->scoreboard[i]->name = malloc(sizeof(char) * 20);
+        party->scoreboard[i]->date = malloc(sizeof(char) * 20);
+        party->scoreboard[i]->time = malloc(sizeof(char) * 20);
+    }
+    if (verbose_flag)
+    {
+        printf("\tScoreboard created\n");
+        printf("--------------------------------\n");
+    }
     return party;
 }
 
@@ -179,8 +228,8 @@ int free_party(Party *party)
 void generate_bonus_or_penalty(Party *party)
 {
     // Génère un nombre entier aléatoire entre 0 et 1 pour sélectionner le type de bonus ou de pénalité
-    // int random_type = rand() % 2;
-    int random_type = 0;
+    int random_type = rand() % 2;
+    // int random_type = 1;
 
     // Génère les propriétés communes à tous les bonus et pénalités
 
@@ -196,4 +245,3 @@ void generate_bonus_or_penalty(Party *party)
         printf("Penalty created\n");
     }
 }
-

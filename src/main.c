@@ -90,11 +90,19 @@ int main(int argc, char *argv[])
         }
     }
 
+    if (verbose_flag == 1)
+    {
+        printf("Game start with verbose_flag\n");
+        if (hitbox_flag == 1)
+        {
+            printf("Game start with hitbox_flag\n");
+        }
+        printf("\n");
+    }
+
     /* Initialisation de la party */
     init_window_menu();
-    printf("start init party\n");
     party = init_party(verbose_flag, hitbox_flag);
-    printf("end init party\n");
 
     /* Initialisation de la musique */
     if (MLV_init_audio())
@@ -115,9 +123,9 @@ int main(int argc, char *argv[])
      * 2 : jeu
      * 3 : fin
      */
-    while (party->state == 0 || party->state == 1)
+    while (party->status == 0 || party->status == 1)
     {
-        if (party->state == 0)
+        if (party->status == 0)
         {
             draw_window_menu(party);
             if (MLV_get_mouse_button_state(MLV_BUTTON_LEFT) == MLV_PRESSED)
@@ -130,7 +138,7 @@ int main(int argc, char *argv[])
                     {
                         printf("Start game\n");
                     }
-                    party->state = 2;
+                    party->status = 2;
                 }
                 else if (x > WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10) && x < (WIDTH_FRAME_MENU - 10) && y > 10 && y < SIZE_ICON_MUSIC + 10)
                 {
@@ -160,16 +168,16 @@ int main(int argc, char *argv[])
                     {
                         printf("Print credits\n");
                     }
-                    party->state = 1;
+                    party->status = 1;
                 }
                 else if (x > 305 && x < 488 && y > 540 && y < 590)
                 {
                     /* On quitte le jeu */
-                    party->state = 3;
+                    party->status = 3;
                 }
             }
         }
-        else if (party->state == 1)
+        else if (party->status == 1)
         {
             clear_window();
             draw_window_credits();
@@ -181,7 +189,7 @@ int main(int argc, char *argv[])
                 {
                     printf("Back to menu\n");
                 }
-                party->state = 0;
+                party->status = 0;
             }
         }
     }
@@ -191,21 +199,15 @@ int main(int argc, char *argv[])
     /* initialisation du tableau d'ennemis */
     /* initialisation du tableau de missiles */
     /* initialisation du tableau de bonus */
-    while (party->state == 2)
+    while (party->status == 2)
     {
         /* Récupération de l'heure au début */
         clock_gettime(CLOCK_REALTIME, &start_time);
-
         /* refresh de la window */
         clear_window();
         if (normal_delay(1) < 0.01)
         {
             add_enemy(party);
-        }
-        if (normal_delay(1) < 0.00005)
-        {
-            printf("add bonus random\n");
-            generate_bonus_or_penalty(party);
         }
         draw_frame_game(party);
         move_scenery(party->scenery1, party->scenery2);
@@ -249,6 +251,7 @@ int main(int argc, char *argv[])
         else
         {
             party->player->delay_shoot = DELAY_SHOOT_PLAYER;
+            party->player->sprite_attack->current_frame = 0;
             party->player->sprite_attack->status = 0;
             party->player->sprite_walk->status = 1;
         }
@@ -256,7 +259,7 @@ int main(int argc, char *argv[])
         /* Si le joueur n'a plus de vie : il perd */
         if (party->player->health <= 0)
         {
-            party->state = 3;
+            party->status = 3;
         }
 
         /* Incrémentation du score */
@@ -272,15 +275,15 @@ int main(int argc, char *argv[])
         time_frame = (end_time.tv_sec - start_time.tv_sec) + ((end_time.tv_nsec - start_time.tv_nsec) / BILLION);
 
         /* Si la frame a été trop vite, on attend un peu */
-        if (time_frame < (1.0 / 48.0))
+        if (time_frame < (1.0 / 60.0))
         {
-            MLV_wait_milliseconds((int)(((1.0 / 48.0) - time_frame) * 1000));
+            MLV_wait_milliseconds((int)(((1.0 / 60.0) - time_frame) * 1000));
         }
 
-        /* is win ? => party->state == 3 */
+        /* is win ? => party->status == 3 */
     }
 
-    if (party->state == 3)
+    if (party->status == 3)
     {
         /* Fin du jeu */
 
@@ -305,7 +308,7 @@ int main(int argc, char *argv[])
         printf("End of the game\n");
         printf("Free memory\n");
     }
-    free(party->player->name); // voir la doc
+    free(party->player->name); // voir la doc du bloc de MLV_wait_input_box_with_font
     MLV_stop_music();
     MLV_free_music(music);
     MLV_free_audio();
