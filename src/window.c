@@ -126,7 +126,6 @@ int draw_window_credits()
     MLV_draw_adapted_text_box_with_font((WIDTH_FRAME_MENU / 2) - (width_text_credits / 2), (HEIGHT_FRAME_GAME * 3 / 10 - height_button_back / 2), message_credits, font_text, taille_interlinge, MLV_ALPHA_TRANSPARENT, MLV_COLOR_GREEN, MLV_ALPHA_TRANSPARENT, MLV_TEXT_LEFT);
 
     MLV_actualise_window();
-    MLV_free_image(img);
     MLV_free_font(font_title);
     MLV_free_font(font_back);
     return EXIT_SUCCESS;
@@ -397,7 +396,7 @@ int draw_window_end(Party *party)
 
 int draw_input_name(Party *party)
 {
-    char *player_name;
+    // char *player_name;
     MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 30);
 
     // MLV_wait_input_box_with_font(WIDTH_FRAME_GAME / 4, HEIGHT_FRAME_GAME / 4, WIDTH_FRAME_GAME / 4 + 100, HEIGHT_FRAME_GAME / 4 + 100, MLV_ALPHA_TRANSPARENT, MLV_COLOR_WHITE, MLV_COLOR_BLACK, "Player name: ", &player_name, font);

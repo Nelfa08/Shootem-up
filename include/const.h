@@ -13,7 +13,7 @@
 #define HEIGHT_FRAME_MENU 750
 #define WIDTH_FRAME_MENU 750
 #define NAME_FRAME_MENU "DofusRuner - Menu"
-#define PATH_IMG_BG_MENU "data/img/bg_menu.png"
+#define PATH_IMG_BG_MENU "data/img/coco_dofus_projet_BG_2_menu.png"
 #define PATH_IMG_SOUND_ON "data/img/sound_on.png"
 #define PATH_IMG_SOUND_OFF "data/img/sound_off.png"
 #define PATH_FONT_MENU "data/font/Talk_Comic.ttf"
@@ -32,17 +32,17 @@
 #define NAME_FRAME_GAME "DofusRuner - Game"
 
 /* SCENERY */
-#define PATH_IMG_BG_GAME "data/img/bg_game.png"
-#define PATH_IMG_FG_GAME "data/img/fg_game.png"
+#define PATH_IMG_BG_GAME "data/img/coco_dofus_projet_BG_2.png"
+#define PATH_IMG_FG_GAME "data/img/coco_dofus_projet_BG_3.png"
 #define SPEED_BG_GAME 1
 
 /* PLAYER */
-#define PLAYER_SPRITE_PATH "data/img/player/Knight"
+#define PLAYER_SPRITE_PATH "data/img/player/Swordsman"
 #define NB_FRAMES_PLAYER_WALK 8
-#define NB_FRAMES_PLAYER_ATTACK 5
+#define NB_FRAMES_PLAYER_ATTACK 6
 #define NB_FRAMES_PLAYER_DEAD 5
-#define NB_FRAMES_PLAYER_RUN 7
-#define NB_FRAMES_PLAYER_IDLE 6
+#define NB_FRAMES_PLAYER_RUN 8
+#define NB_FRAMES_PLAYER_IDLE 5
 #define SPEED_PLAYER 10
 #define HEALTH_PLAYER 3
 #define SPAWN_PLAYER_X 0
@@ -54,7 +54,7 @@
 #define SIZE_HEART 20
 
 /* BULLET PLAYER */
-#define PATH_IMG_BULLET_PLAYER "data/img/player/Knight/bullet_knight.png"
+#define PATH_IMG_BULLET_PLAYER "data/img/player/Swordsman/bullet_swordsman.png"
 #define SIZE_BULLET_PLAYER 18
 #define SPEED_BULLET_PLAYER 20
 #define DAMAGE_BULLET_PLAYER 1
