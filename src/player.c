@@ -27,6 +27,7 @@ Player *create_player()
     player->delay_shoot = DELAY_SHOOT_PLAYER;
     player->name = "";
     player->shield = 0;
+    player->isReversed = 0;
     player->sprite_walk = create_sprite(PLAYER_SPRITE_PATH, NB_FRAMES_PLAYER_WALK, 0);
     player->sprite_attack = create_sprite(PLAYER_SPRITE_PATH, NB_FRAMES_PLAYER_ATTACK, 1);
     player->sprite_dead = create_sprite(PLAYER_SPRITE_PATH, NB_FRAMES_PLAYER_DEAD, 2);
@@ -40,6 +41,13 @@ Player *create_player()
 
 int move_player(Player *player, Pressed_key pk)
 {
+    if(player->isReversed == 1){
+        for (int i = 0; i < 4; i++)
+        {
+            pk[i] = pk[i]^1;
+        }
+        
+    }
     if (pk[0] == 1)
     {
         if (player->position->y > TOP_BORDER)
