@@ -116,7 +116,7 @@ int fire_enemy(Party *party)
     if (party->enemies[number_enemy]->visible == 1 && rand_shoot < 0.005)
     {
         add_bullet_enemy(party, party->enemies[number_enemy]);
-        party->enemies[number_enemy]->sprite_attack->status = 1;
+        party->enemies[number_enemy]->status = 1;
     }
     return 0;
 }

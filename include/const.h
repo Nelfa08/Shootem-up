@@ -37,12 +37,12 @@
 #define SPEED_BG_GAME 1
 
 /* PLAYER */
-#define PLAYER_SPRITE_PATH "data/img/player/Swordsman"
+#define PLAYER_SPRITE_PATH "data/img/player/Knight"
 #define NB_FRAMES_PLAYER_WALK 8
-#define NB_FRAMES_PLAYER_ATTACK 6
+#define NB_FRAMES_PLAYER_ATTACK 5
 #define NB_FRAMES_PLAYER_DEAD 5
-#define NB_FRAMES_PLAYER_RUN 8
-#define NB_FRAMES_PLAYER_IDLE 5
+#define NB_FRAMES_PLAYER_RUN 7
+#define NB_FRAMES_PLAYER_IDLE 6
 #define SPEED_PLAYER 10
 #define HEALTH_PLAYER 3
 #define SPAWN_PLAYER_X 0
@@ -54,11 +54,11 @@
 #define SIZE_HEART 20
 
 /* BULLET PLAYER */
-#define PATH_IMG_BULLET_PLAYER "data/img/player/Swordsman/bullet_swordsman.png"
+#define PATH_IMG_BULLET_PLAYER "data/img/player/Knight/bullet_knight.png"
 #define SIZE_BULLET_PLAYER 18
 #define SPEED_BULLET_PLAYER 20
 #define DAMAGE_BULLET_PLAYER 1
-#define MAX_BULLET_PLAYER 100
+#define MAX_BULLET_PLAYER 50
 
 /* ENEMY */
 #define ENEMY_SPRITE_PATH "data/img/monster/Yurei"
@@ -66,7 +66,7 @@
 #define NB_FRAMES_ENEMY_ATTACK 5
 #define SPEED_ENEMY 3
 #define HEALTH_ENEMY 1
-#define MAX_ENEMY 100
+#define MAX_ENEMY 50
 
 /* BULLET ENEMY */
 #define PATH_IMG_BULLET_ENEMY "data/img/monster/Yurei/bullet_enemy.png"
@@ -78,7 +78,7 @@
 
 /* BONUS */
 #define SIZE_BONUS 50
-#define MAX_BONUS 20
+#define MAX_BONUS 10
 #define SPEED_BONUS 1
 #define PATH_IMG_SHIELD_BONUS "data/img/bonus/shield.png"
 #define PATH_IMG_SPEED_BONUS "data/img/bonus/speed.png"
@@ -88,7 +88,7 @@
 
 /* PENALTIES */
 #define SIZE_PENALTY 50
-#define MAX_PENALTY 100
+#define MAX_PENALTY 10
 #define SPEED_PENALTY 1
 #define PATH_IMG_SLOW_PENALTY "data/img/penalty/slow.png"
 #define PATH_IMG_REVERSE_PENALTY "data/img/penalty/reverse.png"

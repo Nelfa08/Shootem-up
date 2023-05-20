@@ -28,6 +28,8 @@ double normal_delay(double mean)
 
 Party *init_party(int verbose_flag, int hitbox_flag)
 {
+    clock_t start, end;
+    start = clock();
     if (verbose_flag)
     {
         printf("--------------------------------\n");
@@ -153,6 +155,8 @@ Party *init_party(int verbose_flag, int hitbox_flag)
         printf("\tScoreboard created\n");
         printf("--------------------------------\n");
     }
+    end = clock();
+    printf("Time to load: %fs\n", (double)(end - start) / CLOCKS_PER_SEC);
     return party;
 }
 

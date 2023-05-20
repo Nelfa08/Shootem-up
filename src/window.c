@@ -294,14 +294,14 @@ int draw_enemies(Party *party)
     {
         if (party->enemies[i]->visible == 1)
         {
-            if (party->enemies[i]->sprite_attack->status == 1)
+            if (party->enemies[i]->status == 1)
             {
-                MLV_draw_image(party->enemies[i]->sprite_attack->frames[party->enemies[i]->sprite_attack->current_frame], party->enemies[i]->position->x, party->enemies[i]->position->y);
-                party->enemies[i]->sprite_attack->current_frame++;
-                if (party->enemies[i]->sprite_attack->current_frame >= party->enemies[i]->sprite_attack->nb_frames)
+                MLV_draw_image(party->sprite_attack_enemy->frames[party->enemies[i]->current_frame], party->enemies[i]->position->x, party->enemies[i]->position->y);
+                party->enemies[i]->current_frame++;
+                if (party->enemies[i]->current_frame >= party->sprite_attack_enemy->nb_frames)
                 {
-                    party->enemies[i]->sprite_attack->current_frame = 0;
-                    party->enemies[i]->sprite_attack->status = 0;
+                    party->enemies[i]->current_frame = 0;
+                    party->enemies[i]->status = 0;
                 }
 
                 /* dessine les hitbox */
@@ -312,14 +312,14 @@ int draw_enemies(Party *party)
             }
             else
             {
-                MLV_draw_image(party->enemies[i]->sprite_walk->frames[party->enemies[i]->sprite_walk->current_frame], party->enemies[i]->position->x, party->enemies[i]->position->y);
+                MLV_draw_image(party->sprite_walk_enemy->frames[party->enemies[i]->current_frame], party->enemies[i]->position->x, party->enemies[i]->position->y);
                 if (party->score % 2 == 0)
                 {
-                    party->enemies[i]->sprite_walk->current_frame++;
+                    party->enemies[i]->current_frame++;
                 }
-                if (party->enemies[i]->sprite_walk->current_frame >= party->enemies[i]->sprite_walk->nb_frames)
+                if (party->enemies[i]->current_frame >= party->sprite_walk_enemy->nb_frames)
                 {
-                    party->enemies[i]->sprite_walk->current_frame = 0;
+                    party->enemies[i]->current_frame = 0;
                 }
 
                 /* dessine les hitbox */

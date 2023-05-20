@@ -62,14 +62,13 @@ typedef struct bullet_player
 typedef struct enemy
 {
     Position *position;
+    int current_frame;
     int height;
     int width;
     int health;
     int speed;
+    int status;
     int visible;
-    Sprite *sprite_walk;
-    Sprite *sprite_attack;
-    Sprite *sprite_dead;
 } Enemy;
 
 typedef struct bullet_enemy
@@ -120,8 +119,8 @@ typedef enum bonus_kind
     HEALTH,
     BOMB
     /*
-        - tires font + de dégats 
-        - 
+        - tires font + de dégats
+        -
     */
 } Bonus_kind;
 
@@ -132,7 +131,8 @@ typedef enum penalty_kind
     BOSS
 } Penalty_kind;
 
-typedef struct bonus {
+typedef struct bonus
+{
     Position *position;
     Bonus_kind kind;
     int size;
@@ -140,7 +140,8 @@ typedef struct bonus {
     int visible;
 } Bonus;
 
-typedef struct penalty {
+typedef struct penalty
+{
     Position *position;
     Penalty_kind kind;
     int size;
@@ -179,7 +180,7 @@ typedef struct party
     MLV_Image *image_heart_empty;
     MLV_Image *image_bullet_player;
     MLV_Image *image_bullet_enemy;
-    
+
     MLV_Image *image_shield_bonus;
     MLV_Image *image_speed_bonus;
     MLV_Image *image_health_bonus;
@@ -188,6 +189,9 @@ typedef struct party
     MLV_Image *image_reverse_penalty;
     MLV_Image *image_damage_penalty;
     MLV_Image *image_shield;
+    Sprite *sprite_walk_enemy;
+    Sprite *sprite_attack_enemy;
+    Sprite *sprite_dead_enemy;
 } Party;
 
 #endif
