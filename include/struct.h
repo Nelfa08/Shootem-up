@@ -38,7 +38,7 @@ typedef struct player
     int delay_shoot;
     char *name;
     int shield;
-    int isReversed;
+    int is_reversed;
     Sprite *sprite_walk;
     Sprite *sprite_attack;
     Sprite *sprite_dead;

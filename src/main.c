@@ -265,7 +265,7 @@ int main(int argc, char *argv[])
         /* Incrémentation du score */
         party->score += 1;
 
-        if (party->score % 100 == 0)
+        if (party->score % 500 == 0)
         {
             generate_bonus_or_penalty(party);
             party->enemies_density *= 2;

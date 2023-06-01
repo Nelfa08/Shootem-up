@@ -93,7 +93,9 @@ int player_get_penalty(Party *party)
         else if (party->penalty[penalty_collision]->kind == 1)
         {
             printf("player_get_penalty: REVERSE\n");
-            party->player->isReversed = 1;
+            if(party->player->is_reversed == 0)party->player->is_reversed = 1;
+            else party->player->is_reversed = 0;
+
         }
         else if (party->penalty[penalty_collision]->kind == 2)
         {
