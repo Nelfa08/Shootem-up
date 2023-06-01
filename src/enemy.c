@@ -20,6 +20,8 @@ Enemy *create_enemy( Party *party)
     enemy->health = 1;
     enemy->speed = SPEED_ENEMY;
     enemy->visible = 0;
+    enemy->current_frame = 0;
+    enemy->status = 0;
     enemy->height = MLV_get_image_height(party->sprite_walk_enemy->frames[0]);
     enemy->width = MLV_get_image_width(party->sprite_walk_enemy->frames[0]);
     return enemy;

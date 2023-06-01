@@ -39,7 +39,7 @@ int draw_window_menu(Party *party)
     MLV_Image *img_sound_off = MLV_load_image(PATH_IMG_SOUND_OFF);
     MLV_Font *font_title = MLV_load_font(PATH_FONT_MENU, 76);
     MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 50);
-    char *name_game = "DofusRuner";
+    char *name_game = "DofusRunner";
     char *button_play = "PLAY";
     char *button_credits = "CREDITS";
     char *button_quit = "QUIT";

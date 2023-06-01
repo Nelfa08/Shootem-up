@@ -41,6 +41,7 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->score = 0;
     party->verbose_flag = verbose_flag;
     party->hitbox_flag = hitbox_flag;
+    party->enemies_density = ENEMIES_DENSITY;
 
     party->player = create_player();
     if (verbose_flag)

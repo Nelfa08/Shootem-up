@@ -163,6 +163,7 @@ typedef struct party
     int hitbox_flag;
     int sound;
     int status;
+    float enemies_density;
     unsigned long int score;
     Player *player;
     Enemy *enemies[MAX_ENEMY];

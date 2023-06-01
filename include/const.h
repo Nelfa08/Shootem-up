@@ -12,7 +12,7 @@
 /* FRAME MENU */
 #define HEIGHT_FRAME_MENU 750
 #define WIDTH_FRAME_MENU 750
-#define NAME_FRAME_MENU "DofusRuner - Menu"
+#define NAME_FRAME_MENU "DofusRunner - Menu"
 #define PATH_IMG_BG_MENU "data/img/coco_dofus_projet_BG_2_menu.png"
 #define PATH_IMG_SOUND_ON "data/img/sound_on.png"
 #define PATH_IMG_SOUND_OFF "data/img/sound_off.png"
@@ -29,7 +29,7 @@
 #define WIDTH_FRAME_GAME 1500
 #define TOP_BORDER 280
 #define BOTTOM_BORDER 630
-#define NAME_FRAME_GAME "DofusRuner - Game"
+#define NAME_FRAME_GAME "DofusRunner - Game"
 
 /* SCENERY */
 #define PATH_IMG_BG_GAME "data/img/coco_dofus_projet_BG_2.png"
@@ -58,7 +58,7 @@
 #define SIZE_BULLET_PLAYER 18
 #define SPEED_BULLET_PLAYER 20
 #define DAMAGE_BULLET_PLAYER 1
-#define MAX_BULLET_PLAYER 50
+#define MAX_BULLET_PLAYER 100
 
 /* ENEMY */
 #define ENEMY_SPRITE_PATH "data/img/monster/Yurei"
@@ -66,7 +66,8 @@
 #define NB_FRAMES_ENEMY_ATTACK 5
 #define SPEED_ENEMY 3
 #define HEALTH_ENEMY 1
-#define MAX_ENEMY 50
+#define MAX_ENEMY 100
+#define ENEMIES_DENSITY 0.05
 
 /* BULLET ENEMY */
 #define PATH_IMG_BULLET_ENEMY "data/img/monster/Yurei/bullet_enemy.png"
@@ -78,7 +79,7 @@
 
 /* BONUS */
 #define SIZE_BONUS 50
-#define MAX_BONUS 10
+#define MAX_BONUS 20
 #define SPEED_BONUS 1
 #define PATH_IMG_SHIELD_BONUS "data/img/bonus/shield.png"
 #define PATH_IMG_SPEED_BONUS "data/img/bonus/speed.png"
@@ -88,7 +89,7 @@
 
 /* PENALTIES */
 #define SIZE_PENALTY 50
-#define MAX_PENALTY 10
+#define MAX_PENALTY 100
 #define SPEED_PENALTY 1
 #define PATH_IMG_SLOW_PENALTY "data/img/penalty/slow.png"
 #define PATH_IMG_REVERSE_PENALTY "data/img/penalty/reverse.png"
