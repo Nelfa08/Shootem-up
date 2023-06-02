@@ -269,7 +269,6 @@ int main(int argc, char *argv[])
         {
             generate_bonus_or_penalty(party);
             party->enemies_density *= 2;
-            printf("%f", party->enemies_density);
         }
 
         /* Récupération de l'heure en fin */

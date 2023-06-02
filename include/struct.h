@@ -116,11 +116,8 @@ typedef enum bonus_kind
     SHIELD,
     SPEED,
     HEALTH,
-    BOMB
-    /*
-        - tires font + de dégats
-        -
-    */
+    BOMB,
+    ATTACK
 } Bonus_kind;
 
 typedef enum penalty_kind
@@ -186,6 +183,7 @@ typedef struct party
     MLV_Image *image_speed_bonus;
     MLV_Image *image_health_bonus;
     MLV_Image *image_bomb_bonus;
+    MLV_Image *image_attack_bonus;
     MLV_Image *image_slow_penalty;
     MLV_Image *image_reverse_penalty;
     MLV_Image *image_damage_penalty;

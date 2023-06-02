@@ -136,6 +136,7 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->image_speed_bonus = MLV_load_image(PATH_IMG_SPEED_BONUS);
     party->image_health_bonus = MLV_load_image(PATH_IMG_HEALTH_BONUS);
     party->image_bomb_bonus = MLV_load_image(PATH_IMG_BOMB_BONUS);
+    party->image_attack_bonus = MLV_load_image(PATH_IMG_ATTACK_BONUS);
     party->image_slow_penalty = MLV_load_image(PATH_IMG_SLOW_PENALTY);
     party->image_reverse_penalty = MLV_load_image(PATH_IMG_REVERSE_PENALTY);
     party->image_damage_penalty = MLV_load_image(PATH_IMG_DAMAGE_PENALTY);
@@ -235,7 +236,7 @@ void generate_bonus_or_penalty(Party *party)
 {
     // Génère un nombre entier aléatoire entre 0 et 1 pour sélectionner le type de bonus ou de pénalité
     int random_type = rand() % 2;
-    // int random_type = 1;
+    // int random_type = 0;
 
     // Génère les propriétés communes à tous les bonus et pénalités
 

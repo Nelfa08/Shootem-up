@@ -429,6 +429,8 @@ int draw_bonus(Party *party)
                 break;
             case BOMB:
                 image_bonus = party->image_bomb_bonus;
+            case ATTACK:
+                image_bonus = party->image_attack_bonus;
                 break;
             }
             MLV_resize_image_with_proportions(image_bonus, party->bonus[i]->size, party->bonus[i]->size);
