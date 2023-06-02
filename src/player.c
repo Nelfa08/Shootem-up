@@ -30,9 +30,8 @@ Player *create_player()
     player->is_reversed = 0;
     player->sprite_walk = create_sprite(PLAYER_SPRITE_PATH, NB_FRAMES_PLAYER_WALK, 0);
     player->sprite_attack = create_sprite(PLAYER_SPRITE_PATH, NB_FRAMES_PLAYER_ATTACK, 1);
-    player->sprite_dead = create_sprite(PLAYER_SPRITE_PATH, NB_FRAMES_PLAYER_DEAD, 2);
-    player->sprite_run = create_sprite(PLAYER_SPRITE_PATH, NB_FRAMES_PLAYER_RUN, 3);
-    player->sprite_idle = create_sprite(PLAYER_SPRITE_PATH, NB_FRAMES_PLAYER_IDLE, 4);
+    player->sprite_run = create_sprite(PLAYER_SPRITE_PATH, NB_FRAMES_PLAYER_RUN, 2);
+    player->sprite_idle = create_sprite(PLAYER_SPRITE_PATH, NB_FRAMES_PLAYER_IDLE, 3);
     player->height = MLV_get_image_height(player->sprite_walk->frames[0]);
     player->width = MLV_get_image_width(player->sprite_walk->frames[0]);
     

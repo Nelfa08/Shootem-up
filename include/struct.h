@@ -41,7 +41,6 @@ typedef struct player
     int is_reversed;
     Sprite *sprite_walk;
     Sprite *sprite_attack;
-    Sprite *sprite_dead;
     Sprite *sprite_run;
     Sprite *sprite_idle;
     int height;
@@ -165,6 +164,7 @@ typedef struct party
     int status;
     float enemies_density;
     unsigned long int score;
+    MLV_Font *text_game;
     Player *player;
     Enemy *enemies[MAX_ENEMY];
     Bullet_enemy *bullets_enemy[MAX_BULLET_ENEMY];
@@ -192,7 +192,6 @@ typedef struct party
     MLV_Image *image_shield;
     Sprite *sprite_walk_enemy;
     Sprite *sprite_attack_enemy;
-    Sprite *sprite_dead_enemy;
 } Party;
 
 #endif

@@ -54,19 +54,19 @@ int draw_window_menu(Party *party)
 
     /*dessin du nom du jeu*/
     MLV_get_size_of_text_with_font(name_game, &width_name_game, &height_name_game, font_title);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_name_game / 2), HEIGHT_FRAME_GAME * 2 / 10 - height_name_game / 2, name_game, font_title, MLV_rgba(13, 153, 68, 0));
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_name_game / 2), HEIGHT_FRAME_GAME * 2 / 10 - height_name_game / 2, name_game, font_title, MLV_rgba(209, 94, 50, 0));
 
     /*dessin du bouton jouer*/
     MLV_get_size_of_text_with_font(button_play, &width_button_play, &height_button_play, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_play / 2), (HEIGHT_FRAME_GAME * 5 / 10 - height_button_play / 2), button_play, font, MLV_rgba(13, 153, 68, 0));
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_play / 2), (HEIGHT_FRAME_GAME * 5 / 10 - height_button_play / 2), button_play, font, MLV_rgba(220, 140, 109, 0));
 
     /*dessin du bouton crédits*/
     MLV_get_size_of_text_with_font(button_credits, &width_button_credits, &height_button_credits, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_credits / 2), (HEIGHT_FRAME_GAME * 6 / 10 - height_button_credits / 2), button_credits, font, MLV_rgba(13, 153, 68, 0));
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_credits / 2), (HEIGHT_FRAME_GAME * 6 / 10 - height_button_credits / 2), button_credits, font, MLV_rgba(220, 140, 109, 0));
 
     /*dessin du bouton quitter*/
     MLV_get_size_of_text_with_font(button_quit, &width_button_quit, &height_button_quit, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_quit / 2), (HEIGHT_FRAME_GAME * 7 / 10 - height_button_quit / 2), button_quit, font, MLV_rgba(13, 153, 68, 0));
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_quit / 2), (HEIGHT_FRAME_GAME * 7 / 10 - height_button_quit / 2), button_quit, font, MLV_rgba(220, 140, 109, 0));
 
     if (party->sound == 1)
     {
@@ -156,7 +156,6 @@ int draw_frame_game(Party *party)
     draw_background(party->scenery2->background);
 
     draw_health(party);
-    draw_speed(party);
     draw_player(party);
     draw_bullet_player(party);
     draw_enemies(party);
@@ -224,12 +223,12 @@ int draw_health(Party *party)
         if (party->player->health > i)
         {
             MLV_resize_image_with_proportions(party->image_heart_full, SIZE_HEART, SIZE_HEART);
-            MLV_draw_image(party->image_heart_full, SIZE_HEART + (i * SIZE_HEART), SIZE_HEART);
+            MLV_draw_image(party->image_heart_full, SIZE_HEART + (i * SIZE_HEART), 50);
         }
         else
         {
             MLV_resize_image_with_proportions(party->image_heart_empty, SIZE_HEART, SIZE_HEART);
-            MLV_draw_image(party->image_heart_empty, SIZE_HEART + (i * SIZE_HEART), SIZE_HEART);
+            MLV_draw_image(party->image_heart_empty, SIZE_HEART + (i * SIZE_HEART), 50);
         }
     }
     return EXIT_SUCCESS;
@@ -337,7 +336,7 @@ int draw_score(Party *party)
 {
     char score[1000];
     sprintf(score, "Score: %ld", party->score);
-    MLV_draw_text(10, 10, score, MLV_COLOR_RED);
+    MLV_draw_text_with_font(30, 10, score, party->text_game, MLV_COLOR_RED);
     return EXIT_SUCCESS;
 }
 
@@ -486,14 +485,6 @@ int draw_shield(Party *party)
         MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->width, party->player->height, MLV_COLOR_RED);
     }
     return 0;
-}
-
-int draw_speed(Party *party)
-{
-    char score[1000];
-    sprintf(score, "Speed: %d", party->player->speed);
-    MLV_draw_text(10, 50, score, MLV_COLOR_RED);
-    return EXIT_SUCCESS;
 }
 
 /**

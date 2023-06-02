@@ -24,13 +24,9 @@ Sprite *create_sprite(char *sprite_path, int nb_frames, int kind)
         }
         else if (kind == 2)
         {
-            sprintf(frame_path, "%s/dead/frame%d.png", sprite_path, i);
-        }
-        else if (kind == 3)
-        {
             sprintf(frame_path, "%s/run/frame%d.png", sprite_path, i);
         }
-        else if(kind == 4)
+        else if(kind == 3)
         {
             sprintf(frame_path, "%s/idle/frame%d.png", sprite_path, i);
         }
