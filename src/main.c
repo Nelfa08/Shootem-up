@@ -112,6 +112,7 @@ int main(int argc, char *argv[])
     }
     /* Chargement de la musique */
     music = MLV_load_music(PATH_MUSIC_MENU);
+    MLV_play_sound(party->sound_bomb_bonus, 1);
     if (party->sound == 1)
     {
         MLV_play_music(music, VOL_MUSIC_MENU, -1);

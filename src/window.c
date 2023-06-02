@@ -429,6 +429,7 @@ int draw_bonus(Party *party)
                 break;
             case BOMB:
                 image_bonus = party->image_bomb_bonus;
+                break;
             case ATTACK:
                 image_bonus = party->image_attack_bonus;
                 break;

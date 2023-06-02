@@ -183,6 +183,7 @@ typedef struct party
     MLV_Image *image_speed_bonus;
     MLV_Image *image_health_bonus;
     MLV_Image *image_bomb_bonus;
+    MLV_Sound *sound_bomb_bonus;
     MLV_Image *image_attack_bonus;
     MLV_Image *image_slow_penalty;
     MLV_Image *image_reverse_penalty;

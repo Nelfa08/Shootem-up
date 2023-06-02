@@ -84,6 +84,7 @@
 #define PATH_IMG_SPEED_BONUS "data/img/bonus/speed.png"
 #define PATH_IMG_HEALTH_BONUS "data/img/bonus/health.png"
 #define PATH_IMG_BOMB_BONUS "data/img/bonus/bomb.png"
+#define PATH_SOUND_BOMB_BONUS "data/music/bomb.wav"
 #define PATH_IMG_ATTACK_BONUS "data/img/bonus/attack.png"
 #define TIME_BOOST_SHIELD 10000
 

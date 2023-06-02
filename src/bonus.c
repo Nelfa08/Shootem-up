@@ -24,8 +24,8 @@ int add_bonus(Party *party)
     int rand_y = (rand() % (BOTTOM_BORDER - TOP_BORDER + 1)) + TOP_BORDER;
     new_bonus->visible = 1;
     new_bonus->position->y = rand_y;
-    new_bonus->kind = rand() % 5;
-    // new_bonus->kind = 4;
+    // new_bonus->kind = rand() % 5;
+    new_bonus->kind = 3;
     for (int i = 0; i < MAX_BONUS; i++)
     {
         if (party->bonus[i]->visible == 0)
@@ -107,6 +107,7 @@ int player_get_bonus(Party *party)
         {
             printf("player_win_bonus: BOMB\n");
             kill_all_enemies(party);
+            MLV_play_sound(party->sound_bomb_bonus, 1);
         }
         else if (party->bonus[bonus_collision]->kind == 4)
         {
