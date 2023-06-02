@@ -110,20 +110,20 @@ int draw_window_credits()
     int width_text_title, height_text_title;
     int width_text_credits, height_text_credits;
     int taille_interlinge = 10;
-    char *message_credits = "Developped by :\n    RODDIER Corentin\n    DJEBLOUN Yacine\n\n Music by :\n    LEANO Tristan\n\n Design by :\n    AGRA Ralph";
+    char *message_credits = "DEVELOPPED BY :\n    RODDIER CORENTIN\n    DJEBLOUN YACINE\n\n MUSIC BY :\n    LEANO TRISTAN\n\n DESIGN BY :\n    AGRA RALPH";
 
     MLV_resize_image_with_proportions(img, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
     MLV_draw_image(img, 0, 0);
 
     MLV_get_size_of_text_with_font(title, &width_text_title, &height_text_title, font_title);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_text_title / 2), (HEIGHT_FRAME_GAME * 2 / 10 - height_text_title / 2), title, font_title, MLV_rgba(13, 153, 68, 0));
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_text_title / 2), (HEIGHT_FRAME_GAME * 2 / 10 - height_text_title / 2), title, font_title, MLV_rgba(209, 94, 50, 0));
 
     MLV_get_size_of_text_with_font(title, &width_button_back, &height_button_back, font_back);
     MLV_draw_text_with_font(10, 0, back, font_back, MLV_rgba(209, 94, 50, 0));
 
     MLV_get_size_of_adapted_text_box_with_font(message_credits, font_text, taille_interlinge, &width_text_credits, &height_text_credits);
 
-    MLV_draw_adapted_text_box_with_font((WIDTH_FRAME_MENU / 2) - (width_text_credits / 2), (HEIGHT_FRAME_GAME * 3 / 10 - height_button_back / 2), message_credits, font_text, taille_interlinge, MLV_ALPHA_TRANSPARENT, MLV_COLOR_GREEN, MLV_ALPHA_TRANSPARENT, MLV_TEXT_LEFT);
+    MLV_draw_adapted_text_box_with_font((WIDTH_FRAME_MENU / 2) - (width_text_credits / 2), (HEIGHT_FRAME_GAME * 3 / 10 - height_button_back / 2), message_credits, font_text, taille_interlinge, MLV_COLOR_WHITE_SMOKE, MLV_rgba(211, 117, 81, 0), MLV_COLOR_WHITE_SMOKE, MLV_TEXT_LEFT);
 
     MLV_actualise_window();
     MLV_free_font(font_title);
