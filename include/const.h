@@ -34,7 +34,7 @@
 /* SCENERY */
 #define PATH_IMG_BG_GAME "data/img/coco_dofus_projet_BG_2.png"
 #define PATH_IMG_FG_GAME "data/img/coco_dofus_projet_BG_3.png"
-#define SPEED_BG_GAME 1
+#define SPEED_BG_GAME 3
 
 /* PLAYER */
 #define PLAYER_SPRITE_PATH "data/img/player/Knight"
@@ -64,7 +64,7 @@
 #define ENEMY_SPRITE_PATH "data/img/monster/Yurei"
 #define NB_FRAMES_ENEMY_WALK 5
 #define NB_FRAMES_ENEMY_ATTACK 5
-#define SPEED_ENEMY 3
+#define SPEED_ENEMY 5
 #define HEALTH_ENEMY 1
 #define MAX_ENEMY 100
 #define ENEMIES_DENSITY 0.05
@@ -73,14 +73,14 @@
 #define PATH_IMG_BULLET_ENEMY "data/img/monster/Yurei/bullet_enemy.png"
 #define WIDTH_BULLET_ENEMY 23
 #define HEIGHT_BULLET_ENEMY 10
-#define SPEED_BULLET_ENEMY 5
+#define SPEED_BULLET_ENEMY 10
 #define DAMAGE_BULLET_ENEMY 1
 #define MAX_BULLET_ENEMY 100
 
 /* BONUS */
 #define SIZE_BONUS 50
 #define MAX_BONUS 20
-#define SPEED_BONUS 1
+#define SPEED_BONUS 3
 #define PATH_IMG_SHIELD_BONUS "data/img/bonus/shield.png"
 #define PATH_IMG_SPEED_BONUS "data/img/bonus/speed.png"
 #define PATH_IMG_HEALTH_BONUS "data/img/bonus/health.png"
@@ -90,7 +90,7 @@
 /* PENALTIES */
 #define SIZE_PENALTY 50
 #define MAX_PENALTY 100
-#define SPEED_PENALTY 1
+#define SPEED_PENALTY 3
 #define PATH_IMG_SLOW_PENALTY "data/img/penalty/slow.png"
 #define PATH_IMG_REVERSE_PENALTY "data/img/penalty/reverse.png"
 #define PATH_IMG_DAMAGE_PENALTY "data/img/penalty/damage.png"

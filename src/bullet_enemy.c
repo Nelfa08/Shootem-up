@@ -113,7 +113,7 @@ int fire_enemy(Party *party)
 {
     int number_enemy = rand() % MAX_ENEMY;
     int rand_shoot = normal_delay(1);
-    if (party->enemies[number_enemy]->visible == 1 && rand_shoot < 0.005)
+    if (party->enemies[number_enemy]->visible == 1 && rand_shoot < 0.05)
     {
         add_bullet_enemy(party, party->enemies[number_enemy]);
         party->enemies[number_enemy]->status = 1;

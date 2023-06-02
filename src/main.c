@@ -277,9 +277,9 @@ int main(int argc, char *argv[])
         time_frame = (end_time.tv_sec - start_time.tv_sec) + ((end_time.tv_nsec - start_time.tv_nsec) / BILLION);
 
         /* Si la frame a été trop vite, on attend un peu */
-        if (time_frame < (1.0 / 60.0))
+        if (time_frame < (1.0 / 144.0))
         {
-            MLV_wait_milliseconds((int)(((1.0 / 60.0) - time_frame) * 1000));
+            MLV_wait_milliseconds((int)(((1.0 / 144.0) - time_frame) * 1000));
         }
 
         /* is win ? => party->status == 3 */
