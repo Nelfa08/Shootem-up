@@ -58,15 +58,15 @@ int draw_window_menu(Party *party)
 
     /*dessin du bouton jouer*/
     MLV_get_size_of_text_with_font(button_play, &width_button_play, &height_button_play, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_play / 2), (HEIGHT_FRAME_GAME * 5 / 10 - height_button_play / 2), button_play, font, MLV_rgba(220, 140, 109, 0));
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_play / 2), (HEIGHT_FRAME_GAME * 5 / 10 - height_button_play / 2), button_play, font, MLV_rgba(211, 117, 81, 0));
 
     /*dessin du bouton crédits*/
     MLV_get_size_of_text_with_font(button_credits, &width_button_credits, &height_button_credits, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_credits / 2), (HEIGHT_FRAME_GAME * 6 / 10 - height_button_credits / 2), button_credits, font, MLV_rgba(220, 140, 109, 0));
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_credits / 2), (HEIGHT_FRAME_GAME * 6 / 10 - height_button_credits / 2), button_credits, font, MLV_rgba(211, 117, 81, 0));
 
     /*dessin du bouton quitter*/
     MLV_get_size_of_text_with_font(button_quit, &width_button_quit, &height_button_quit, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_quit / 2), (HEIGHT_FRAME_GAME * 7 / 10 - height_button_quit / 2), button_quit, font, MLV_rgba(220, 140, 109, 0));
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_quit / 2), (HEIGHT_FRAME_GAME * 7 / 10 - height_button_quit / 2), button_quit, font, MLV_rgba(211, 117, 81, 0));
 
     if (party->sound == 1)
     {
@@ -119,7 +119,7 @@ int draw_window_credits()
     MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_text_title / 2), (HEIGHT_FRAME_GAME * 2 / 10 - height_text_title / 2), title, font_title, MLV_rgba(13, 153, 68, 0));
 
     MLV_get_size_of_text_with_font(title, &width_button_back, &height_button_back, font_back);
-    MLV_draw_text_with_font(10, 0, back, font_back, MLV_COLOR_RED1);
+    MLV_draw_text_with_font(10, 0, back, font_back, MLV_rgba(209, 94, 50, 0));
 
     MLV_get_size_of_adapted_text_box_with_font(message_credits, font_text, taille_interlinge, &width_text_credits, &height_text_credits);
 

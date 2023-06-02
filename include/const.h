@@ -27,14 +27,14 @@
 /* FRAME GAME */
 #define HEIGHT_FRAME_GAME 800
 #define WIDTH_FRAME_GAME 1500
-#define TOP_BORDER 280
+#define TOP_BORDER 285
 #define BOTTOM_BORDER 630
 #define NAME_FRAME_GAME "DofusRunner - Game"
 
 /* SCENERY */
 #define PATH_IMG_BG_GAME "data/img/BG.png"
 #define PATH_IMG_FG_GAME "data/img/FG.png"
-#define SPEED_BG_GAME 3
+#define SPEED_BG_GAME 1
 
 /* PLAYER */
 #define PLAYER_SPRITE_PATH "data/img/player/Enchantress"
@@ -45,7 +45,7 @@
 #define SPEED_PLAYER 10
 #define HEALTH_PLAYER 3
 #define SPAWN_PLAYER_X 0
-#define SPAWN_PLAYER_Y 260
+#define SPAWN_PLAYER_Y 285
 #define DELAY_SHOOT_PLAYER 10
 #define PATH_IMG_SHIELD "data/img/force-field.png"
 #define PATH_IMG_HEART_FULL "data/img/heart_full.png"
@@ -79,7 +79,7 @@
 /* BONUS */
 #define SIZE_BONUS 50
 #define MAX_BONUS 20
-#define SPEED_BONUS 3
+#define SPEED_BONUS 1
 #define PATH_IMG_SHIELD_BONUS "data/img/bonus/shield.png"
 #define PATH_IMG_SPEED_BONUS "data/img/bonus/speed.png"
 #define PATH_IMG_HEALTH_BONUS "data/img/bonus/health.png"
@@ -89,7 +89,7 @@
 /* PENALTIES */
 #define SIZE_PENALTY 50
 #define MAX_PENALTY 100
-#define SPEED_PENALTY 3
+#define SPEED_PENALTY 1
 #define PATH_IMG_SLOW_PENALTY "data/img/penalty/slow.png"
 #define PATH_IMG_REVERSE_PENALTY "data/img/penalty/reverse.png"
 #define PATH_IMG_DAMAGE_PENALTY "data/img/penalty/damage.png"
