@@ -28,7 +28,7 @@ int init_window_menu()
 int draw_loading_screen()
 {
     // @todo: dessiner un écran de chargement
-    MLV_draw_text(WIDTH_FRAME_MENU / 2 - 100, HEIGHT_FRAME_MENU / 2 - 50, "Loading...", MLV_COLOR_WHITE);
+    MLV_draw_text(WIDTH_FRAME_MENU / 2 - 30, HEIGHT_FRAME_MENU / 2 - 20, "Loading...", MLV_COLOR_WHITE);
     return EXIT_SUCCESS;
 }
 
