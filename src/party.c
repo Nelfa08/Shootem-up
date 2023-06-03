@@ -35,6 +35,17 @@ Party *init_party(int verbose_flag, int hitbox_flag)
         printf("--------------------------------\n");
         printf("Party initialization started: \n");
     }
+
+    MLV_Image *loading_images[5];
+    loading_images[0] = MLV_load_image(PATH_IMG_LOADING_1);
+    loading_images[1] = MLV_load_image(PATH_IMG_LOADING_2);
+    loading_images[2] = MLV_load_image(PATH_IMG_LOADING_3);
+    loading_images[3] = MLV_load_image(PATH_IMG_LOADING_4);
+    loading_images[4] = MLV_load_image(PATH_IMG_LOADING_5);
+
+    MLV_draw_image(loading_images[0], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
+    MLV_actualise_window();
+
     Party *party = malloc(sizeof(Party));
     party->status = 0;
     party->sound = 1;
@@ -76,6 +87,8 @@ Party *init_party(int verbose_flag, int hitbox_flag)
         printf("\tBonuses created\n");
     }
 
+    MLV_draw_image(loading_images[1], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
+    MLV_actualise_window();
     /* A mettre dans des sous fonctions */
     party->scenery1 = malloc(sizeof(Scenery));
     party->scenery1->background = malloc(sizeof(Background));
@@ -95,6 +108,9 @@ Party *init_party(int verbose_flag, int hitbox_flag)
         printf("\tScenery 1 created\n");
     }
 
+    MLV_draw_image(loading_images[2], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
+    MLV_actualise_window();
+
     party->scenery2 = malloc(sizeof(Scenery));
     party->scenery2->background = malloc(sizeof(Background));
     party->scenery2->background->position = malloc(sizeof(Position));
@@ -112,6 +128,9 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     {
         printf("\tScenery 2 created\n");
     }
+    
+    MLV_draw_image(loading_images[3], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
+    MLV_actualise_window();
 
     party->menu = malloc(sizeof(Menu));
     party->menu->background = malloc(sizeof(Background));
@@ -127,6 +146,10 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     {
         printf("\tMenu created\n");
     }
+
+    MLV_draw_image(loading_images[4], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
+    MLV_actualise_window();
+    MLV_wait_seconds(1);
 
     party->image_bullet_player = MLV_load_image(PATH_IMG_BULLET_PLAYER);
     party->image_bullet_enemy = MLV_load_image(PATH_IMG_BULLET_ENEMY);
