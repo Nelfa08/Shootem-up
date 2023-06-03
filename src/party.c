@@ -42,7 +42,8 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->verbose_flag = verbose_flag;
     party->hitbox_flag = hitbox_flag;
     party->enemies_density = ENEMIES_DENSITY;
-    party->text_game  = MLV_load_font(PATH_FONT_MENU, 20);
+    party->size_file_scoreboard = 0;
+    party->text_game = MLV_load_font(PATH_FONT_MENU, 20);
 
     party->player = create_player();
     if (verbose_flag)
@@ -147,12 +148,13 @@ Party *init_party(int verbose_flag, int hitbox_flag)
         printf("\tImages loaded\n");
     }
 
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < MAX_BEST_SCORE; i++)
     {
         party->scoreboard[i] = malloc(sizeof(Scoreboard));
         party->scoreboard[i]->name = malloc(sizeof(char) * 20);
         party->scoreboard[i]->date = malloc(sizeof(char) * 20);
         party->scoreboard[i]->time = malloc(sizeof(char) * 20);
+        party->scoreboard[i]->score = 0;
     }
     if (verbose_flag)
     {
@@ -164,9 +166,53 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     return party;
 }
 
+int insert_scoreboard(Party *party)
+{
+    time_t current_time;
+    struct tm *time_info;
+    char time_string[20];
+    char date_string[20];
+
+    time(&current_time);
+    time_info = localtime(&current_time);
+
+    strftime(time_string, sizeof(time_string), "%H:%M:%S", time_info);
+    strftime(date_string, sizeof(date_string), "%d/%m/%Y", time_info);
+
+    Scoreboard *newScore = malloc(sizeof(Scoreboard));
+    newScore->name = malloc(sizeof(char) * 20);
+    newScore->date = malloc(sizeof(char) * 20);
+    newScore->time = malloc(sizeof(char) * 20);
+
+    strcpy(newScore->name, party->player->name);
+    strcpy(newScore->date, date_string);
+    strcpy(newScore->time, time_string);
+    newScore->score = party->score;
+
+    party->scoreboard[MAX_BEST_SCORE] = newScore;
+
+    sort_scoreboard(party);
+
+    return EXIT_SUCCESS;
+}
+
+int sort_scoreboard(Party *party)
+{
+    for (int i = MAX_BEST_SCORE; i > 0; i--)
+    {
+        if (party->scoreboard[i]->score > party->scoreboard[i - 1]->score)
+        {
+            Scoreboard *temp = party->scoreboard[i];
+            party->scoreboard[i] = party->scoreboard[i - 1];
+            party->scoreboard[i - 1] = temp;
+        }
+    }
+    return EXIT_SUCCESS;
+}
+
 int write_scoreboard(Party *party)
 {
-    FILE *file = fopen(PATH_SCORE, "a");
+    FILE *file = fopen(PATH_SCORE, "w");
 
     time_t current_time;
     struct tm *time_info;
@@ -176,14 +222,19 @@ int write_scoreboard(Party *party)
     time_info = localtime(&current_time);
 
     strftime(time_string, sizeof(time_string), "%Y/%m/%d %H:%M:%S", time_info);
-    printf("%s\n", time_string);
     if (file == NULL)
     {
         fprintf(stderr, "Error: can't open file %s\n", PATH_SCORE);
         return EXIT_FAILURE;
     }
 
-    fprintf(file, "%s %ld %s\n", party->player->name, party->score, time_string);
+    for (int i = 0; i < MAX_BEST_SCORE; i++)
+    {
+        if (party->scoreboard[i]->score != 0)
+        {
+            fprintf(file, "%s %ld %s %s\n", party->scoreboard[i]->name, party->scoreboard[i]->score, party->scoreboard[i]->date, party->scoreboard[i]->time);
+        }
+    }
 
     fclose(file);
     return EXIT_SUCCESS;
@@ -203,7 +254,7 @@ int read_scoreboard(Party *party)
     char time_string[20];
     char date_string[20];
     int i = 0;
-    while (fscanf(file, "%s %ld %s %s", name, &score, date_string, time_string) == 4 && i < 10)
+    while (fscanf(file, "%s %ld %s %s", name, &score, date_string, time_string) == 4 && i < 9)
     {
         strcpy(party->scoreboard[i]->name, name);
         party->scoreboard[i]->score = score;
@@ -217,11 +268,16 @@ int read_scoreboard(Party *party)
     fclose(file);
     return EXIT_SUCCESS;
 }
+
 int print_scoreboard(Party *party)
 {
-    for (int i = 0; i < party->size_file_scoreboard; i++)
+    printf("Scoreboard:\n");
+    for (int i = 0; i < MAX_BEST_SCORE; i++)
     {
-        printf("%s %ld %s %s\n", party->scoreboard[i]->name, party->scoreboard[i]->score, party->scoreboard[i]->date, party->scoreboard[i]->time);
+        if (party->scoreboard[i]->score != 0)
+        {
+            printf("%s %ld %s %s\n", party->scoreboard[i]->name, party->scoreboard[i]->score, party->scoreboard[i]->date, party->scoreboard[i]->time);
+        }
     }
     return EXIT_SUCCESS;
 }

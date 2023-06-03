@@ -283,8 +283,7 @@ int main(int argc, char *argv[])
 
         /* is win ? => party->status == 3 */
     }
-
-    if (party->status == 3)
+    if (party->status == 3 && party->score > 0)
     {
         /* Fin du jeu */
 
@@ -294,22 +293,27 @@ int main(int argc, char *argv[])
         */
         /* draw_input_name = */
 
-        draw_input_name(party);
-        write_scoreboard(party);
+            draw_input_name(party);
+
         read_scoreboard(party);
+        insert_scoreboard(party);
+        write_scoreboard(party);
         print_scoreboard(party);
-        return EXIT_SUCCESS;
 
         draw_window_end(party);
         printf("End of the game\n");
         printf("Score : %ld\n", party->score);
+        MLV_wait_keyboard_or_mouse(NULL, NULL, NULL, NULL, NULL);
     }
     if (verbose_flag)
     {
         printf("End of the game\n");
         printf("Free memory\n");
     }
-    free(party->player->name); // voir la doc du bloc de MLV_wait_input_box_with_font
+    if (party->score > 0)
+    {
+        free(party->player->name); // voir la doc du bloc de MLV_wait_input_box_with_font
+    }
     MLV_stop_music();
     MLV_free_music(music);
     MLV_free_audio();
