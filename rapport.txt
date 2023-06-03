@@ -1,0 +1,469 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  Ts/call  Ts/call  name    
+100.00      0.01     0.01                             _init
+  0.00      0.01     0.00    17577     0.00     0.00  check_collisions_bullet_player
+  0.00      0.01     0.00     3281     0.00     0.00  check_collisions_bullet_enemy
+  0.00      0.01     0.00     2910     0.00     0.00  draw_background
+  0.00      0.01     0.00     2910     0.00     0.00  draw_foreground
+  0.00      0.01     0.00     2910     0.00     0.00  normal_delay
+  0.00      0.01     0.00     1458     0.00     0.00  clear_window
+  0.00      0.01     0.00     1455     0.00     0.00  collision_bonus
+  0.00      0.01     0.00     1455     0.00     0.00  collision_penalty
+  0.00      0.01     0.00     1455     0.00     0.00  detect_key_pressed
+  0.00      0.01     0.00     1455     0.00     0.00  draw_bonus
+  0.00      0.01     0.00     1455     0.00     0.00  draw_bullet_enemy
+  0.00      0.01     0.00     1455     0.00     0.00  draw_bullet_player
+  0.00      0.01     0.00     1455     0.00     0.00  draw_enemies
+  0.00      0.01     0.00     1455     0.00     0.00  draw_frame_game
+  0.00      0.01     0.00     1455     0.00     0.00  draw_health
+  0.00      0.01     0.00     1455     0.00     0.00  draw_penalties
+  0.00      0.01     0.00     1455     0.00     0.00  draw_player
+  0.00      0.01     0.00     1455     0.00     0.00  draw_score
+  0.00      0.01     0.00     1455     0.00     0.00  enemy_kill_player
+  0.00      0.01     0.00     1455     0.00     0.00  fire_enemy
+  0.00      0.01     0.00     1455     0.00     0.00  move_bonus
+  0.00      0.01     0.00     1455     0.00     0.00  move_bullets_enemy
+  0.00      0.01     0.00     1455     0.00     0.00  move_bullets_player
+  0.00      0.01     0.00     1455     0.00     0.00  move_enemies
+  0.00      0.01     0.00     1455     0.00     0.00  move_penalty
+  0.00      0.01     0.00     1455     0.00     0.00  move_player
+  0.00      0.01     0.00     1455     0.00     0.00  move_scenery
+  0.00      0.01     0.00     1455     0.00     0.00  player_get_bonus
+  0.00      0.01     0.00     1455     0.00     0.00  player_get_penalty
+  0.00      0.01     0.00     1455     0.00     0.00  player_kill_ennemy
+  0.00      0.01     0.00      201     0.00     0.00  create_bullet_player
+  0.00      0.01     0.00      145     0.00     0.00  create_enemy
+  0.00      0.01     0.00      134     0.00     0.00  create_bullet_enemy
+  0.00      0.01     0.00      101     0.00     0.00  add_bullet_player
+  0.00      0.01     0.00      101     0.00     0.00  create_penalty
+  0.00      0.01     0.00       45     0.00     0.00  add_enemy
+  0.00      0.01     0.00       34     0.00     0.00  add_bullet_enemy
+  0.00      0.01     0.00       30     0.00     0.00  draw_window_menu
+  0.00      0.01     0.00       21     0.00     0.00  create_bonus
+  0.00      0.01     0.00        6     0.00     0.00  create_sprite
+  0.00      0.01     0.00        2     0.00     0.00  generate_bonus_or_penalty
+  0.00      0.01     0.00        1     0.00     0.00  add_bonus
+  0.00      0.01     0.00        1     0.00     0.00  add_penalty
+  0.00      0.01     0.00        1     0.00     0.00  create_player
+  0.00      0.01     0.00        1     0.00     0.00  draw_best_score
+  0.00      0.01     0.00        1     0.00     0.00  draw_input_name
+  0.00      0.01     0.00        1     0.00     0.00  draw_loading_screen
+  0.00      0.01     0.00        1     0.00     0.00  draw_window_end
+  0.00      0.01     0.00        1     0.00     0.00  free_party
+  0.00      0.01     0.00        1     0.00     0.00  free_player
+  0.00      0.01     0.00        1     0.00     0.00  free_window
+  0.00      0.01     0.00        1     0.00     0.00  init_bullets_enemy
+  0.00      0.01     0.00        1     0.00     0.00  init_bullets_player
+  0.00      0.01     0.00        1     0.00     0.00  init_enemies
+  0.00      0.01     0.00        1     0.00     0.00  init_party
+  0.00      0.01     0.00        1     0.00     0.00  init_tab_bonus
+  0.00      0.01     0.00        1     0.00     0.00  init_tab_penalty
+  0.00      0.01     0.00        1     0.00     0.00  init_window_game
+  0.00      0.01     0.00        1     0.00     0.00  init_window_menu
+  0.00      0.01     0.00        1     0.00     0.00  insert_scoreboard
+  0.00      0.01     0.00        1     0.00     0.00  read_scoreboard
+  0.00      0.01     0.00        1     0.00     0.00  sort_scoreboard
+  0.00      0.01     0.00        1     0.00     0.00  write_scoreboard
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 4 byte(s) for 100.00% of 0.01 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]    100.0    0.01    0.00                 _init [1]
+-----------------------------------------------
+                0.00    0.00   17577/17577       player_kill_ennemy [31]
+[2]      0.0    0.00    0.00   17577         check_collisions_bullet_player [2]
+-----------------------------------------------
+                0.00    0.00    3281/3281        enemy_kill_player [20]
+[3]      0.0    0.00    0.00    3281         check_collisions_bullet_enemy [3]
+-----------------------------------------------
+                0.00    0.00    2910/2910        draw_frame_game [15]
+[4]      0.0    0.00    0.00    2910         draw_background [4]
+-----------------------------------------------
+                0.00    0.00    2910/2910        draw_frame_game [15]
+[5]      0.0    0.00    0.00    2910         draw_foreground [5]
+-----------------------------------------------
+                0.00    0.00    1455/2910        main [75]
+                0.00    0.00    1455/2910        fire_enemy [21]
+[6]      0.0    0.00    0.00    2910         normal_delay [6]
+-----------------------------------------------
+                0.00    0.00       1/1458        init_window_menu [60]
+                0.00    0.00       1/1458        init_window_game [59]
+                0.00    0.00       1/1458        draw_window_end [49]
+                0.00    0.00    1455/1458        main [75]
+[7]      0.0    0.00    0.00    1458         clear_window [7]
+-----------------------------------------------
+                0.00    0.00    1455/1455        player_get_bonus [29]
+[8]      0.0    0.00    0.00    1455         collision_bonus [8]
+-----------------------------------------------
+                0.00    0.00    1455/1455        player_get_penalty [30]
+[9]      0.0    0.00    0.00    1455         collision_penalty [9]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[10]     0.0    0.00    0.00    1455         detect_key_pressed [10]
+-----------------------------------------------
+                0.00    0.00    1455/1455        draw_frame_game [15]
+[11]     0.0    0.00    0.00    1455         draw_bonus [11]
+-----------------------------------------------
+                0.00    0.00    1455/1455        draw_frame_game [15]
+[12]     0.0    0.00    0.00    1455         draw_bullet_enemy [12]
+-----------------------------------------------
+                0.00    0.00    1455/1455        draw_frame_game [15]
+[13]     0.0    0.00    0.00    1455         draw_bullet_player [13]
+-----------------------------------------------
+                0.00    0.00    1455/1455        draw_frame_game [15]
+[14]     0.0    0.00    0.00    1455         draw_enemies [14]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[15]     0.0    0.00    0.00    1455         draw_frame_game [15]
+                0.00    0.00    2910/2910        draw_background [4]
+                0.00    0.00    2910/2910        draw_foreground [5]
+                0.00    0.00    1455/1455        draw_health [16]
+                0.00    0.00    1455/1455        draw_bullet_player [13]
+                0.00    0.00    1455/1455        draw_player [18]
+                0.00    0.00    1455/1455        draw_enemies [14]
+                0.00    0.00    1455/1455        draw_bullet_enemy [12]
+                0.00    0.00    1455/1455        draw_penalties [17]
+                0.00    0.00    1455/1455        draw_bonus [11]
+                0.00    0.00    1455/1455        draw_score [19]
+-----------------------------------------------
+                0.00    0.00    1455/1455        draw_frame_game [15]
+[16]     0.0    0.00    0.00    1455         draw_health [16]
+-----------------------------------------------
+                0.00    0.00    1455/1455        draw_frame_game [15]
+[17]     0.0    0.00    0.00    1455         draw_penalties [17]
+-----------------------------------------------
+                0.00    0.00    1455/1455        draw_frame_game [15]
+[18]     0.0    0.00    0.00    1455         draw_player [18]
+-----------------------------------------------
+                0.00    0.00    1455/1455        draw_frame_game [15]
+[19]     0.0    0.00    0.00    1455         draw_score [19]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[20]     0.0    0.00    0.00    1455         enemy_kill_player [20]
+                0.00    0.00    3281/3281        check_collisions_bullet_enemy [3]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[21]     0.0    0.00    0.00    1455         fire_enemy [21]
+                0.00    0.00    1455/2910        normal_delay [6]
+                0.00    0.00      34/34          add_bullet_enemy [38]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[22]     0.0    0.00    0.00    1455         move_bonus [22]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[23]     0.0    0.00    0.00    1455         move_bullets_enemy [23]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[24]     0.0    0.00    0.00    1455         move_bullets_player [24]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[25]     0.0    0.00    0.00    1455         move_enemies [25]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[26]     0.0    0.00    0.00    1455         move_penalty [26]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[27]     0.0    0.00    0.00    1455         move_player [27]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[28]     0.0    0.00    0.00    1455         move_scenery [28]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[29]     0.0    0.00    0.00    1455         player_get_bonus [29]
+                0.00    0.00    1455/1455        collision_bonus [8]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[30]     0.0    0.00    0.00    1455         player_get_penalty [30]
+                0.00    0.00    1455/1455        collision_penalty [9]
+                0.00    0.00      10/45          add_enemy [37]
+-----------------------------------------------
+                0.00    0.00    1455/1455        main [75]
+[31]     0.0    0.00    0.00    1455         player_kill_ennemy [31]
+                0.00    0.00   17577/17577       check_collisions_bullet_player [2]
+-----------------------------------------------
+                0.00    0.00     100/201         init_bullets_player [54]
+                0.00    0.00     101/201         add_bullet_player [35]
+[32]     0.0    0.00    0.00     201         create_bullet_player [32]
+-----------------------------------------------
+                0.00    0.00      45/145         add_enemy [37]
+                0.00    0.00     100/145         init_enemies [55]
+[33]     0.0    0.00    0.00     145         create_enemy [33]
+-----------------------------------------------
+                0.00    0.00      34/134         add_bullet_enemy [38]
+                0.00    0.00     100/134         init_bullets_enemy [53]
+[34]     0.0    0.00    0.00     134         create_bullet_enemy [34]
+-----------------------------------------------
+                0.00    0.00     101/101         main [75]
+[35]     0.0    0.00    0.00     101         add_bullet_player [35]
+                0.00    0.00     101/201         create_bullet_player [32]
+-----------------------------------------------
+                0.00    0.00       1/101         add_penalty [44]
+                0.00    0.00     100/101         init_tab_penalty [58]
+[36]     0.0    0.00    0.00     101         create_penalty [36]
+-----------------------------------------------
+                0.00    0.00      10/45          player_get_penalty [30]
+                0.00    0.00      35/45          main [75]
+[37]     0.0    0.00    0.00      45         add_enemy [37]
+                0.00    0.00      45/145         create_enemy [33]
+-----------------------------------------------
+                0.00    0.00      34/34          fire_enemy [21]
+[38]     0.0    0.00    0.00      34         add_bullet_enemy [38]
+                0.00    0.00      34/134         create_bullet_enemy [34]
+-----------------------------------------------
+                0.00    0.00      30/30          main [75]
+[39]     0.0    0.00    0.00      30         draw_window_menu [39]
+-----------------------------------------------
+                0.00    0.00       1/21          add_bonus [43]
+                0.00    0.00      20/21          init_tab_bonus [57]
+[40]     0.0    0.00    0.00      21         create_bonus [40]
+-----------------------------------------------
+                0.00    0.00       2/6           init_enemies [55]
+                0.00    0.00       4/6           create_player [45]
+[41]     0.0    0.00    0.00       6         create_sprite [41]
+-----------------------------------------------
+                0.00    0.00       2/2           main [75]
+[42]     0.0    0.00    0.00       2         generate_bonus_or_penalty [42]
+                0.00    0.00       1/1           add_bonus [43]
+                0.00    0.00       1/1           add_penalty [44]
+-----------------------------------------------
+                0.00    0.00       1/1           generate_bonus_or_penalty [42]
+[43]     0.0    0.00    0.00       1         add_bonus [43]
+                0.00    0.00       1/21          create_bonus [40]
+-----------------------------------------------
+                0.00    0.00       1/1           generate_bonus_or_penalty [42]
+[44]     0.0    0.00    0.00       1         add_penalty [44]
+                0.00    0.00       1/101         create_penalty [36]
+-----------------------------------------------
+                0.00    0.00       1/1           init_party [56]
+[45]     0.0    0.00    0.00       1         create_player [45]
+                0.00    0.00       4/6           create_sprite [41]
+-----------------------------------------------
+                0.00    0.00       1/1           draw_window_end [49]
+[46]     0.0    0.00    0.00       1         draw_best_score [46]
+-----------------------------------------------
+                0.00    0.00       1/1           main [75]
+[47]     0.0    0.00    0.00       1         draw_input_name [47]
+-----------------------------------------------
+                0.00    0.00       1/1           init_window_menu [60]
+[48]     0.0    0.00    0.00       1         draw_loading_screen [48]
+-----------------------------------------------
+                0.00    0.00       1/1           main [75]
+[49]     0.0    0.00    0.00       1         draw_window_end [49]
+                0.00    0.00       1/1458        clear_window [7]
+                0.00    0.00       1/1           draw_best_score [46]
+-----------------------------------------------
+                0.00    0.00       1/1           main [75]
+[50]     0.0    0.00    0.00       1         free_party [50]
+                0.00    0.00       1/1           free_player [51]
+-----------------------------------------------
+                0.00    0.00       1/1           free_party [50]
+[51]     0.0    0.00    0.00       1         free_player [51]
+-----------------------------------------------
+                0.00    0.00       1/1           main [75]
+[52]     0.0    0.00    0.00       1         free_window [52]
+-----------------------------------------------
+                0.00    0.00       1/1           init_party [56]
+[53]     0.0    0.00    0.00       1         init_bullets_enemy [53]
+                0.00    0.00     100/134         create_bullet_enemy [34]
+-----------------------------------------------
+                0.00    0.00       1/1           init_party [56]
+[54]     0.0    0.00    0.00       1         init_bullets_player [54]
+                0.00    0.00     100/201         create_bullet_player [32]
+-----------------------------------------------
+                0.00    0.00       1/1           init_party [56]
+[55]     0.0    0.00    0.00       1         init_enemies [55]
+                0.00    0.00     100/145         create_enemy [33]
+                0.00    0.00       2/6           create_sprite [41]
+-----------------------------------------------
+                0.00    0.00       1/1           main [75]
+[56]     0.0    0.00    0.00       1         init_party [56]
+                0.00    0.00       1/1           create_player [45]
+                0.00    0.00       1/1           init_enemies [55]
+                0.00    0.00       1/1           init_bullets_player [54]
+                0.00    0.00       1/1           init_bullets_enemy [53]
+                0.00    0.00       1/1           init_tab_penalty [58]
+                0.00    0.00       1/1           init_tab_bonus [57]
+-----------------------------------------------
+                0.00    0.00       1/1           init_party [56]
+[57]     0.0    0.00    0.00       1         init_tab_bonus [57]
+                0.00    0.00      20/21          create_bonus [40]
+-----------------------------------------------
+                0.00    0.00       1/1           init_party [56]
+[58]     0.0    0.00    0.00       1         init_tab_penalty [58]
+                0.00    0.00     100/101         create_penalty [36]
+-----------------------------------------------
+                0.00    0.00       1/1           main [75]
+[59]     0.0    0.00    0.00       1         init_window_game [59]
+                0.00    0.00       1/1458        clear_window [7]
+-----------------------------------------------
+                0.00    0.00       1/1           main [75]
+[60]     0.0    0.00    0.00       1         init_window_menu [60]
+                0.00    0.00       1/1           draw_loading_screen [48]
+                0.00    0.00       1/1458        clear_window [7]
+-----------------------------------------------
+                0.00    0.00       1/1           main [75]
+[61]     0.0    0.00    0.00       1         insert_scoreboard [61]
+                0.00    0.00       1/1           sort_scoreboard [63]
+-----------------------------------------------
+                0.00    0.00       1/1           main [75]
+[62]     0.0    0.00    0.00       1         read_scoreboard [62]
+-----------------------------------------------
+                0.00    0.00       1/1           insert_scoreboard [61]
+[63]     0.0    0.00    0.00       1         sort_scoreboard [63]
+-----------------------------------------------
+                0.00    0.00       1/1           main [75]
+[64]     0.0    0.00    0.00       1         write_scoreboard [64]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2022 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+   [1] _init                  [12] draw_bullet_enemy      [56] init_party
+  [43] add_bonus              [13] draw_bullet_player     [57] init_tab_bonus
+  [38] add_bullet_enemy       [14] draw_enemies           [58] init_tab_penalty
+  [35] add_bullet_player       [5] draw_foreground        [59] init_window_game
+  [37] add_enemy              [15] draw_frame_game        [60] init_window_menu
+  [44] add_penalty            [16] draw_health            [61] insert_scoreboard
+   [3] check_collisions_bullet_enemy [47] draw_input_name [22] move_bonus
+   [2] check_collisions_bullet_player [48] draw_loading_screen [23] move_bullets_enemy
+   [7] clear_window           [17] draw_penalties         [24] move_bullets_player
+   [8] collision_bonus        [18] draw_player            [25] move_enemies
+   [9] collision_penalty      [19] draw_score             [26] move_penalty
+  [40] create_bonus           [49] draw_window_end        [27] move_player
+  [34] create_bullet_enemy    [39] draw_window_menu       [28] move_scenery
+  [32] create_bullet_player   [20] enemy_kill_player       [6] normal_delay
+  [33] create_enemy           [21] fire_enemy             [29] player_get_bonus
+  [36] create_penalty         [50] free_party             [30] player_get_penalty
+  [45] create_player          [51] free_player            [31] player_kill_ennemy
+  [41] create_sprite          [52] free_window            [62] read_scoreboard
+  [10] detect_key_pressed     [42] generate_bonus_or_penalty [63] sort_scoreboard
+   [4] draw_background        [53] init_bullets_enemy     [64] write_scoreboard
+  [46] draw_best_score        [54] init_bullets_player
+  [11] draw_bonus             [55] init_enemies

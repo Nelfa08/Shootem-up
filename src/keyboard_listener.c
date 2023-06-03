@@ -5,17 +5,6 @@
 
 #include "../include/keyboard_listener.h"
 
-/* semble inutile */
-Pressed_key *init_pressed_key()
-{
-    Pressed_key *pk = malloc(sizeof(Pressed_key));
-    for (int i = 0; i < 4; i++)
-    {
-        *(pk)[i] = 0;
-    }
-    return pk;
-}
-
 int detect_key_pressed(Pressed_key pk)
 {
     if (MLV_get_keyboard_state(MLV_KEYBOARD_UP) == MLV_PRESSED)

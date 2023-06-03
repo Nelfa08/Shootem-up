@@ -14,5 +14,9 @@ int sort_scoreboard(Party *party);
 int read_scoreboard(Party *party);
 int print_scoreboard(Party *party);
 int insert_scoreboard(Party *party);
+int init_img_loading(MLV_Image *loading_images[]);
+int init_scenery(Party *party, MLV_Image *loading_images[]);
+int init_menu(Party *party);
+int init_scoreboard(Party *party);
 
 #endif

@@ -163,7 +163,6 @@ int main(int argc, char *argv[])
                 }
                 else if (x > 257 && x < 488 && y > 450 && y < 500)
                 {
-                    /* On affiche les crédits */
                     if (verbose_flag)
                     {
                         printf("Print credits\n");
@@ -172,7 +171,6 @@ int main(int argc, char *argv[])
                 }
                 else if (x > 305 && x < 488 && y > 540 && y < 590)
                 {
-                    /* On quitte le jeu */
                     party->status = 3;
                 }
             }
@@ -196,16 +194,13 @@ int main(int argc, char *argv[])
 
     init_window_game();
 
-    /* initialisation du tableau d'ennemis */
-    /* initialisation du tableau de missiles */
-    /* initialisation du tableau de bonus */
     while (party->status == 2)
     {
         /* Récupération de l'heure au début */
         clock_gettime(CLOCK_REALTIME, &start_time);
         /* refresh de la window */
         clear_window();
-        if (normal_delay(1) < 0.01)
+        if (normal_delay(1) < party->enemies_density)
         {
             add_enemy(party);
         }
@@ -224,11 +219,7 @@ int main(int argc, char *argv[])
         MLV_get_event(&key, NULL, NULL, NULL, NULL, NULL, NULL, NULL, &state);
         detect_key_pressed(party->pk);
         move_player(party->player, party->pk);
-        // if (verbose_flag == 1)
-        // {
-        //     // print_key_pressed(party->pk);
-        //     printf("Player position: %d, %d\n", party->player->position->x, party->player->position->y);
-        // }
+
         if (party->pk[4] == 1)
         {
             party->player->sprite_attack->status = 1;
@@ -256,12 +247,6 @@ int main(int argc, char *argv[])
             party->player->sprite_walk->status = 1;
         }
 
-        /* Si le joueur n'a plus de vie : il perd */
-        if (party->player->health <= 0)
-        {
-            party->status = 3;
-        }
-
         /* Incrémentation du score */
         party->score += 1;
 
@@ -271,6 +256,11 @@ int main(int argc, char *argv[])
             party->enemies_density *= 2;
         }
 
+        /* Si le joueur n'a plus de vie : il perd */
+        if (party->player->health <= 0)
+        {
+            party->status = 3;
+        }
         /* Récupération de l'heure en fin */
         clock_gettime(CLOCK_REALTIME, &end_time);
         time_frame = (end_time.tv_sec - start_time.tv_sec) + ((end_time.tv_nsec - start_time.tv_nsec) / BILLION);
@@ -280,29 +270,22 @@ int main(int argc, char *argv[])
         {
             MLV_wait_milliseconds((int)(((1.0 / 144.0) - time_frame) * 1000));
         }
-
-        /* is win ? => party->status == 3 */
     }
     if (party->status == 3 && party->score > 0)
     {
         /* Fin du jeu */
 
-        /* Pour le fin du jeu :
-            On reste sur l'écran de jeu de la partie et on affiche un champs pour demander le nom du joueur + son score.
-            Une fois le nom renseigné, on stocke le score dans un fichier et on affiche le classement des meilleurs scores + (bonus) on affiche son classement
-        */
-        /* draw_input_name = */
-
-            draw_input_name(party);
+        draw_input_name(party);
 
         read_scoreboard(party);
         insert_scoreboard(party);
         write_scoreboard(party);
-        print_scoreboard(party);
+        if (verbose_flag)
+        {
+            print_scoreboard(party);
+        }
 
         draw_window_end(party);
-        printf("End of the game\n");
-        printf("Score : %ld\n", party->score);
         MLV_wait_keyboard_or_mouse(NULL, NULL, NULL, NULL, NULL);
     }
     if (verbose_flag)

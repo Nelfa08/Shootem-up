@@ -15,12 +15,6 @@
 #include "../include/penalty.h"
 #include "../include/bonus.h"
 
-/*Ici il faut mettre la création de la party
- * Initialisation d'une structure party avec l'état (menu, en cours, fini), le niveau choisi, etc
- */
-
-/* Il faut aussi initialiser le table d'ennemies et de missile (soit le mettre ici soit dans enemy.c et buller_enemy(fichier à créer))*/
-
 double normal_delay(double mean)
 {
     return -mean * log(1 - ((double)rand() / RAND_MAX));
@@ -29,32 +23,26 @@ double normal_delay(double mean)
 Party *init_party(int verbose_flag, int hitbox_flag)
 {
     clock_t start, end;
+    MLV_Image *loading_images[NB_IMG_LOADING];
     start = clock();
     if (verbose_flag)
     {
         printf("--------------------------------\n");
         printf("Party initialization started: \n");
     }
+    Party *party = malloc(sizeof(Party));
+    init_img_loading(loading_images);
 
-    MLV_Image *loading_images[5];
-    loading_images[0] = MLV_load_image(PATH_IMG_LOADING_1);
-    loading_images[1] = MLV_load_image(PATH_IMG_LOADING_2);
-    loading_images[2] = MLV_load_image(PATH_IMG_LOADING_3);
-    loading_images[3] = MLV_load_image(PATH_IMG_LOADING_4);
-    loading_images[4] = MLV_load_image(PATH_IMG_LOADING_5);
+    party->verbose_flag = verbose_flag;
+    party->hitbox_flag = hitbox_flag;
+    party->sound = 1;
+    party->status = 0;
+    party->enemies_density = ENEMIES_DENSITY;
+    party->score = 0;
+    party->text_game = MLV_load_font(PATH_FONT_MENU, 20);
 
     MLV_draw_image(loading_images[0], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
     MLV_actualise_window();
-
-    Party *party = malloc(sizeof(Party));
-    party->status = 0;
-    party->sound = 1;
-    party->score = 0;
-    party->verbose_flag = verbose_flag;
-    party->hitbox_flag = hitbox_flag;
-    party->enemies_density = ENEMIES_DENSITY;
-    party->size_file_scoreboard = 0;
-    party->text_game = MLV_load_font(PATH_FONT_MENU, 20);
 
     party->player = create_player();
     if (verbose_flag)
@@ -77,6 +65,7 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     {
         printf("\tBullets enemy created\n");
     }
+
     init_tab_penalty(party);
     if (verbose_flag)
     {
@@ -90,7 +79,65 @@ Party *init_party(int verbose_flag, int hitbox_flag)
 
     MLV_draw_image(loading_images[1], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
     MLV_actualise_window();
-    /* A mettre dans des sous fonctions */
+
+    init_scenery(party, loading_images);
+    if (verbose_flag)
+    {
+        printf("\tScenery created\n");
+    }
+
+    MLV_draw_image(loading_images[3], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
+    MLV_actualise_window();
+
+    init_menu(party);
+    if (verbose_flag)
+    {
+        printf("\tMenu created\n");
+    }
+
+    init_scoreboard(party);
+    if (verbose_flag)
+    {
+        printf("\tScoreboard created\n");
+    }
+
+    MLV_draw_image(loading_images[4], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
+    MLV_actualise_window();
+
+    party->image_heart_full = MLV_load_image(PATH_IMG_HEART_FULL);
+    party->image_heart_empty = MLV_load_image(PATH_IMG_HEART_EMPTY);
+
+    if (verbose_flag)
+    {
+        printf("\tImages loaded\n");
+    }
+
+    if (verbose_flag)
+    {
+        printf("--------------------------------\n");
+    }
+
+    end = clock();
+    if (verbose_flag)
+    {
+        printf("Time to load: %fs\n", (double)(end - start) / CLOCKS_PER_SEC);
+    }
+    return party;
+}
+
+int init_img_loading(MLV_Image *loading_images[])
+{
+    for (int i = 0; i < NB_IMG_LOADING; i++)
+    {
+        char path_img_loading[100];
+        sprintf(path_img_loading, "%s/loading%d.png", PATH_IMG_LOADING, i);
+        loading_images[i] = MLV_load_image(path_img_loading);
+    }
+    return 0;
+}
+
+int init_scenery(Party *party, MLV_Image *loading_images[])
+{
     party->scenery1 = malloc(sizeof(Scenery));
     party->scenery1->background = malloc(sizeof(Background));
     party->scenery1->background->position = malloc(sizeof(Position));
@@ -104,10 +151,6 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->scenery1->foreground->image = MLV_load_image(PATH_IMG_FG_GAME);
     party->scenery1->scroll = 1;
     party->scenery1->speed = SPEED_BG_GAME;
-    if (verbose_flag)
-    {
-        printf("\tScenery 1 created\n");
-    }
 
     MLV_draw_image(loading_images[2], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
     MLV_actualise_window();
@@ -125,14 +168,12 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->scenery2->foreground->image = MLV_load_image(PATH_IMG_FG_GAME);
     party->scenery2->scroll = 1;
     party->scenery2->speed = SPEED_BG_GAME;
-    if (verbose_flag)
-    {
-        printf("\tScenery 2 created\n");
-    }
-    
-    MLV_draw_image(loading_images[3], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
-    MLV_actualise_window();
 
+    return EXIT_SUCCESS;
+}
+
+int init_menu(Party *party)
+{
     party->menu = malloc(sizeof(Menu));
     party->menu->background = malloc(sizeof(Background));
     party->menu->background->position = malloc(sizeof(Position));
@@ -143,34 +184,12 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     party->menu->font_title = MLV_load_font(PATH_FONT_MENU, 76);
     party->menu->img_sound_on = MLV_load_image(PATH_IMG_SOUND_ON);
     party->menu->img_sound_off = MLV_load_image(PATH_IMG_SOUND_OFF);
-    if (verbose_flag)
-    {
-        printf("\tMenu created\n");
-    }
 
-    MLV_draw_image(loading_images[4], WIDTH_FRAME_MENU / 2 - 80, HEIGHT_FRAME_MENU - 50);
-    MLV_actualise_window();
-    MLV_wait_seconds(1);
+    return EXIT_SUCCESS;
+}
 
-    party->image_bullet_player = MLV_load_image(PATH_IMG_BULLET_PLAYER);
-    party->image_bullet_enemy = MLV_load_image(PATH_IMG_BULLET_ENEMY);
-    party->image_heart_empty = MLV_load_image(PATH_IMG_HEART_EMPTY);
-    party->image_heart_full = MLV_load_image(PATH_IMG_HEART_FULL);
-    party->image_shield_bonus = MLV_load_image(PATH_IMG_SHIELD_BONUS);
-    party->image_speed_bonus = MLV_load_image(PATH_IMG_SPEED_BONUS);
-    party->image_health_bonus = MLV_load_image(PATH_IMG_HEALTH_BONUS);
-    party->image_bomb_bonus = MLV_load_image(PATH_IMG_BOMB_BONUS);
-    party->sound_bomb_bonus = MLV_load_sound("data/music/bomb.wav");
-    party->image_attack_bonus = MLV_load_image(PATH_IMG_ATTACK_BONUS);
-    party->image_slow_penalty = MLV_load_image(PATH_IMG_SLOW_PENALTY);
-    party->image_reverse_penalty = MLV_load_image(PATH_IMG_REVERSE_PENALTY);
-    party->image_damage_penalty = MLV_load_image(PATH_IMG_DAMAGE_PENALTY);
-    party->image_shield = MLV_load_image(PATH_IMG_SHIELD);
-    if (verbose_flag)
-    {
-        printf("\tImages loaded\n");
-    }
-
+int init_scoreboard(Party *party)
+{
     for (int i = 0; i < MAX_BEST_SCORE; i++)
     {
         party->scoreboard[i] = malloc(sizeof(Scoreboard));
@@ -179,14 +198,7 @@ Party *init_party(int verbose_flag, int hitbox_flag)
         party->scoreboard[i]->time = malloc(sizeof(char) * 20);
         party->scoreboard[i]->score = 0;
     }
-    if (verbose_flag)
-    {
-        printf("\tScoreboard created\n");
-        printf("--------------------------------\n");
-    }
-    end = clock();
-    printf("Time to load: %fs\n", (double)(end - start) / CLOCKS_PER_SEC);
-    return party;
+    return EXIT_SUCCESS;
 }
 
 int insert_scoreboard(Party *party)
@@ -286,8 +298,6 @@ int read_scoreboard(Party *party)
         i++;
     }
 
-    party->size_file_scoreboard = i;
-
     fclose(file);
     return EXIT_SUCCESS;
 }
@@ -314,21 +324,22 @@ int free_party(Party *party)
 
 void generate_bonus_or_penalty(Party *party)
 {
-    // Génère un nombre entier aléatoire entre 0 et 1 pour sélectionner le type de bonus ou de pénalité
-    // int random_type = rand() % 2;
-    int random_type = 0;
+    int random_type = rand() % 2;
 
-    // Génère les propriétés communes à tous les bonus et pénalités
-
-    // Crée un bonus ou une pénalité en fonction du type aléatoire généré
     if (random_type == 0)
     {
         add_bonus(party);
-        printf("Bonus created\n");
+        if (party->verbose_flag)
+        {
+            printf("Bonus created\n");
+        }
     }
     else
     {
         add_penalty(party);
-        printf("Penalty created\n");
+        if (party->verbose_flag)
+        {
+            printf("Penalty created\n");
+        }
     }
 }

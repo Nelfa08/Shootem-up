@@ -19,13 +19,11 @@ Bonus *create_bonus()
 
 int add_bonus(Party *party)
 {
-    printf("add_bonus\n");
     Bonus *new_bonus = create_bonus();
     int rand_y = (rand() % (BOTTOM_BORDER - TOP_BORDER + 1)) + TOP_BORDER;
     new_bonus->visible = 1;
     new_bonus->position->y = rand_y;
-    // new_bonus->kind = rand() % 5;
-    new_bonus->kind = 3;
+    new_bonus->kind = rand() % 5;
     for (int i = 0; i < MAX_BONUS; i++)
     {
         if (party->bonus[i]->visible == 0)
@@ -40,6 +38,12 @@ int add_bonus(Party *party)
 
 void init_tab_bonus(Party *party)
 {
+    party->image_shield_bonus = MLV_load_image(PATH_IMG_SHIELD_BONUS);
+    party->image_speed_bonus = MLV_load_image(PATH_IMG_SPEED_BONUS);
+    party->image_health_bonus = MLV_load_image(PATH_IMG_HEALTH_BONUS);
+    party->image_bomb_bonus = MLV_load_image(PATH_IMG_BOMB_BONUS);
+    party->sound_bomb_bonus = MLV_load_sound("data/music/bomb.wav");
+    party->image_attack_bonus = MLV_load_image(PATH_IMG_ATTACK_BONUS);
     int i;
     for (i = 0; i < MAX_BONUS; i++)
     {
@@ -107,14 +111,17 @@ int player_get_bonus(Party *party)
         {
             printf("player_win_bonus: BOMB\n");
             kill_all_enemies(party);
-            MLV_play_sound(party->sound_bomb_bonus, 1);
+            if (party->sound == 1)
+            {
+                MLV_play_sound(party->sound_bomb_bonus, 1);
+            }
         }
         else if (party->bonus[bonus_collision]->kind == 4)
         {
             printf("player_win_bonus: ATTACK\n");
-            for(int i = 0; i<MAX_BULLET_PLAYER; i++)
+            for (int i = 0; i < MAX_BULLET_PLAYER; i++)
             {
-                party->bullets_player[i]->damage+=1;
+                party->bullets_player[i]->damage += 1;
             }
         }
         return 1;

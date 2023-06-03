@@ -20,7 +20,6 @@ Penalty *create_penalty()
 
 int add_penalty(Party *party)
 {
-    printf("add_penalty\n");
     Penalty *new_penalty = create_penalty();
     int rand_y = (rand() % (BOTTOM_BORDER - TOP_BORDER + 1)) + TOP_BORDER;
     new_penalty->visible = 1;
@@ -40,6 +39,9 @@ int add_penalty(Party *party)
 
 void init_tab_penalty(Party *party)
 {
+    party->image_slow_penalty = MLV_load_image(PATH_IMG_SLOW_PENALTY);
+    party->image_reverse_penalty = MLV_load_image(PATH_IMG_REVERSE_PENALTY);
+    party->image_damage_penalty = MLV_load_image(PATH_IMG_DAMAGE_PENALTY);
     int i;
     for (i = 0; i < MAX_PENALTY; i++)
     {

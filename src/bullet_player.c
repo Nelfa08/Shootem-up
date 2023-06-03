@@ -18,6 +18,7 @@ Bullet_player *create_bullet_player()
 
 int init_bullets_player(Party *party)
 {
+    party->image_bullet_player = MLV_load_image(PATH_IMG_BULLET_PLAYER);
     int i;
     for (i = 0; i < MAX_BULLET_PLAYER; i++)
     {
@@ -79,16 +80,13 @@ int player_kill_ennemy(Party *party)
         {
             for (int j = 0; j < MAX_ENEMY; j++)
             {
-                if (party->enemies[j]->visible == 1)
+                if ((party->enemies[j]->visible) == 1 && check_collisions_bullet_player(party->bullets_player[i], party->enemies[j]))
                 {
-                    if (check_collisions_bullet_player(party->bullets_player[i], party->enemies[j]))
+                    party->bullets_player[i]->visible = 0;
+                    party->enemies[j]->health -= party->bullets_player[i]->damage;
+                    if (party->enemies[j]->health == 0)
                     {
-                        party->bullets_player[i]->visible = 0;
-                        party->enemies[j]->health -= party->bullets_player[i]->damage;
-                        if (party->enemies[j]->health == 0)
-                        {
-                            party->enemies[j]->visible = 0;
-                        }
+                        party->enemies[j]->visible = 0;
                     }
                 }
             }

@@ -12,16 +12,6 @@ typedef struct position
     int y;
 } Position;
 
-/* inutilisée pour le moment */
-typedef enum game_status
-{
-    MENU,
-    CREDITS,
-    GAME,
-    GAME_OVER,
-    QUIT
-} Game_status;
-
 typedef struct sprite
 {
     MLV_Image **frames;
@@ -164,21 +154,21 @@ typedef struct party
     MLV_Font *text_game;
     Player *player;
     Enemy *enemies[MAX_ENEMY];
-    Bullet_enemy *bullets_enemy[MAX_BULLET_ENEMY];
+    Sprite *sprite_walk_enemy;
+    Sprite *sprite_attack_enemy;
     Bullet_player *bullets_player[MAX_BULLET_PLAYER];
-    Bonus *bonus[MAX_BONUS];
+    Bullet_enemy *bullets_enemy[MAX_BULLET_ENEMY];
     Penalty *penalty[MAX_PENALTY];
+    Bonus *bonus[MAX_BONUS];
     Scenery *scenery1;
     Scenery *scenery2;
     Menu *menu;
     Pressed_key pk;
-    int size_file_scoreboard;
     Scoreboard *scoreboard[MAX_BEST_SCORE + 1];
     MLV_Image *image_heart_full;
     MLV_Image *image_heart_empty;
     MLV_Image *image_bullet_player;
     MLV_Image *image_bullet_enemy;
-
     MLV_Image *image_shield_bonus;
     MLV_Image *image_speed_bonus;
     MLV_Image *image_health_bonus;
@@ -188,9 +178,6 @@ typedef struct party
     MLV_Image *image_slow_penalty;
     MLV_Image *image_reverse_penalty;
     MLV_Image *image_damage_penalty;
-    MLV_Image *image_shield;
-    Sprite *sprite_walk_enemy;
-    Sprite *sprite_attack_enemy;
 } Party;
 
 #endif

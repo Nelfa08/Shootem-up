@@ -20,6 +20,7 @@ Bullet_enemy *create_bullet_enemy()
 
 int init_bullets_enemy(Party *party)
 {
+    party->image_bullet_enemy = MLV_load_image(PATH_IMG_BULLET_ENEMY);
     int i;
     for (i = 0; i < MAX_BULLET_ENEMY; i++)
     {

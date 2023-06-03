@@ -28,7 +28,6 @@ int init_window_menu()
 
 int draw_loading_screen()
 {
-    // @todo: dessiner un écran de chargement
     MLV_draw_text(WIDTH_FRAME_MENU / 2 - 30, HEIGHT_FRAME_MENU / 2 - 20, "Loading...", MLV_COLOR_WHITE);
     return EXIT_SUCCESS;
 }
@@ -40,13 +39,9 @@ int draw_window_menu(Party *party)
     MLV_Image *img_sound_off = MLV_load_image(PATH_IMG_SOUND_OFF);
     MLV_Font *font_title = MLV_load_font(PATH_FONT_MENU, 76);
     MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 50);
-    // char *name_game = "DofusRunner";
     char *name_game = strdup("DofusRunner");
-    // char *button_play = "PLAY";
     char *button_play = strdup("PLAY");
-    // char *button_credits = "CREDITS";
     char *button_credits = strdup("CREDITS");
-    // char *button_quit = "QUIT";
     char *button_quit = strdup("QUIT");
     int width_name_game, height_name_game;
     int width_button_play, height_button_play;
@@ -400,14 +395,10 @@ int draw_window_end(Party *party)
 
 int draw_input_name(Party *party)
 {
-    // char *player_name;
     MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 30);
 
-    // MLV_wait_input_box_with_font(WIDTH_FRAME_GAME / 4, HEIGHT_FRAME_GAME / 4, WIDTH_FRAME_GAME / 4 + 100, HEIGHT_FRAME_GAME / 4 + 100, MLV_ALPHA_TRANSPARENT, MLV_COLOR_WHITE, MLV_COLOR_BLACK, "Player name: ", &player_name, font);
     MLV_wait_input_box_with_font(WIDTH_FRAME_GAME / 4, HEIGHT_FRAME_GAME / 4, WIDTH_FRAME_GAME / 4 + 100, HEIGHT_FRAME_GAME / 4 + 100, MLV_ALPHA_TRANSPARENT, MLV_COLOR_WHITE, MLV_COLOR_BLACK, "Player name: ", &party->player->name, font);
     MLV_actualise_window();
-
-    // party->player->name = player_name;
 
     MLV_free_font(font);
     return EXIT_SUCCESS;
@@ -485,8 +476,8 @@ int draw_penalties(Party *party)
 
 int draw_shield(Party *party)
 {
-    MLV_resize_image_with_proportions(party->image_shield, party->player->width, party->player->height);
-    MLV_draw_image(party->image_shield, party->player->position->x, party->player->position->y);
+    MLV_resize_image_with_proportions(party->image_shield_bonus, party->player->width, party->player->height);
+    MLV_draw_image(party->image_shield_bonus, party->player->position->x, party->player->position->y);
     /* dessine les hitbox */
     if (party->hitbox_flag == 1)
     {

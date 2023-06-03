@@ -14,11 +14,8 @@
 #define HEIGHT_FRAME_MENU 750
 #define WIDTH_FRAME_MENU 750
 #define NAME_FRAME_MENU "DofusRunner - Menu"
-#define PATH_IMG_LOADING_1 "data/img/menu/loading1.png"
-#define PATH_IMG_LOADING_2 "data/img/menu/loading2.png"
-#define PATH_IMG_LOADING_3 "data/img/menu/loading3.png"
-#define PATH_IMG_LOADING_4 "data/img/menu/loading4.png"
-#define PATH_IMG_LOADING_5 "data/img/menu/loading5.png"
+#define PATH_IMG_LOADING "data/img/menu"
+#define NB_IMG_LOADING 5
 #define PATH_IMG_BG_MENU "data/img/BG_menu.png"
 #define PATH_IMG_SOUND_ON "data/img/sound_on.png"
 #define PATH_IMG_SOUND_OFF "data/img/sound_off.png"
@@ -72,7 +69,7 @@
 #define SPEED_ENEMY 5
 #define HEALTH_ENEMY 1
 #define MAX_ENEMY 100
-#define ENEMIES_DENSITY 0.05
+#define ENEMIES_DENSITY 0.01
 
 /* BULLET ENEMY */
 #define PATH_IMG_BULLET_ENEMY "data/img/monster/Yurei/bullet_enemy.png"
