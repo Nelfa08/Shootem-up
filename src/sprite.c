@@ -1,3 +1,14 @@
+/**
+ * @file sprite.c
+ * @author Corentin RODDIER and Yacine DJEBLOUN
+ * @brief File containing all the functions about the sprites
+ * @version 1.0
+ * @date 2023-06-04
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+
 #include "../include/struct.h"
 #include "../include/const.h"
 

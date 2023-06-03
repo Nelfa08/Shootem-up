@@ -1,3 +1,14 @@
+/**
+ * @file enemy.c
+ * @author Corentin RODDIER and Yacine DJEBLOUN
+ * @brief File containing all the functions about the enemies
+ * @version 1.0
+ * @date 2023-06-04
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+
 #include <stdlib.h>
 #include "../include/const.h"
 #include "../include/struct.h"

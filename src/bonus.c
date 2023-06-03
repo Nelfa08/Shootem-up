@@ -1,3 +1,14 @@
+/**
+ * @file bonus.c
+ * @author Corentin RODDIER and Yacine DJEBLOUN
+ * @brief File containing all the functions about the bonus
+ * @version 1.0
+ * @date 2023-06-04
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+
 #include "../include/const.h"
 #include "../include/struct.h"
 

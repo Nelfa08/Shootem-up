@@ -1,3 +1,14 @@
+/**
+ * @file party.c
+ * @author Corentin RODDIER and Yacine DJEBLOUN
+ * @brief File containing all the functions about the party
+ * @version 1.0
+ * @date 2023-06-04
+ *
+ * @copyright Copyright (c) 2023
+ *
+ */
+
 #include <MLV/MLV_all.h>
 #include <math.h>
 #include <time.h>

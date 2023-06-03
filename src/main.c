@@ -1,9 +1,9 @@
 /**
  * @file main.c
- * @author Corentin RODDIER Yacine DJEBLOUN
- * @brief
+ * @author Corentin RODDIER and Yacine DJEBLOUN
+ * @brief File containing the main function of the program
  * @version 1.0
- * @date 2023-05-01
+ * @date 2023-06-04
  *
  * @copyright Copyright (c) 2023
  *

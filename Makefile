@@ -7,13 +7,15 @@ REPBIN= $(BIN)main.o $(BIN)window.o $(BIN)player.o $(BIN)enemy.o $(BIN)keyboard_
 OBJ= main.o window.o player.o enemy.o keyboard_listener.o party.o bullet_player.o bullet_enemy.o bonus.o penalty.o sprite.o
 MAIN=shootemup
 
-all: $(MAIN)
-
 $(MAIN): $(REPBIN)
 	$(CC) -o $@ $^ $(CFLAGS) $(LDFLAGS)
 
 $(BIN)%.o: $(SRC)%.c
 	$(CC) -c -o $@ $< $(CFLAGS)
+
+all:
+	make
+	make doc
 
 doc:
 	doxygen
