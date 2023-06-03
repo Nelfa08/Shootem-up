@@ -173,7 +173,7 @@ typedef struct party
     Menu *menu;
     Pressed_key pk;
     int size_file_scoreboard;
-    Scoreboard *scoreboard[10];
+    Scoreboard *scoreboard[MAX_BEST_SCORE + 1];
     MLV_Image *image_heart_full;
     MLV_Image *image_heart_empty;
     MLV_Image *image_bullet_player;

@@ -1,4 +1,5 @@
 #include <MLV/MLV_all.h>
+#include <string.h>
 
 #include "../include/const.h"
 #include "../include/struct.h"
@@ -39,10 +40,14 @@ int draw_window_menu(Party *party)
     MLV_Image *img_sound_off = MLV_load_image(PATH_IMG_SOUND_OFF);
     MLV_Font *font_title = MLV_load_font(PATH_FONT_MENU, 76);
     MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 50);
-    char *name_game = "DofusRunner";
-    char *button_play = "PLAY";
-    char *button_credits = "CREDITS";
-    char *button_quit = "QUIT";
+    // char *name_game = "DofusRunner";
+    char *name_game = strdup("DofusRunner");
+    // char *button_play = "PLAY";
+    char *button_play = strdup("PLAY");
+    // char *button_credits = "CREDITS";
+    char *button_credits = strdup("CREDITS");
+    // char *button_quit = "QUIT";
+    char *button_quit = strdup("QUIT");
     int width_name_game, height_name_game;
     int width_button_play, height_button_play;
     int width_button_credits, height_button_credits;
@@ -388,7 +393,7 @@ int draw_window_end(Party *party)
 
     MLV_resize_image_with_proportions(img, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
     MLV_draw_image(img, 0, 0);
-
+    draw_best_score(party);
     MLV_actualise_window();
     return EXIT_SUCCESS;
 }
@@ -401,7 +406,7 @@ int draw_input_name(Party *party)
     // MLV_wait_input_box_with_font(WIDTH_FRAME_GAME / 4, HEIGHT_FRAME_GAME / 4, WIDTH_FRAME_GAME / 4 + 100, HEIGHT_FRAME_GAME / 4 + 100, MLV_ALPHA_TRANSPARENT, MLV_COLOR_WHITE, MLV_COLOR_BLACK, "Player name: ", &player_name, font);
     MLV_wait_input_box_with_font(WIDTH_FRAME_GAME / 4, HEIGHT_FRAME_GAME / 4, WIDTH_FRAME_GAME / 4 + 100, HEIGHT_FRAME_GAME / 4 + 100, MLV_ALPHA_TRANSPARENT, MLV_COLOR_WHITE, MLV_COLOR_BLACK, "Player name: ", &party->player->name, font);
     MLV_actualise_window();
-    
+
     // party->player->name = player_name;
 
     MLV_free_font(font);
@@ -488,6 +493,22 @@ int draw_shield(Party *party)
         MLV_draw_rectangle(party->player->position->x, party->player->position->y, party->player->width, party->player->height, MLV_COLOR_RED);
     }
     return 0;
+}
+
+void draw_best_score(Party *party)
+{
+    MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 15);
+    char score[50];
+    for (int i = 0; i < MAX_BEST_SCORE; i++)
+    {
+        if (party->scoreboard[i]->score != 0)
+        {
+
+            sprintf(score, "%ld", party->scoreboard[i]->score);
+            MLV_draw_text_with_font(WIDTH_FRAME_MENU / 3, HEIGHT_FRAME_MENU / 3 + 50 * i, party->scoreboard[i]->name, font, MLV_rgba(209, 94, 50, 0));
+            MLV_draw_text_with_font(WIDTH_FRAME_MENU / 3 + 200, HEIGHT_FRAME_MENU / 3 + 50 * i, score, font, MLV_rgba(211, 117, 81, 0));
+        }
+    }
 }
 
 /**

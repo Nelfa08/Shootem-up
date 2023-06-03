@@ -8,6 +8,7 @@
 /* PARTY */
 
 #define PATH_SCORE "data/score.txt"
+#define MAX_BEST_SCORE 10
 
 /* FRAME MENU */
 #define HEIGHT_FRAME_MENU 750
