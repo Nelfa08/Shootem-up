@@ -14,6 +14,14 @@
 
 #include "../include/sprite.h"
 
+/**
+ * @brief Create a sprite object according to the path of the sprite, the number of frames and the kind of sprite (0 = walk, 1 = attack, 2 = run, 3 = idle)
+ * 
+ * @param sprite_path 
+ * @param nb_frames 
+ * @param kind 
+ * @return Sprite* 
+ */
 Sprite *create_sprite(char *sprite_path, int nb_frames, int kind)
 {
     Sprite *sprite = malloc(sizeof(Sprite));

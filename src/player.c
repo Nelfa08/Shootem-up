@@ -23,9 +23,9 @@
 #include "../include/player.h"
 
 /**
- * @brief
- *
- * @return Player
+ * @brief Create a player object
+ * 
+ * @return Player* 
  */
 Player *create_player()
 {
@@ -49,6 +49,13 @@ Player *create_player()
     return player;
 }
 
+/**
+ * @brief move the player according to the key pressed
+ * 
+ * @param player 
+ * @param pk 
+ * @return int 
+ */
 int move_player(Player *player, Pressed_key pk)
 {
     if(player->is_reversed == 1){
@@ -98,6 +105,12 @@ int move_player(Player *player, Pressed_key pk)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief free the player
+ * 
+ * @param player 
+ * @return int 
+ */
 int free_player(Player *player)
 {
     free(player->position);

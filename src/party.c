@@ -26,11 +26,24 @@
 #include "../include/penalty.h"
 #include "../include/bonus.h"
 
+/**
+ * @brief generate a random number between 0 and 1
+ * 
+ * @param mean 
+ * @return double 
+ */
 double normal_delay(double mean)
 {
     return -mean * log(1 - ((double)rand() / RAND_MAX));
 }
 
+/**
+ * @brief Initialize party
+ * 
+ * @param verbose_flag 
+ * @param hitbox_flag 
+ * @return Party* 
+ */
 Party *init_party(int verbose_flag, int hitbox_flag)
 {
     clock_t start, end;
@@ -136,6 +149,12 @@ Party *init_party(int verbose_flag, int hitbox_flag)
     return party;
 }
 
+/**
+ * @brief load images for loading screen
+ * 
+ * @param loading_images 
+ * @return int 
+ */
 int init_img_loading(MLV_Image *loading_images[])
 {
     for (int i = 0; i < NB_IMG_LOADING; i++)
@@ -147,6 +166,13 @@ int init_img_loading(MLV_Image *loading_images[])
     return 0;
 }
 
+/**
+ * @brief Initialize 2 scenery for scrolling background and foreground
+ * 
+ * @param party 
+ * @param loading_images 
+ * @return int 
+ */
 int init_scenery(Party *party, MLV_Image *loading_images[])
 {
     party->scenery1 = malloc(sizeof(Scenery));
@@ -183,6 +209,12 @@ int init_scenery(Party *party, MLV_Image *loading_images[])
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief Initialize the menu
+ * 
+ * @param party 
+ * @return int 
+ */
 int init_menu(Party *party)
 {
     party->menu = malloc(sizeof(Menu));
@@ -199,6 +231,12 @@ int init_menu(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief Initialize the scoreboard
+ * 
+ * @param party 
+ * @return int 
+ */
 int init_scoreboard(Party *party)
 {
     for (int i = 0; i < MAX_BEST_SCORE; i++)
@@ -212,6 +250,12 @@ int init_scoreboard(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief add a score to the scoreboard
+ * 
+ * @param party 
+ * @return int 
+ */
 int insert_scoreboard(Party *party)
 {
     time_t current_time;
@@ -242,6 +286,12 @@ int insert_scoreboard(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief Sort the scoreboard
+ * 
+ * @param party 
+ * @return int 
+ */
 int sort_scoreboard(Party *party)
 {
     for (int i = MAX_BEST_SCORE; i > 0; i--)
@@ -256,6 +306,12 @@ int sort_scoreboard(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief Write the scoreboard in a file
+ * 
+ * @param party 
+ * @return int 
+ */
 int write_scoreboard(Party *party)
 {
     FILE *file = fopen(PATH_SCORE, "w");
@@ -286,6 +342,12 @@ int write_scoreboard(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief Read the scoreboard from a file
+ * 
+ * @param party 
+ * @return int 
+ */
 int read_scoreboard(Party *party)
 {
     FILE *file = fopen(PATH_SCORE, "r");
@@ -313,6 +375,12 @@ int read_scoreboard(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief Print the scoreboard
+ * 
+ * @param party 
+ * @return int 
+ */
 int print_scoreboard(Party *party)
 {
     printf("Scoreboard:\n");
@@ -326,13 +394,11 @@ int print_scoreboard(Party *party)
     return EXIT_SUCCESS;
 }
 
-int free_party(Party *party)
-{
-    free_player(party->player);
-    free(party);
-    return EXIT_SUCCESS;
-}
-
+/**
+ * @brief generate a bonus or a penalty randomly
+ * 
+ * @param party 
+ */
 void generate_bonus_or_penalty(Party *party)
 {
     int random_type = rand() % 2;
@@ -353,4 +419,17 @@ void generate_bonus_or_penalty(Party *party)
             printf("Penalty created\n");
         }
     }
+}
+
+/**
+ * @brief free the party
+ * 
+ * @param party 
+ * @return int 
+ */
+int free_party(Party *party)
+{
+    free_player(party->player);
+    free(party);
+    return EXIT_SUCCESS;
 }

@@ -7,7 +7,6 @@
 Bullet_enemy *create_bullet_enemy();
 int init_bullets_enemy(Party *party);
 int add_bullet_enemy(Party *party, Enemy *enemy);
-int print_bullets_enemy(Party *party);
 int move_bullets_enemy(Party *party);
 int check_collisions_bullet_enemy(Bullet_enemy *bullet, Player *player);
 int enemy_kill_player(Party *party);

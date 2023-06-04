@@ -14,6 +14,11 @@
 
 #include "../include/bullet_player.h"
 
+/**
+ * @brief Create a bullet player object
+ * 
+ * @return Bullet_player* 
+ */
 Bullet_player *create_bullet_player()
 {
     Bullet_player *bullet = malloc(sizeof(Bullet_player));
@@ -27,6 +32,12 @@ Bullet_player *create_bullet_player()
     return bullet;
 }
 
+/**
+ * @brief Initialize the array of bullets player
+ * 
+ * @param party 
+ * @return int 
+ */
 int init_bullets_player(Party *party)
 {
     party->image_bullet_player = MLV_load_image(PATH_IMG_BULLET_PLAYER);
@@ -38,6 +49,12 @@ int init_bullets_player(Party *party)
     return 0;
 }
 
+/**
+ * @brief add a bullet player in array of bullets player
+ * 
+ * @param party 
+ * @return int 
+ */
 int add_bullet_player(Party *party)
 {
     Bullet_player *new_bullet = create_bullet_player();
@@ -56,17 +73,12 @@ int add_bullet_player(Party *party)
     exit(1);
 }
 
-int print_bullets_player(Party *party)
-{
-    printf("[ ");
-    for (int i = 0; i < MAX_BULLET_PLAYER; i++)
-    {
-        printf("%d ", party->bullets_player[i]->visible);
-    }
-    printf(" ]\n");
-    return 0;
-}
-
+/**
+ * @brief move the bullets player
+ * 
+ * @param party 
+ * @return int 
+ */
 int move_bullets_player(Party *party)
 {
     for (int i = 0; i < MAX_BULLET_PLAYER; i++)
@@ -83,6 +95,12 @@ int move_bullets_player(Party *party)
     return 0;
 }
 
+/**
+ * @brief check if the bullets player kill an enemy
+ * 
+ * @param party 
+ * @return int 
+ */
 int player_kill_ennemy(Party *party)
 {
     for (int i = 0; i < MAX_BULLET_PLAYER; i++)
@@ -106,6 +124,13 @@ int player_kill_ennemy(Party *party)
     return 0;
 }
 
+/**
+ * @brief check if a bullet player collide with an enemy
+ * 
+ * @param bullet 
+ * @param enemy 
+ * @return int 
+ */
 int check_collisions_bullet_player(Bullet_player *bullet, Enemy *enemy)
 {
     if (bullet->position->x + bullet->size >= enemy->position->x &&

@@ -18,9 +18,9 @@
 #include "../include/window.h"
 
 /**
- * @brief efface le contenu de la window
- *
- * @return int
+ * @brief clear the window
+ * 
+ * @return int 
  */
 int clear_window()
 {
@@ -28,6 +28,11 @@ int clear_window()
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief init the window of the menu
+ * 
+ * @return int 
+ */
 int init_window_menu()
 {
     MLV_create_window(NAME_FRAME_MENU, NULL, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
@@ -37,12 +42,23 @@ int init_window_menu()
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief draw the loading screen
+ * 
+ * @return int 
+ */
 int draw_loading_screen()
 {
     MLV_draw_text(WIDTH_FRAME_MENU / 2 - 30, HEIGHT_FRAME_MENU / 2 - 20, "Loading...", MLV_COLOR_WHITE);
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief draw the window of the menu
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_window_menu(Party *party)
 {
     MLV_Image *img = party->menu->background->image;
@@ -109,6 +125,11 @@ int draw_window_menu(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief draw the window of the credits
+ * 
+ * @return int 
+ */
 int draw_window_credits()
 {
     MLV_Image *img = MLV_load_image(PATH_IMG_BG_MENU);
@@ -143,9 +164,9 @@ int draw_window_credits()
 }
 
 /**
- * @brief initialisation de la window
- *
- * @return int
+ * @brief init the window of the game
+ * 
+ * @return int 
  */
 int init_window_game()
 {
@@ -156,10 +177,10 @@ int init_window_game()
 }
 
 /**
- * @brief redessine la window
- *
- * @param player
- * @return int
+ * @brief draw the window of the game and the elements
+ * 
+ * @param party 
+ * @return int 
  */
 int draw_frame_game(Party *party)
 {
@@ -186,6 +207,13 @@ int draw_frame_game(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief move the scenery
+ * 
+ * @param scenery1 
+ * @param scenery2 
+ * @return int 
+ */
 int move_scenery(Scenery *scenery1, Scenery *scenery2)
 {
     scenery1->background->position->x -= SPEED_BG_GAME;
@@ -211,6 +239,12 @@ int move_scenery(Scenery *scenery1, Scenery *scenery2)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief draw the background
+ * 
+ * @param background 
+ * @return int 
+ */
 int draw_background(Background *background)
 {
     MLV_Image *bg1 = background->image;
@@ -219,6 +253,12 @@ int draw_background(Background *background)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief draw the foreground
+ * 
+ * @param foreground 
+ * @return int 
+ */
 int draw_foreground(Foreground *foreground)
 {
     MLV_Image *fg1 = foreground->image;
@@ -227,6 +267,12 @@ int draw_foreground(Foreground *foreground)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief draw the health of the player
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_health(Party *party)
 {
     for (int i = 0; i < HEALTH_PLAYER; i++)
@@ -245,6 +291,12 @@ int draw_health(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief draw the player
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_player(Party *party)
 {
     if (party->player->sprite_attack->status == 1)
@@ -297,6 +349,12 @@ int draw_player(Party *party)
     return 0;
 }
 
+/**
+ * @brief draw the enemies
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_enemies(Party *party)
 {
     int i;
@@ -343,6 +401,12 @@ int draw_enemies(Party *party)
     return 0;
 }
 
+/**
+ * @brief draw the score
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_score(Party *party)
 {
     char score[1000];
@@ -351,6 +415,12 @@ int draw_score(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief draw thr bullets of the player
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_bullet_player(Party *party)
 {
     int i;
@@ -371,6 +441,12 @@ int draw_bullet_player(Party *party)
     return 0;
 }
 
+/**
+ * @brief draw the bullets of the enemies
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_bullet_enemy(Party *party)
 {
     int i;
@@ -391,6 +467,12 @@ int draw_bullet_enemy(Party *party)
     return 0;
 }
 
+/**
+ * @brief draw the end of the game
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_window_end(Party *party)
 {
     MLV_Image *img = party->menu->background->image;
@@ -404,6 +486,12 @@ int draw_window_end(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief ask the name of the player at the end of the game
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_input_name(Party *party)
 {
     MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 30);
@@ -415,6 +503,12 @@ int draw_input_name(Party *party)
     return EXIT_SUCCESS;
 }
 
+/**
+ * @brief draw bonus according to their kind
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_bonus(Party *party)
 {
     int i;
@@ -453,6 +547,12 @@ int draw_bonus(Party *party)
     return 0;
 }
 
+/**
+ * @brief draw the penalties according to their kind
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_penalties(Party *party)
 {
     int i;
@@ -485,6 +585,12 @@ int draw_penalties(Party *party)
     return 0;
 }
 
+/**
+ * @brief draw the shield if the player has one
+ * 
+ * @param party 
+ * @return int 
+ */
 int draw_shield(Party *party)
 {
     MLV_resize_image_with_proportions(party->image_shield_bonus, party->player->width, party->player->height);
@@ -497,6 +603,11 @@ int draw_shield(Party *party)
     return 0;
 }
 
+/**
+ * @brief draw best score at the end of the game
+ * 
+ * @param party 
+ */
 void draw_best_score(Party *party)
 {
     MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 15);
@@ -514,9 +625,9 @@ void draw_best_score(Party *party)
 }
 
 /**
- * @brief libère en mémoire la window
- *
- * @return int
+ * @brief free the window
+ * 
+ * @return int 
  */
 int free_window()
 {

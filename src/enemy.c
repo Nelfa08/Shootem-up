@@ -18,9 +18,10 @@
 #include "../include/enemy.h"
 
 /**
- * @brief Initialisation des ennemies
- *
- * @return Enemy
+ * @brief Create a enemy object
+ * 
+ * @param party 
+ * @return Enemy* 
  */
 Enemy *create_enemy( Party *party)
 {
@@ -38,6 +39,11 @@ Enemy *create_enemy( Party *party)
     return enemy;
 }
 
+/**
+ * @brief Initialize the array of enemies
+ * 
+ * @param party 
+ */
 void init_enemies(Party *party)
 {
     int i;
@@ -49,6 +55,12 @@ void init_enemies(Party *party)
     }
 }
 
+/**
+ * @brief add a enemy in array of enemies
+ * 
+ * @param party 
+ * @return int 
+ */
 int add_enemy(Party *party)
 {
     Enemy *new_enemy = create_enemy(party);
@@ -69,6 +81,12 @@ int add_enemy(Party *party)
     exit(1);
 }
 
+/**
+ * @brief move all the enemies
+ * 
+ * @param party 
+ * @return int 
+ */
 int move_enemies(Party *party)
 {
     for (int i = 0; i < MAX_ENEMY; i++)
@@ -86,17 +104,12 @@ int move_enemies(Party *party)
     return 0;
 }
 
-int print_enemies(Enemy **enemies)
-{
-    printf("[");
-    for (int i = 0; i < MAX_ENEMY; i++)
-    {
-        printf("%d, ", enemies[i]->visible);
-    }
-    printf("]\n");
-    return 0;
-}
-
+/**
+ * @brief kill all the enemies on the screen
+ * 
+ * @param party 
+ * @return int 
+ */
 int kill_all_enemies(Party *party)
 {
     for (int i = 0; i < MAX_ENEMY; i++)
@@ -106,6 +119,12 @@ int kill_all_enemies(Party *party)
     return 0;
 }
 
+/**
+ * @brief free an enemy
+ * 
+ * @param enemy 
+ * @return int 
+ */
 int free_enemy(Enemy *enemy)
 {
     free(enemy->position);

@@ -16,6 +16,11 @@
 
 #include "../include/penalty.h"
 
+/**
+ * @brief Create a penalty object
+ * 
+ * @return Penalty* 
+ */
 Penalty *create_penalty()
 {
     Penalty *penalty = malloc(sizeof(Penalty));
@@ -29,6 +34,12 @@ Penalty *create_penalty()
     return penalty;
 }
 
+/**
+ * @brief add a penalty in array of penalty
+ * 
+ * @param party 
+ * @return int 
+ */
 int add_penalty(Party *party)
 {
     Penalty *new_penalty = create_penalty();
@@ -48,6 +59,11 @@ int add_penalty(Party *party)
     exit(1);
 }
 
+/**
+ * @brief init the array of penalty
+ * 
+ * @param party 
+ */
 void init_tab_penalty(Party *party)
 {
     party->image_slow_penalty = MLV_load_image(PATH_IMG_SLOW_PENALTY);
@@ -60,7 +76,11 @@ void init_tab_penalty(Party *party)
     }
 }
 
-
+/**
+ * @brief move the penalty
+ * 
+ * @param party 
+ */
 void move_penalty(Party *party)
 {
     for (int i = 0; i < MAX_PENALTY; i++)
@@ -72,6 +92,12 @@ void move_penalty(Party *party)
     }
 }
 
+/**
+ * @brief check if player collide with a penalty
+ * 
+ * @param party 
+ * @return int 
+ */
 int collision_penalty(Party *party)
 {
     for (int i = 0; i < MAX_PENALTY; i++)
@@ -91,6 +117,12 @@ int collision_penalty(Party *party)
     return -1;
 }
 
+/**
+ * @brief check if player collide with a penalty and apply the penalty effect
+ * 
+ * @param party 
+ * @return int 
+ */
 int player_get_penalty(Party *party)
 {
     int penalty_collision = collision_penalty(party);

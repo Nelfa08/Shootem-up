@@ -15,6 +15,11 @@
 #include "../include/enemy.h"
 #include "../include/bonus.h"
 
+/**
+ * @brief Create a bonus object
+ * 
+ * @return Bonus*
+ */
 Bonus *create_bonus()
 {
     Bonus *bonus = malloc(sizeof(Bonus));
@@ -28,6 +33,12 @@ Bonus *create_bonus()
     return bonus;
 }
 
+/**
+ * @brief add a bonus in array of bonus
+ * 
+ * @param party 
+ * @return int 
+ */
 int add_bonus(Party *party)
 {
     Bonus *new_bonus = create_bonus();
@@ -47,6 +58,11 @@ int add_bonus(Party *party)
     exit(1);
 }
 
+/**
+ * @brief init the array of bonus
+ * 
+ * @param party 
+ */
 void init_tab_bonus(Party *party)
 {
     party->image_shield_bonus = MLV_load_image(PATH_IMG_SHIELD_BONUS);
@@ -62,6 +78,11 @@ void init_tab_bonus(Party *party)
     }
 }
 
+/**
+ * @brief move the bonus if it's visible
+ * 
+ * @param party 
+ */
 void move_bonus(Party *party)
 {
     for (int i = 0; i < MAX_BONUS; i++)
@@ -73,6 +94,12 @@ void move_bonus(Party *party)
     }
 }
 
+/**
+ * @brief check if player collide with a bonus
+ * 
+ * @param party 
+ * @return int 
+ */
 int collision_bonus(Party *party)
 {
     for (int i = 0; i < MAX_BONUS; i++)
@@ -92,6 +119,12 @@ int collision_bonus(Party *party)
     return -1;
 }
 
+/**
+ * @brief add effect of bonus to player 
+ * 
+ * @param party 
+ * @return int 
+ */
 int player_get_bonus(Party *party)
 {
     int bonus_collision = collision_bonus(party);

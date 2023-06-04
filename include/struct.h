@@ -4,14 +4,20 @@
 #include <MLV/MLV_all.h>
 #include "const.h"
 
-/* Structure représentant les différentes entités du jeu */
-
+/**
+ * @struct Position
+ * @brief Position of an object
+*/
 typedef struct position
 {
     int x;
     int y;
 } Position;
 
+/**
+ * @struct Sprite
+ * @brief Sprite of an object
+ */
 typedef struct sprite
 {
     MLV_Image **frames;
@@ -20,6 +26,10 @@ typedef struct sprite
     int status;
 } Sprite;
 
+/**
+ * @struct Player
+ * @brief Player of the game
+ */
 typedef struct player
 {
     Position *position;
@@ -37,6 +47,10 @@ typedef struct player
     int width;
 } Player;
 
+/**
+ * @struct Bullet_player
+ * @brief Bullet of the player
+ */
 typedef struct bullet_player
 {
     Position *position;
@@ -48,6 +62,10 @@ typedef struct bullet_player
     int visible;
 } Bullet_player;
 
+/**
+ * @struct Enemy
+ * @brief Enemy of the game
+ */
 typedef struct enemy
 {
     Position *position;
@@ -60,6 +78,10 @@ typedef struct enemy
     int visible;
 } Enemy;
 
+/**
+ * @struct Bullet_enemy
+ * @brief Bullet of the enemy
+ */
 typedef struct bullet_enemy
 {
     Position *position;
@@ -70,18 +92,30 @@ typedef struct bullet_enemy
     int visible;
 } Bullet_enemy;
 
+/**
+ * @struct Background
+ * @brief Background of the game
+ */
 typedef struct background
 {
     Position *position;
     MLV_Image *image;
 } Background;
 
+/**
+ * @struct Foreground
+ * @brief Foreground of the game
+ */
 typedef struct foreground
 {
     Position *position;
     MLV_Image *image;
 } Foreground;
 
+/**
+ * @struct Scenery
+ * @brief Scenery of the game
+ */
 typedef struct scenery
 {
     Background *background;
@@ -90,6 +124,10 @@ typedef struct scenery
     int scroll;
 } Scenery;
 
+/**
+ * @struct Menu
+ * @brief Menu of the game
+ */
 typedef struct menu
 {
     Background *background;
@@ -101,6 +139,10 @@ typedef struct menu
 
 typedef int Pressed_key[5];
 
+/**
+ * @enum Bonus_kind
+ * @brief Kind of bonus
+ */
 typedef enum bonus_kind
 {
     SHIELD,
@@ -110,6 +152,10 @@ typedef enum bonus_kind
     ATTACK
 } Bonus_kind;
 
+/**
+ * @enum Penalty_kind
+ * @brief Kind of penalty
+ */
 typedef enum penalty_kind
 {
     SLOW,
@@ -117,6 +163,10 @@ typedef enum penalty_kind
     BOSS
 } Penalty_kind;
 
+/**
+ * @struct Bonus
+ * @brief Bonus of the game
+ */
 typedef struct bonus
 {
     Position *position;
@@ -126,6 +176,10 @@ typedef struct bonus
     int visible;
 } Bonus;
 
+/**
+ * @struct Penalty
+ * @brief Penalty of the game
+ */
 typedef struct penalty
 {
     Position *position;
@@ -135,6 +189,10 @@ typedef struct penalty
     int visible;
 } Penalty;
 
+/**
+ * @struct Scoreboard
+ * @brief Scoreboard of the game
+ */
 typedef struct scoreboard
 {
     char *name;
@@ -143,6 +201,10 @@ typedef struct scoreboard
     char *time;
 } Scoreboard;
 
+/**
+ * @struct Party
+ * @brief Party of the game
+ */
 typedef struct party
 {
     int verbose_flag;

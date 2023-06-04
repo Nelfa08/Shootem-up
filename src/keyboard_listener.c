@@ -16,6 +16,12 @@
 
 #include "../include/keyboard_listener.h"
 
+/**
+ * @brief Detect if a key is pressed and return the result in an array pk[0] = up, pk[1] = right, pk[2] = down, pk[3] = left, pk[4] = space
+ * 
+ * @param pk 
+ * @return int 
+ */
 int detect_key_pressed(Pressed_key pk)
 {
     if (MLV_get_keyboard_state(MLV_KEYBOARD_UP) == MLV_PRESSED)
@@ -60,11 +66,5 @@ int detect_key_pressed(Pressed_key pk)
         pk[4] = 0;
     }
 
-    return EXIT_SUCCESS;
-}
-
-int print_key_pressed(Pressed_key pk)
-{
-    printf("UP: %d, RIGHT: %d, DOWN: %d, LEFT: %d, SPACE: %d\n", pk[0], pk[1], pk[2], pk[3], pk[4]);
     return EXIT_SUCCESS;
 }

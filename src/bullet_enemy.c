@@ -15,6 +15,11 @@
 #include "../include/party.h"
 #include "../include/bullet_enemy.h"
 
+/**
+ * @brief Create a bullet enemy object
+ * 
+ * @return Bullet_enemy* 
+ */
 Bullet_enemy *create_bullet_enemy()
 {
     Bullet_enemy *bullet = malloc(sizeof(Bullet_enemy));
@@ -29,6 +34,12 @@ Bullet_enemy *create_bullet_enemy()
     return bullet;
 }
 
+/**
+ * @brief Initialize the array of bullets enemy
+ * 
+ * @param party 
+ * @return int 
+ */
 int init_bullets_enemy(Party *party)
 {
     party->image_bullet_enemy = MLV_load_image(PATH_IMG_BULLET_ENEMY);
@@ -40,6 +51,13 @@ int init_bullets_enemy(Party *party)
     return 0;
 }
 
+/**
+ * @brief add a bullet enemy in array of bullets enemy
+ * 
+ * @param party 
+ * @param enemy 
+ * @return int 
+ */
 int add_bullet_enemy(Party *party, Enemy *enemy)
 {
     Bullet_enemy *new_bullet = create_bullet_enemy();
@@ -59,17 +77,12 @@ int add_bullet_enemy(Party *party, Enemy *enemy)
     return 0;
 }
 
-int print_bullets_enemy(Party *party)
-{
-    printf("[ ");
-    for (int i = 0; i < MAX_BULLET_ENEMY; i++)
-    {
-        printf("%d ", party->bullets_enemy[i]->visible);
-    }
-    printf(" ]\n");
-    return 0;
-}
-
+/**
+ * @brief move the bullets enemy
+ * 
+ * @param party 
+ * @return int 
+ */
 int move_bullets_enemy(Party *party)
 {
     for (int i = 0; i < MAX_BULLET_ENEMY; i++)
@@ -86,6 +99,13 @@ int move_bullets_enemy(Party *party)
     return 0;
 }
 
+/**
+ * @brief check if the bullet enemy is in collision with the player
+ * 
+ * @param bullet 
+ * @param player 
+ * @return int 
+ */
 int check_collisions_bullet_enemy(Bullet_enemy *bullet, Player *player)
 {
     if (bullet->position->x <= player->position->x + player->width &&
@@ -98,6 +118,12 @@ int check_collisions_bullet_enemy(Bullet_enemy *bullet, Player *player)
     return 0;
 }
 
+/**
+ * @brief decrease the health of the player or the shield when the player is in collision with a bullet enemy 
+ * 
+ * @param party 
+ * @return int 
+ */
 int enemy_kill_player(Party *party)
 {
     for (int i = 0; i < MAX_BULLET_ENEMY; i++)
@@ -121,6 +147,12 @@ int enemy_kill_player(Party *party)
     return 0;
 }
 
+/**
+ * @brief add a bullet enemy when the enemy shoot
+ * 
+ * @param party 
+ * @return int 
+ */
 int fire_enemy(Party *party)
 {
     int number_enemy = rand() % MAX_ENEMY;
