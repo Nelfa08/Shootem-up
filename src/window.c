@@ -118,6 +118,11 @@ int draw_window_menu(Party *party)
     /*On rafraichit la fenetre*/
     MLV_actualise_window();
 
+    free(name_game);
+    free(button_play);
+    free(button_credits);
+    free(button_quit);
+    
     return EXIT_SUCCESS;
 }
 

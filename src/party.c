@@ -141,6 +141,8 @@ Party *init_party(int verbose_flag, int hitbox_flag)
         printf("--------------------------------\n");
     }
 
+    free_img_loading(loading_images);
+
     end = clock();
     if (verbose_flag)
     {
@@ -164,6 +166,14 @@ int init_img_loading(MLV_Image *loading_images[])
         loading_images[i] = MLV_load_image(path_img_loading);
     }
     return 0;
+}
+
+void free_img_loading(MLV_Image *loading_images[])
+{
+    for (int i = 0; i < NB_IMG_LOADING; i++)
+    {
+        MLV_free_image(loading_images[i]);
+    }
 }
 
 /**
@@ -258,6 +268,7 @@ void free_menu(Party *party)
     MLV_free_image(party->menu->background->image);
     MLV_free_font(party->menu->font_text);
     MLV_free_font(party->menu->font_title);
+    MLV_free_font(party->menu->font_text_credits);
     MLV_free_image(party->menu->img_sound_on);
     MLV_free_image(party->menu->img_sound_off);
     free(party->menu->background->position);
@@ -464,6 +475,7 @@ void generate_bonus_or_penalty(Party *party)
 int free_party(Party *party)
 {
     printf("Free party\n");
+
     free_bonus(party);
     free_penalty(party);
     free_bullet_enemy(party);
@@ -471,6 +483,10 @@ int free_party(Party *party)
     free_enemies(party);
     free_menu(party);
     free_sceneries(party);
+    MLV_free_font(party->text_game);
+    MLV_free_image(party->image_heart_full);
+    MLV_free_image(party->image_heart_empty);
+    MLV_free_image(party->image_bullet_player);
     free(party);
     return EXIT_SUCCESS;
 }

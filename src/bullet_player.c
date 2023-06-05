@@ -151,4 +151,5 @@ void free_bullet_player(Party *party)
         free(party->bullets_player[i]->position);
         free(party->bullets_player[i]);
     }
+    free(party->image_bullet_player);
 }
