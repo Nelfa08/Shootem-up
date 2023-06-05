@@ -209,6 +209,25 @@ int init_scenery(Party *party, MLV_Image *loading_images[])
     return EXIT_SUCCESS;
 }
 
+void free_sceneries(Party *party)
+{
+    printf("Free sceneries\n");
+    MLV_free_image(party->scenery1->background->image);
+    MLV_free_image(party->scenery1->foreground->image);
+    free(party->scenery1->background->position);
+    free(party->scenery1->background);
+    free(party->scenery1->foreground->position);
+    free(party->scenery1->foreground);
+    free(party->scenery1);
+    MLV_free_image(party->scenery2->background->image);
+    MLV_free_image(party->scenery2->foreground->image);
+    free(party->scenery2->background->position);
+    free(party->scenery2->background);
+    free(party->scenery2->foreground->position);
+    free(party->scenery2->foreground);
+    free(party->scenery2);
+}
+
 /**
  * @brief Initialize the menu
  * 
@@ -224,11 +243,26 @@ int init_menu(Party *party)
     party->menu->background->position->y = 0;
     party->menu->background->image = MLV_load_image(PATH_IMG_BG_MENU);
     party->menu->font_text = MLV_load_font(PATH_FONT_MENU, 50);
+    party->menu->font_text_credits = MLV_load_font(PATH_FONT_MENU, 20);
+
     party->menu->font_title = MLV_load_font(PATH_FONT_MENU, 76);
     party->menu->img_sound_on = MLV_load_image(PATH_IMG_SOUND_ON);
     party->menu->img_sound_off = MLV_load_image(PATH_IMG_SOUND_OFF);
 
     return EXIT_SUCCESS;
+}
+
+void free_menu(Party *party)
+{
+    printf("Free menu\n");
+    MLV_free_image(party->menu->background->image);
+    MLV_free_font(party->menu->font_text);
+    MLV_free_font(party->menu->font_title);
+    MLV_free_image(party->menu->img_sound_on);
+    MLV_free_image(party->menu->img_sound_off);
+    free(party->menu->background->position);
+    free(party->menu->background);
+    free(party->menu);
 }
 
 /**
@@ -429,7 +463,26 @@ void generate_bonus_or_penalty(Party *party)
  */
 int free_party(Party *party)
 {
-    free_player(party->player);
+    printf("Free party\n");
+    free_bonus(party);
+    free_penalty(party);
+    free_bullet_enemy(party);
+    free_bullet_player(party);
+    free_enemies(party);
+    free_menu(party);
+    free_sceneries(party);
     free(party);
     return EXIT_SUCCESS;
 }
+
+void free_scoreboard(Party *party)
+{
+    for (int i = 0; i < MAX_BEST_SCORE; i++)
+    {
+        free(party->scoreboard[i]->name);
+        free(party->scoreboard[i]->date);
+        free(party->scoreboard[i]->time);
+        free(party->scoreboard[i]);
+    }
+}
+

@@ -6,5 +6,5 @@
 
 Player *create_player();
 int move_player(Player *player, Pressed_key pk);
-int free_player(Player *player);
+void free_player(Party *party);
 #endif

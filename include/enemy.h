@@ -6,7 +6,7 @@
 
 void init_enemies(Party *party);
 Enemy *create_enemy(Party *party);
-int free_enemy(Enemy *enemy);
+void free_enemies(Party *party);
 int add_enemy(Party *party);
 int move_enemies(Party *party);
 int kill_all_enemies(Party *party);

@@ -111,9 +111,12 @@ int move_player(Player *player, Pressed_key pk)
  * @param player 
  * @return int 
  */
-int free_player(Player *player)
+void free_player(Party *party)
 {
-    free(player->position);
-    free(player);
-    return EXIT_SUCCESS;
+    free(party->player->position);
+    free_sprite(party->player->sprite_walk);
+    free_sprite(party->player->sprite_attack);
+    free_sprite(party->player->sprite_run);
+    free_sprite(party->player->sprite_idle);
+    free(party->player);
 }

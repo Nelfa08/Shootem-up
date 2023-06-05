@@ -58,3 +58,14 @@ Sprite *create_sprite(char *sprite_path, int nb_frames, int kind)
     }
     return sprite;
 }
+
+void free_sprite(Sprite *sprite)
+{
+    printf("free sprite\n");
+    for (int i = 0; i < sprite->nb_frames; i++)
+    {
+        MLV_free_image(sprite->frames[i]);
+    }
+    free(sprite->frames);
+    free(sprite);
+}

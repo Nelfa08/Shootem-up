@@ -10,6 +10,7 @@ int add_penalty(Party *party);
 void move_penalty(Party *party);
 int collision_penalty(Party *party);
 int player_get_penalty(Party *party);
+void free_penalty(Party *party);
 
 
 #endif

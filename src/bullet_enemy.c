@@ -164,3 +164,14 @@ int fire_enemy(Party *party)
     }
     return 0;
 }
+
+void free_bullet_enemy(Party *party)
+{
+    printf("Free bullet enemy\n");
+    for (int i = 0; i < MAX_BULLET_ENEMY; i++)
+    {
+        free(party->bullets_enemy[i]->position);
+        free(party->bullets_enemy[i]);
+    }
+    free(party->image_bullet_enemy);
+}

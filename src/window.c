@@ -38,6 +38,7 @@ int init_window_menu()
     MLV_create_window(NAME_FRAME_MENU, NULL, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
     clear_window();
     draw_loading_screen();
+
     MLV_actualise_window();
     return EXIT_SUCCESS;
 }
@@ -61,11 +62,6 @@ int draw_loading_screen()
  */
 int draw_window_menu(Party *party)
 {
-    MLV_Image *img = party->menu->background->image;
-    MLV_Image *img_sound_on = MLV_load_image(PATH_IMG_SOUND_ON);
-    MLV_Image *img_sound_off = MLV_load_image(PATH_IMG_SOUND_OFF);
-    MLV_Font *font_title = MLV_load_font(PATH_FONT_MENU, 76);
-    MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 50);
     char *name_game = strdup("DofusRunner");
     char *button_play = strdup("PLAY");
     char *button_credits = strdup("CREDITS");
@@ -76,36 +72,36 @@ int draw_window_menu(Party *party)
     int width_button_quit, height_button_quit;
 
     /*dessin du background*/
-    MLV_resize_image_with_proportions(img, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
-    MLV_draw_image(img, 0, 0);
+    MLV_resize_image_with_proportions(party->menu->background->image, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
+    MLV_draw_image(party->menu->background->image, party->menu->background->position->x, party->menu->background->position->y);
 
     /*dessin du nom du jeu*/
-    MLV_get_size_of_text_with_font(name_game, &width_name_game, &height_name_game, font_title);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_name_game / 2), HEIGHT_FRAME_GAME * 2 / 10 - height_name_game / 2, name_game, font_title, MLV_rgba(209, 94, 50, 0));
+    MLV_get_size_of_text_with_font(name_game, &width_name_game, &height_name_game, party->menu->font_title);
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_name_game / 2), HEIGHT_FRAME_GAME * 2 / 10 - height_name_game / 2, name_game, party->menu->font_title, MLV_rgba(209, 94, 50, 0));
 
     /*dessin du bouton jouer*/
-    MLV_get_size_of_text_with_font(button_play, &width_button_play, &height_button_play, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_play / 2), (HEIGHT_FRAME_GAME * 5 / 10 - height_button_play / 2), button_play, font, MLV_rgba(211, 117, 81, 0));
+    MLV_get_size_of_text_with_font(button_play, &width_button_play, &height_button_play, party->menu->font_text);
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_play / 2), (HEIGHT_FRAME_GAME * 5 / 10 - height_button_play / 2), button_play, party->menu->font_text, MLV_rgba(211, 117, 81, 0));
 
     /*dessin du bouton crédits*/
-    MLV_get_size_of_text_with_font(button_credits, &width_button_credits, &height_button_credits, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_credits / 2), (HEIGHT_FRAME_GAME * 6 / 10 - height_button_credits / 2), button_credits, font, MLV_rgba(211, 117, 81, 0));
+    MLV_get_size_of_text_with_font(button_credits, &width_button_credits, &height_button_credits, party->menu->font_text);
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_credits / 2), (HEIGHT_FRAME_GAME * 6 / 10 - height_button_credits / 2), button_credits, party->menu->font_text, MLV_rgba(211, 117, 81, 0));
 
     /*dessin du bouton quitter*/
-    MLV_get_size_of_text_with_font(button_quit, &width_button_quit, &height_button_quit, font);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_quit / 2), (HEIGHT_FRAME_GAME * 7 / 10 - height_button_quit / 2), button_quit, font, MLV_rgba(211, 117, 81, 0));
+    MLV_get_size_of_text_with_font(button_quit, &width_button_quit, &height_button_quit, party->menu->font_text);
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_button_quit / 2), (HEIGHT_FRAME_GAME * 7 / 10 - height_button_quit / 2), button_quit, party->menu->font_text, MLV_rgba(211, 117, 81, 0));
 
     if (party->sound == 1)
     {
         /*dessin du bouton son_on*/
-        MLV_resize_image_with_proportions(img_sound_on, 50, 50);
-        MLV_draw_image(img_sound_on, WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10), 10);
+        MLV_resize_image_with_proportions(party->menu->img_sound_on, 50, 50);
+        MLV_draw_image(party->menu->img_sound_on, WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10), 10);
     }
     else
     {
         /*dessin du bouton son_off*/
-        MLV_resize_image_with_proportions(img_sound_off, 50, 50);
-        MLV_draw_image(img_sound_off, WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10), 10);
+        MLV_resize_image_with_proportions( party->menu->img_sound_off, 50, 50);
+        MLV_draw_image(party->menu->img_sound_off, WIDTH_FRAME_MENU - (SIZE_ICON_MUSIC + 10), 10);
     }
 
     MLV_draw_image(party->player->sprite_idle->frames[party->player->sprite_idle->current_frame], 0, 0);
@@ -130,12 +126,8 @@ int draw_window_menu(Party *party)
  * 
  * @return int 
  */
-int draw_window_credits()
+int draw_window_credits(Party *party)
 {
-    MLV_Image *img = MLV_load_image(PATH_IMG_BG_MENU);
-    MLV_Font *font_title = MLV_load_font(PATH_FONT_MENU, 76);
-    MLV_Font *font_back = MLV_load_font(PATH_FONT_MENU, 30);
-    MLV_Font *font_text = MLV_load_font(PATH_FONT_MENU, 20);
     char *title = "CREDITS";
     char *back = "BACK";
     int width_button_back, height_button_back;
@@ -144,22 +136,23 @@ int draw_window_credits()
     int taille_interlinge = 10;
     char *message_credits = "DEVELOPPED BY :\n    RODDIER CORENTIN\n    DJEBLOUN YACINE\n\n MUSIC BY :\n    LEANO TRISTAN\n\n DESIGN BY :\n    AGRA RALPH";
 
-    MLV_resize_image_with_proportions(img, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
-    MLV_draw_image(img, 0, 0);
+    MLV_resize_image_with_proportions(party->menu->background->image, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
+    MLV_draw_image(party->menu->background->image, 0, 0);
 
-    MLV_get_size_of_text_with_font(title, &width_text_title, &height_text_title, font_title);
-    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_text_title / 2), (HEIGHT_FRAME_GAME * 2 / 10 - height_text_title / 2), title, font_title, MLV_rgba(209, 94, 50, 0));
+    MLV_get_size_of_text_with_font(title, &width_text_title, &height_text_title, party->menu->font_title);
+    MLV_draw_text_with_font((WIDTH_FRAME_MENU / 2) - (width_text_title / 2), (HEIGHT_FRAME_GAME * 2 / 10 - height_text_title / 2), title, party->menu->font_title, MLV_rgba(209, 94, 50, 0));
 
-    MLV_get_size_of_text_with_font(title, &width_button_back, &height_button_back, font_back);
-    MLV_draw_text_with_font(10, 0, back, font_back, MLV_rgba(209, 94, 50, 0));
+    MLV_get_size_of_text_with_font(title, &width_button_back, &height_button_back, party->menu->font_text_credits);
+    MLV_draw_text_with_font(10, 0, back, party->menu->font_text_credits, MLV_rgba(209, 94, 50, 0));
 
-    MLV_get_size_of_adapted_text_box_with_font(message_credits, font_text, taille_interlinge, &width_text_credits, &height_text_credits);
+    MLV_get_size_of_adapted_text_box_with_font(message_credits, party->menu->font_text_credits, taille_interlinge, &width_text_credits, &height_text_credits);
 
-    MLV_draw_adapted_text_box_with_font((WIDTH_FRAME_MENU / 2) - (width_text_credits / 2), (HEIGHT_FRAME_GAME * 3 / 10 - height_button_back / 2), message_credits, font_text, taille_interlinge, MLV_COLOR_WHITE_SMOKE, MLV_rgba(211, 117, 81, 0), MLV_COLOR_WHITE_SMOKE, MLV_TEXT_LEFT);
+    MLV_draw_adapted_text_box_with_font((WIDTH_FRAME_MENU / 2) - (width_text_credits / 2), (HEIGHT_FRAME_GAME * 3 / 10 - height_button_back / 2), message_credits, party->menu->font_text_credits, taille_interlinge, MLV_COLOR_WHITE_SMOKE, MLV_rgba(211, 117, 81, 0), MLV_COLOR_WHITE_SMOKE, MLV_TEXT_LEFT);
 
     MLV_actualise_window();
-    MLV_free_font(font_title);
-    MLV_free_font(font_back);
+    // MLV_free_font(font_title);
+    // MLV_free_font(font_back);
+    // MLV_free_font(font_text);
     return EXIT_SUCCESS;
 }
 
@@ -475,12 +468,12 @@ int draw_bullet_enemy(Party *party)
  */
 int draw_window_end(Party *party)
 {
-    MLV_Image *img = party->menu->background->image;
+    // MLV_Image *img = party->menu->background->image;
     MLV_change_window_size(WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
     clear_window();
 
-    MLV_resize_image_with_proportions(img, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
-    MLV_draw_image(img, 0, 0);
+    MLV_resize_image_with_proportions(party->menu->background->image, WIDTH_FRAME_MENU, HEIGHT_FRAME_MENU);
+    MLV_draw_image(party->menu->background->image, party->menu->background->position->x, party->menu->background->position->y);
     draw_best_score(party);
     MLV_actualise_window();
     return EXIT_SUCCESS;
@@ -570,7 +563,7 @@ int draw_penalties(Party *party)
                 image_penalty = party->image_reverse_penalty;
                 break;
             case BOSS:
-                image_penalty = party->image_damage_penalty;
+                image_penalty = party->image_boss_penalty;
                 break;
             }
             MLV_resize_image_with_proportions(image_penalty, party->penalty[i]->size, party->penalty[i]->size);
@@ -616,12 +609,12 @@ void draw_best_score(Party *party)
     {
         if (party->scoreboard[i]->score != 0)
         {
-
             sprintf(score, "%ld", party->scoreboard[i]->score);
             MLV_draw_text_with_font(WIDTH_FRAME_MENU / 3, HEIGHT_FRAME_MENU / 3 + 50 * i, party->scoreboard[i]->name, font, MLV_rgba(209, 94, 50, 0));
             MLV_draw_text_with_font(WIDTH_FRAME_MENU / 3 + 200, HEIGHT_FRAME_MENU / 3 + 50 * i, score, font, MLV_rgba(211, 117, 81, 0));
         }
     }
+    MLV_free_font(font);
 }
 
 /**
@@ -631,6 +624,7 @@ void draw_best_score(Party *party)
  */
 int free_window()
 {
+
     MLV_free_window();
     return EXIT_SUCCESS;
 }

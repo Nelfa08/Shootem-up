@@ -7,7 +7,7 @@
 
 int init_window_menu();
 int draw_window_menu(Party *party);
-int draw_window_credits();
+int draw_window_credits(Party *party);
 int init_window_game();
 int draw_frame_game(Party *party);
 int clear_window();

@@ -17,5 +17,7 @@ int init_img_loading(MLV_Image *loading_images[]);
 int init_scenery(Party *party, MLV_Image *loading_images[]);
 int init_menu(Party *party);
 int init_scoreboard(Party *party);
+void free_menu(Party *party);
+void free_sceneries(Party *party);
 
 #endif

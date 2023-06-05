@@ -10,5 +10,6 @@ int add_bonus(Party *party);
 void move_bonus(Party *party);
 int collision_bonus(Party *party);
 int player_get_bonus(Party *party);
+void free_bonus(Party *party);
 
 #endif

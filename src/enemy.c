@@ -131,3 +131,14 @@ int free_enemy(Enemy *enemy)
     free(enemy);
     return 0;
 }
+
+void free_enemies(Party *party)
+{
+    printf("free enemies\n");
+    for (int i = 0; i < MAX_ENEMY; i++)
+    {
+        free_enemy(party->enemies[i]);
+    }
+    free_sprite(party->sprite_walk_enemy);
+    free_sprite(party->sprite_attack_enemy);
+}

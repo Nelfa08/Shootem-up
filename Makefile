@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -pthread -lm -g
+CFLAGS=-Wall -pthread -lm -fsanitize=leak
 LDFLAGS=-lMLV
 BIN= bin/
 SRC=src/

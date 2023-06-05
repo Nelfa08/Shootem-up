@@ -101,7 +101,7 @@ int move_bullets_player(Party *party)
  * @param party 
  * @return int 
  */
-int player_kill_ennemy(Party *party)
+int player_kill_enemy(Party *party)
 {
     for (int i = 0; i < MAX_BULLET_PLAYER; i++)
     {
@@ -141,4 +141,14 @@ int check_collisions_bullet_player(Bullet_player *bullet, Enemy *enemy)
         return 1;
     }
     return 0;
+}
+
+void free_bullet_player(Party *party)
+{
+    printf("free bullet player\n");
+    for (int i = 0; i < MAX_BULLET_PLAYER; i++)
+    {
+        free(party->bullets_player[i]->position);
+        free(party->bullets_player[i]);
+    }
 }

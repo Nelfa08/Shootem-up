@@ -11,5 +11,6 @@ int move_bullets_enemy(Party *party);
 int check_collisions_bullet_enemy(Bullet_enemy *bullet, Player *player);
 int enemy_kill_player(Party *party);
 int fire_enemy(Party *party);
+void free_bullet_enemy(Party *party);
 
 #endif

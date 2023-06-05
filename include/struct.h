@@ -133,6 +133,7 @@ typedef struct menu
     Background *background;
     MLV_Font *font_text;
     MLV_Font *font_title;
+    MLV_Font *font_text_credits;
     MLV_Image *img_sound_on;
     MLV_Image *img_sound_off;
 } Menu;
@@ -239,7 +240,7 @@ typedef struct party
     MLV_Image *image_attack_bonus;
     MLV_Image *image_slow_penalty;
     MLV_Image *image_reverse_penalty;
-    MLV_Image *image_damage_penalty;
+    MLV_Image *image_boss_penalty;
 } Party;
 
 #endif

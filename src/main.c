@@ -178,7 +178,7 @@ int main(int argc, char *argv[])
         else if (party->status == 1)
         {
             clear_window();
-            draw_window_credits();
+            draw_window_credits(party);
             MLV_wait_mouse(&x, &y);
             if (x > 0 && x < 105 && y > 0 && y < 40)
             {
@@ -208,7 +208,7 @@ int main(int argc, char *argv[])
         move_scenery(party->scenery1, party->scenery2);
         move_enemies(party);
         move_bullets_player(party);
-        player_kill_ennemy(party);
+        player_kill_enemy(party);
         fire_enemy(party);
         move_bullets_enemy(party);
         enemy_kill_player(party);
@@ -296,7 +296,10 @@ int main(int argc, char *argv[])
     if (party->score > 0)
     {
         free(party->player->name); // voir la doc du bloc de MLV_wait_input_box_with_font
+        // TODO free toutes les choses utiles uniquement lors du jeu
     }
+    // TODO free toute la party (tout ce qui est chargé lors du init_party)
+    
     MLV_stop_music();
     MLV_free_music(music);
     MLV_free_audio();

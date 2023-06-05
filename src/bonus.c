@@ -71,8 +71,7 @@ void init_tab_bonus(Party *party)
     party->image_bomb_bonus = MLV_load_image(PATH_IMG_BOMB_BONUS);
     party->sound_bomb_bonus = MLV_load_sound("data/music/bomb.wav");
     party->image_attack_bonus = MLV_load_image(PATH_IMG_ATTACK_BONUS);
-    int i;
-    for (i = 0; i < MAX_BONUS; i++)
+    for (int i = 0; i < MAX_BONUS; i++)
     {
         party->bonus[i] = create_bonus();
     }
@@ -171,4 +170,20 @@ int player_get_bonus(Party *party)
         return 1;
     }
     return 0;
+}
+
+void free_bonus(Party *party)
+{
+    printf("free_bonus\n");
+    MLV_free_image(party->image_shield_bonus);
+    MLV_free_image(party->image_speed_bonus);
+    MLV_free_image(party->image_health_bonus);
+    MLV_free_image(party->image_bomb_bonus);
+    MLV_free_image(party->image_attack_bonus);
+    MLV_free_sound(party->sound_bomb_bonus);
+    for (int i = 0; i < MAX_BONUS; i++)
+    {
+        free(party->bonus[i]->position);
+        free(party->bonus[i]);
+    }
 }

@@ -68,7 +68,7 @@ void init_tab_penalty(Party *party)
 {
     party->image_slow_penalty = MLV_load_image(PATH_IMG_SLOW_PENALTY);
     party->image_reverse_penalty = MLV_load_image(PATH_IMG_REVERSE_PENALTY);
-    party->image_damage_penalty = MLV_load_image(PATH_IMG_DAMAGE_PENALTY);
+    party->image_boss_penalty = MLV_load_image(PATH_IMG_DAMAGE_PENALTY);
     int i;
     for (i = 0; i < MAX_PENALTY; i++)
     {
@@ -151,4 +151,18 @@ int player_get_penalty(Party *party)
         }
     }
     return 0;
+}
+
+
+void free_penalty(Party *party)
+{
+    printf("free_penalty\n");
+    MLV_free_image(party->image_reverse_penalty);
+    MLV_free_image(party->image_boss_penalty);
+    MLV_free_image(party->image_slow_penalty);
+    for (int i = 0; i < MAX_BONUS; i++)
+    {
+        free(party->penalty[i]->position);
+        free(party->penalty[i]);
+    }
 }
