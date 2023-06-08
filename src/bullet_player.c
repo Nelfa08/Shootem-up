@@ -98,7 +98,7 @@ int move_bullets_player(Party *party)
 /**
  * @brief check if the bullets player kill an enemy
  * 
- * @param party 
+ * @param party
  * @return int 
  */
 int player_kill_enemy(Party *party)
@@ -113,7 +113,7 @@ int player_kill_enemy(Party *party)
                 {
                     party->bullets_player[i]->visible = 0;
                     party->enemies[j]->health -= party->bullets_player[i]->damage;
-                    if (party->enemies[j]->health == 0)
+                    if (party->enemies[j]->health <= 0)
                     {
                         party->enemies[j]->visible = 0;
                     }
@@ -151,5 +151,5 @@ void free_bullet_player(Party *party)
         free(party->bullets_player[i]->position);
         free(party->bullets_player[i]);
     }
-    free(party->image_bullet_player);
+    MLV_free_image(party->image_bullet_player);
 }

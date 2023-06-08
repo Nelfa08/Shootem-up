@@ -173,5 +173,5 @@ void free_bullet_enemy(Party *party)
         free(party->bullets_enemy[i]->position);
         free(party->bullets_enemy[i]);
     }
-    free(party->image_bullet_enemy);
+    MLV_free_image(party->image_bullet_enemy);
 }

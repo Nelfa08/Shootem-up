@@ -131,8 +131,11 @@ int player_get_penalty(Party *party)
         if (party->penalty[penalty_collision]->kind == 0)
         {
             printf("player_get_penalty: SLOW\n");
-            if(party->player->speed > 5) {
+            if(party->player->speed - 5 >= 5) {
                 party->player->speed -= 5;
+            }
+            else{
+                party->player->speed = 5;
             }
         }
         else if (party->penalty[penalty_collision]->kind == 1)
