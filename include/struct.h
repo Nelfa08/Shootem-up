@@ -69,6 +69,7 @@ typedef struct bullet_player
 typedef struct enemy
 {
     Position *position;
+    int original_y;
     int current_frame;
     int height;
     int width;

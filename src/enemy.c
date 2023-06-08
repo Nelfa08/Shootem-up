@@ -10,6 +10,7 @@
  */
 
 #include <stdlib.h>
+#include <math.h>
 #include "../include/const.h"
 #include "../include/struct.h"
 
@@ -34,6 +35,7 @@ Enemy *create_enemy( Party *party)
     enemy->visible = 0;
     enemy->current_frame = 0;
     enemy->status = 0;
+    enemy->original_y = 0;
     enemy->height = MLV_get_image_height(party->sprite_walk_enemy->frames[0]);
     enemy->width = MLV_get_image_width(party->sprite_walk_enemy->frames[0]);
     return enemy;
@@ -69,6 +71,7 @@ int add_enemy(Party *party)
     new_enemy->visible = 1;
     new_enemy->health = (party->score / 500) + 1;
     new_enemy->position->y = rand_y;
+    new_enemy->original_y = rand_y;
     for (int i = 0; i < MAX_ENEMY; i++)
     {
         if (party->enemies[i]->visible == 0)
@@ -94,6 +97,7 @@ int move_enemies(Party *party)
         if (party->enemies[i]->visible == 1)
         {
             party->enemies[i]->position->x -= party->enemies[i]->speed;
+            party->enemies[i]->position->y = sin((party->enemies[i]->position->x)/20.0)*20 + party->enemies[i]->original_y;
             if (party->enemies[i]->position->x < -party->enemies[i]->width)
             {
                 party->player->health -= 1;
