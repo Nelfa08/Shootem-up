@@ -28,9 +28,9 @@
 
 /**
  * @brief generate a random number between 0 and 1
- * 
- * @param mean 
- * @return double 
+ *
+ * @param mean
+ * @return double
  */
 double normal_delay(double mean)
 {
@@ -39,10 +39,10 @@ double normal_delay(double mean)
 
 /**
  * @brief Initialize party
- * 
- * @param verbose_flag 
- * @param hitbox_flag 
- * @return Party* 
+ *
+ * @param verbose_flag
+ * @param hitbox_flag
+ * @return Party*
  */
 Party *init_party(int verbose_flag, int hitbox_flag)
 {
@@ -153,9 +153,9 @@ Party *init_party(int verbose_flag, int hitbox_flag)
 
 /**
  * @brief load images for loading screen
- * 
- * @param loading_images 
- * @return int 
+ *
+ * @param loading_images
+ * @return int
  */
 int init_img_loading(MLV_Image *loading_images[])
 {
@@ -178,10 +178,10 @@ void free_img_loading(MLV_Image *loading_images[])
 
 /**
  * @brief Initialize 2 scenery for scrolling background and foreground
- * 
- * @param party 
- * @param loading_images 
- * @return int 
+ *
+ * @param party
+ * @param loading_images
+ * @return int
  */
 int init_scenery(Party *party, MLV_Image *loading_images[])
 {
@@ -221,7 +221,7 @@ int init_scenery(Party *party, MLV_Image *loading_images[])
 
 void free_sceneries(Party *party)
 {
-    if(party->verbose_flag)
+    if (party->verbose_flag)
     {
         printf("free_sceneries\n");
     }
@@ -243,9 +243,9 @@ void free_sceneries(Party *party)
 
 /**
  * @brief Initialize the menu
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int init_menu(Party *party)
 {
@@ -267,7 +267,7 @@ int init_menu(Party *party)
 
 void free_menu(Party *party)
 {
-    if(party->verbose_flag)
+    if (party->verbose_flag)
     {
         printf("free_menu\n");
     }
@@ -284,9 +284,9 @@ void free_menu(Party *party)
 
 /**
  * @brief Initialize the scoreboard
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int init_scoreboard(Party *party)
 {
@@ -303,9 +303,9 @@ int init_scoreboard(Party *party)
 
 /**
  * @brief add a score to the scoreboard
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int insert_scoreboard(Party *party)
 {
@@ -325,7 +325,14 @@ int insert_scoreboard(Party *party)
     newScore->date = malloc(sizeof(char) * 20);
     newScore->time = malloc(sizeof(char) * 20);
 
-    strcpy(newScore->name, party->player->name);
+    if (strcmp(party->player->name, "\0") == 0)
+    {
+        strcpy(newScore->name, "Player");
+    }
+    else
+    {
+        strcpy(newScore->name, party->player->name);
+    }
     strcpy(newScore->date, date_string);
     strcpy(newScore->time, time_string);
     newScore->score = party->score;
@@ -339,9 +346,9 @@ int insert_scoreboard(Party *party)
 
 /**
  * @brief Sort the scoreboard
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int sort_scoreboard(Party *party)
 {
@@ -359,9 +366,9 @@ int sort_scoreboard(Party *party)
 
 /**
  * @brief Write the scoreboard in a file
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int write_scoreboard(Party *party)
 {
@@ -395,9 +402,9 @@ int write_scoreboard(Party *party)
 
 /**
  * @brief Read the scoreboard from a file
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int read_scoreboard(Party *party)
 {
@@ -428,9 +435,9 @@ int read_scoreboard(Party *party)
 
 /**
  * @brief Print the scoreboard
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int print_scoreboard(Party *party)
 {
@@ -447,8 +454,8 @@ int print_scoreboard(Party *party)
 
 /**
  * @brief generate a bonus or a penalty randomly
- * 
- * @param party 
+ *
+ * @param party
  */
 void generate_bonus_or_penalty(Party *party)
 {
@@ -474,13 +481,13 @@ void generate_bonus_or_penalty(Party *party)
 
 /**
  * @brief free the scoreboard
- * 
+ *
  * @param party Structure de la partie
  * @return void
-*/
+ */
 void free_scoreboard(Party *party)
 {
-    if(party->verbose_flag)
+    if (party->verbose_flag)
     {
         printf("free_scoreboard\n");
     }
@@ -496,13 +503,13 @@ void free_scoreboard(Party *party)
 
 /**
  * @brief free the party
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int free_party(Party *party)
 {
-    if(party->verbose_flag)
+    if (party->verbose_flag)
     {
         printf("free_party\n");
     }
@@ -516,7 +523,7 @@ int free_party(Party *party)
     free_sceneries(party);
     free_scoreboard(party);
 
-    if(party->verbose_flag)
+    if (party->verbose_flag)
     {
         printf("free image and font from party\n");
     }
@@ -528,6 +535,3 @@ int free_party(Party *party)
     free(party);
     return EXIT_SUCCESS;
 }
-
-
-
