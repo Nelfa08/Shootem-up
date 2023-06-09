@@ -610,6 +610,7 @@ void draw_best_score(Party *party)
 {
     MLV_Font *font = MLV_load_font(PATH_FONT_MENU, 15);
     char score[50];
+    MLV_draw_filled_rectangle(WIDTH_FRAME_MENU/3 - 30,HEIGHT_FRAME_MENU / 3 - 30,300,745,MLV_COLOR_WHITE);
     for (int i = 0; i < MAX_BEST_SCORE; i++)
     {
         if (party->scoreboard[i]->score != 0)
