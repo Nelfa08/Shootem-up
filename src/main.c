@@ -286,7 +286,7 @@ int main(int argc, char *argv[])
         }
 
         draw_window_end(party);
-        MLV_wait_keyboard_or_mouse(NULL, NULL, NULL, NULL, NULL);
+        MLV_wait_seconds(3);
     }
     if (verbose_flag)
     {

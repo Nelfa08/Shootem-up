@@ -528,8 +528,7 @@ int free_party(Party *party)
         printf("free image and font from party\n");
     }
 
-    MLV_free_font(party->text_game);
-    MLV_free_image(party->image_heart_full);
+     MLV_free_image(party->image_heart_full);
     MLV_free_image(party->image_heart_empty);
     MLV_free_image(party->image_bullet_player);
     free(party);
