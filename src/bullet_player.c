@@ -145,7 +145,10 @@ int check_collisions_bullet_player(Bullet_player *bullet, Enemy *enemy)
 
 void free_bullet_player(Party *party)
 {
-    printf("free bullet player\n");
+    if(party->verbose_flag)
+    {
+        printf("free_bullet_player\n");
+    }
     for (int i = 0; i < MAX_BULLET_PLAYER; i++)
     {
         free(party->bullets_player[i]->position);

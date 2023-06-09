@@ -5,5 +5,5 @@
 #include "const.h"
 
 Sprite *create_sprite(char *sprite_path, int nb_frames, int kind);
-void free_sprite(Sprite *sprite);
+void free_sprite(Sprite *sprite, int verbose_flag);
 #endif

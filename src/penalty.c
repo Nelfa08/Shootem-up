@@ -159,7 +159,10 @@ int player_get_penalty(Party *party)
 
 void free_penalty(Party *party)
 {
-    printf("free_penalty\n");
+    if(party->verbose_flag)
+    {
+        printf("free_penalty\n");
+    }
     MLV_free_image(party->image_reverse_penalty);
     MLV_free_image(party->image_boss_penalty);
     MLV_free_image(party->image_slow_penalty);

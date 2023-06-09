@@ -167,7 +167,10 @@ int fire_enemy(Party *party)
 
 void free_bullet_enemy(Party *party)
 {
-    printf("Free bullet enemy\n");
+    if(party->verbose_flag)
+    {
+        printf("free_bullet_enemy\n");
+    }
     for (int i = 0; i < MAX_BULLET_ENEMY; i++)
     {
         free(party->bullets_enemy[i]->position);

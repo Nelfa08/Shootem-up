@@ -221,7 +221,10 @@ int init_scenery(Party *party, MLV_Image *loading_images[])
 
 void free_sceneries(Party *party)
 {
-    printf("Free sceneries\n");
+    if(party->verbose_flag)
+    {
+        printf("free_sceneries\n");
+    }
     MLV_free_image(party->scenery1->background->image);
     MLV_free_image(party->scenery1->foreground->image);
     free(party->scenery1->background->position);
@@ -264,7 +267,10 @@ int init_menu(Party *party)
 
 void free_menu(Party *party)
 {
-    printf("Free menu\n");
+    if(party->verbose_flag)
+    {
+        printf("free_menu\n");
+    }
     MLV_free_image(party->menu->background->image);
     MLV_free_font(party->menu->font_text);
     MLV_free_font(party->menu->font_title);
@@ -467,32 +473,18 @@ void generate_bonus_or_penalty(Party *party)
 }
 
 /**
- * @brief free the party
+ * @brief free the scoreboard
  * 
- * @param party 
- * @return int 
- */
-int free_party(Party *party)
-{
-    printf("Free party\n");
-
-    free_bonus(party);
-    free_penalty(party);
-    free_bullet_enemy(party);
-    free_bullet_player(party);
-    free_enemies(party);
-    free_menu(party);
-    free_sceneries(party);
-    MLV_free_font(party->text_game);
-    MLV_free_image(party->image_heart_full);
-    MLV_free_image(party->image_heart_empty);
-    MLV_free_image(party->image_bullet_player);
-    free(party);
-    return EXIT_SUCCESS;
-}
-
+ * @param party Structure de la partie
+ * @return void
+*/
 void free_scoreboard(Party *party)
 {
+    if(party->verbose_flag)
+    {
+        printf("free_scoreboard\n");
+    }
+
     for (int i = 0; i < MAX_BEST_SCORE; i++)
     {
         free(party->scoreboard[i]->name);
@@ -501,4 +493,41 @@ void free_scoreboard(Party *party)
         free(party->scoreboard[i]);
     }
 }
+
+/**
+ * @brief free the party
+ * 
+ * @param party 
+ * @return int 
+ */
+int free_party(Party *party)
+{
+    if(party->verbose_flag)
+    {
+        printf("free_party\n");
+    }
+
+    free_bonus(party);
+    free_penalty(party);
+    free_bullet_enemy(party);
+    free_bullet_player(party);
+    free_enemies(party);
+    free_menu(party);
+    free_sceneries(party);
+    free_scoreboard(party);
+
+    if(party->verbose_flag)
+    {
+        printf("free image and font from party\n");
+    }
+
+    MLV_free_font(party->text_game);
+    MLV_free_image(party->image_heart_full);
+    MLV_free_image(party->image_heart_empty);
+    MLV_free_image(party->image_bullet_player);
+    free(party);
+    return EXIT_SUCCESS;
+}
+
+
 

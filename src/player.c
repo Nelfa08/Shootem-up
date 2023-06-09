@@ -114,9 +114,9 @@ int move_player(Player *player, Pressed_key pk)
 void free_player(Party *party)
 {
     free(party->player->position);
-    free_sprite(party->player->sprite_walk);
-    free_sprite(party->player->sprite_attack);
-    free_sprite(party->player->sprite_run);
-    free_sprite(party->player->sprite_idle);
+    free_sprite(party->player->sprite_walk, party->verbose_flag);
+    free_sprite(party->player->sprite_attack, party->verbose_flag);
+    free_sprite(party->player->sprite_run, party->verbose_flag);
+    free_sprite(party->player->sprite_idle, party->verbose_flag);
     free(party->player);
 }

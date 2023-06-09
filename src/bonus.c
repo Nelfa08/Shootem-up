@@ -174,7 +174,10 @@ int player_get_bonus(Party *party)
 
 void free_bonus(Party *party)
 {
-    printf("free_bonus\n");
+    if(party->verbose_flag)
+    {
+        printf("free_bonus\n");
+    }
     MLV_free_image(party->image_shield_bonus);
     MLV_free_image(party->image_speed_bonus);
     MLV_free_image(party->image_health_bonus);
