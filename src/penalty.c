@@ -67,6 +67,7 @@ void init_tab_penalty(Party *party)
 {
     party->image_slow_penalty = MLV_load_image(PATH_IMG_SLOW_PENALTY);
     party->image_reverse_penalty = MLV_load_image(PATH_IMG_REVERSE_PENALTY);
+    party->sound_reverse_penalty = MLV_load_sound(PATH_SOUND_REVERSE_PENALTY);
     party->image_boss_penalty = MLV_load_image(PATH_IMG_DAMAGE_PENALTY);
     int i;
     for (i = 0; i < MAX_PENALTY; i++)
@@ -147,6 +148,10 @@ int player_get_penalty(Party *party)
             if (party->verbose_flag)
             {
                 printf("player_get_penalty: REVERSE\n");
+            }
+            if (party->sound == 1)
+            {
+                MLV_play_sound(party->sound_reverse_penalty, 1);
             }
             if (party->player->is_reversed == 0)
                 party->player->is_reversed = 1;

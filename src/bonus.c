@@ -202,6 +202,7 @@ void free_bonus(Party *party)
     MLV_free_image(party->image_bomb_bonus);
     MLV_free_image(party->image_attack_bonus);
     MLV_free_sound(party->sound_bomb_bonus);
+    MLV_free_sound(party->sound_reverse_penalty);
     for (int i = 0; i < MAX_BONUS; i++)
     {
         free(party->bonus[i]->position);
