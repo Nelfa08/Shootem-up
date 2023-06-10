@@ -24,9 +24,6 @@
 #define VOL_MUSIC_MENU 0.5
 #define SIZE_ICON_MUSIC 50
 
-/* FRAME CREDITS */
-
-
 /* FRAME GAME */
 #define HEIGHT_FRAME_GAME 800
 #define WIDTH_FRAME_GAME 1500
@@ -47,8 +44,8 @@
 #define NB_FRAMES_PLAYER_IDLE 5
 #define SPEED_PLAYER 10
 #define HEALTH_PLAYER 3
-#define SPAWN_PLAYER_X 0
-#define SPAWN_PLAYER_Y 285
+#define SPAWN_PLAYER_X 30
+#define SPAWN_PLAYER_Y 457
 #define DELAY_SHOOT_PLAYER 10
 #define PATH_IMG_HEART_FULL "data/img/heart_full.png"
 #define PATH_IMG_HEART_EMPTY "data/img/heart.png"
@@ -85,11 +82,11 @@
 #define PATH_IMG_SHIELD_BONUS "data/img/bonus/shield.png"
 #define PATH_IMG_FORCE_FIELD "data/img/bonus/force-field.png"
 #define PATH_IMG_SPEED_BONUS "data/img/bonus/speed.png"
+#define PATH_SOUND_SPEED_BONUS "data/music/speed.wav"
 #define PATH_IMG_HEALTH_BONUS "data/img/bonus/health.png"
 #define PATH_IMG_BOMB_BONUS "data/img/bonus/bomb.png"
 #define PATH_SOUND_BOMB_BONUS "data/music/bomb.wav"
 #define PATH_IMG_ATTACK_BONUS "data/img/bonus/attack.png"
-#define TIME_BOOST_SHIELD 10000
 
 /* PENALTIES */
 #define SIZE_PENALTY 50

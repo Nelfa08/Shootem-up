@@ -236,6 +236,7 @@ typedef struct party
     MLV_Image *image_shield_bonus;
     MLV_Image *image_shield_effect;
     MLV_Image *image_speed_bonus;
+    MLV_Sound *sound_speed_bonus;
     MLV_Image *image_health_bonus;
     MLV_Image *image_bomb_bonus;
     MLV_Sound *sound_bomb_bonus;

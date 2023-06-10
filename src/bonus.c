@@ -69,9 +69,10 @@ void init_tab_bonus(Party *party)
     party->image_shield_bonus = MLV_load_image(PATH_IMG_SHIELD_BONUS);
     party->image_shield_effect = MLV_load_image(PATH_IMG_FORCE_FIELD);
     party->image_speed_bonus = MLV_load_image(PATH_IMG_SPEED_BONUS);
+    party->sound_speed_bonus = MLV_load_sound(PATH_SOUND_SPEED_BONUS);
     party->image_health_bonus = MLV_load_image(PATH_IMG_HEALTH_BONUS);
     party->image_bomb_bonus = MLV_load_image(PATH_IMG_BOMB_BONUS);
-    party->sound_bomb_bonus = MLV_load_sound("data/music/bomb.wav");
+    party->sound_bomb_bonus = MLV_load_sound(PATH_SOUND_BOMB_BONUS);
     party->image_attack_bonus = MLV_load_image(PATH_IMG_ATTACK_BONUS);
     for (int i = 0; i < MAX_BONUS; i++)
     {
@@ -147,6 +148,7 @@ int player_get_bonus(Party *party)
             }
             if (party->player->speed < 20)
             {
+                MLV_play_sound(party->sound_speed_bonus, 1);
                 party->player->speed += 2;
             }
         }
@@ -202,6 +204,7 @@ void free_bonus(Party *party)
     MLV_free_image(party->image_bomb_bonus);
     MLV_free_image(party->image_attack_bonus);
     MLV_free_sound(party->sound_bomb_bonus);
+    MLV_free_sound(party->sound_speed_bonus);
     for (int i = 0; i < MAX_BONUS; i++)
     {
         free(party->bonus[i]->position);

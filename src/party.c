@@ -460,7 +460,6 @@ int print_scoreboard(Party *party)
 void generate_bonus_or_penalty(Party *party)
 {
     int random_type = rand() % 2;
-
     if (random_type == 0)
     {
         add_bonus(party);

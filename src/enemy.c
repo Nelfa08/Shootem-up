@@ -30,7 +30,7 @@ Enemy *create_enemy( Party *party)
     enemy->position = malloc(sizeof(Position));
     enemy->position->x = WIDTH_FRAME_GAME;
     enemy->position->y = 0;
-    enemy->health = 1;
+    enemy->health = HEALTH_ENEMY;
     enemy->speed = SPEED_ENEMY;
     enemy->visible = 0;
     enemy->current_frame = 0;
