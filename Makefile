@@ -16,15 +16,20 @@ $(BIN)%.o: $(SRC)%.c
 all:
 	make
 	make doc
+	make log
+	make run
 
 doc:
 	doxygen
 
+log: 
+	git log --pretty=format:"%cs (%an): %s" >> log_dev.txt
+
 open-doc:
-	firefox generated-docs/html/index.html
+	firefox doc/html/index.html
 
 clean-doc:
-	rm -rf generated-docs/
+	rm -rf doc/
 
 run:
 	./$(MAIN)
@@ -39,4 +44,5 @@ clean:
 .PHONY: clean
 clean-all:
 	rm -f $(REPBIN) $(MAIN)
-	rm -rf generated-docs/
+	rm -rf doc/
+	rm -f log_dev.txt

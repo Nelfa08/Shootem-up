@@ -5,14 +5,20 @@ Ce jeu a été développé par **DJEBLOUN Yacine** et **RODDIER Corentin** dans 
 
 ## Compilation
 Pour compiler le jeu : `make`
-
 Pour lancer le jeu : `make run`
+Pour supprimer les fichiers générés : `make clean`
+Pour reconstruire le projet : `make rebuild`
 
 ## Logs github
-Pour générer les logs github : `git log --pretty=format:"%cs (%an): %s" >> logs.txt`
+Pour générer les logs github : `make log`
 
 ## Documentation Doxygen
-Pour générer la documentation : ``doxygen Doxygen``
+Pour générer la documentation : ``make doc``
+Pour accéder à la documentation : `make open-doc`
+Pour supprimer la documentation : `make clean-doc`
+
+## Suppression des fichiers générés
+Pour supprimer **TOUS** les fichiers générés : `make clean-all`
 
 ## Utilisation
 ### Menu principal

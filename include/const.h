@@ -21,7 +21,7 @@
 #define PATH_IMG_SOUND_OFF "data/img/sound_off.png"
 #define PATH_FONT_MENU "data/font/Talk_Comic.ttf"
 #define PATH_MUSIC_MENU "data/music/music.wav"
-#define VOL_MUSIC_MENU 0
+#define VOL_MUSIC_MENU 0.5
 #define SIZE_ICON_MUSIC 50
 
 /* FRAME CREDITS */
