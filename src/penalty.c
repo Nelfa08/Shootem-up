@@ -69,6 +69,7 @@ void init_tab_penalty(Party *party)
     party->image_reverse_penalty = MLV_load_image(PATH_IMG_REVERSE_PENALTY);
     party->sound_reverse_penalty = MLV_load_sound(PATH_SOUND_REVERSE_PENALTY);
     party->image_boss_penalty = MLV_load_image(PATH_IMG_DAMAGE_PENALTY);
+    party->sound_boss_penalty = MLV_load_sound(PATH_SOUND_BOSS_PENALTY);
     int i;
     for (i = 0; i < MAX_PENALTY; i++)
     {
@@ -164,6 +165,10 @@ int player_get_penalty(Party *party)
             {
                 printf("player_get_penalty: BOSS\n");
             }
+            if (party->sound == 1)
+            {
+                MLV_play_sound(party->sound_boss_penalty, 1);
+            }
             for (int i = 0; i < 10; i++)
             {
                 add_enemy(party);
@@ -182,6 +187,9 @@ void free_penalty(Party *party)
     MLV_free_image(party->image_reverse_penalty);
     MLV_free_image(party->image_boss_penalty);
     MLV_free_image(party->image_slow_penalty);
+    MLV_free_sound(party->sound_reverse_penalty);
+    MLV_free_sound(party->sound_boss_penalty);
+
     for (int i = 0; i < MAX_BONUS; i++)
     {
         free(party->penalty[i]->position);

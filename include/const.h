@@ -98,6 +98,7 @@
 #define PATH_IMG_SLOW_PENALTY "data/img/penalty/slow.png"
 #define PATH_IMG_REVERSE_PENALTY "data/img/penalty/reverse.png"
 #define PATH_SOUND_REVERSE_PENALTY "data/music/reverse.wav"
-#define PATH_IMG_DAMAGE_PENALTY "data/img/penalty/damage.png"
+#define PATH_IMG_DAMAGE_PENALTY "data/img/penalty/boss.png"
+#define PATH_SOUND_BOSS_PENALTY "data/music/boss.wav"
 
 #endif
