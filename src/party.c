@@ -293,7 +293,7 @@ int init_scoreboard(Party *party)
     for (int i = 0; i < MAX_BEST_SCORE; i++)
     {
         party->scoreboard[i] = malloc(sizeof(Scoreboard));
-        party->scoreboard[i]->name = malloc(sizeof(char) * 20);
+        party->scoreboard[i]->name = malloc(sizeof(char) * 100);
         party->scoreboard[i]->date = malloc(sizeof(char) * 20);
         party->scoreboard[i]->time = malloc(sizeof(char) * 20);
         party->scoreboard[i]->score = 0;

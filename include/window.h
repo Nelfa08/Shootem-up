@@ -11,7 +11,6 @@ int draw_window_credits(Party *party);
 int init_window_game();
 int draw_frame_game(Party *party);
 int clear_window();
-int free_window();
 int draw_player(Party *party);
 int draw_background(Background *background);
 int draw_foreground(Foreground *foreground);

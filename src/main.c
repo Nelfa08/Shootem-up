@@ -308,6 +308,6 @@ int main(int argc, char *argv[])
     MLV_free_music(music);
     MLV_free_audio();
     free_party(party);
-    free_window();
+    MLV_free_window();
     return EXIT_SUCCESS;
 }

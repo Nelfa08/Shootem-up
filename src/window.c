@@ -622,15 +622,3 @@ void draw_best_score(Party *party)
     }
     MLV_free_font(font);
 }
-
-/**
- * @brief free the window
- * 
- * @return int 
- */
-int free_window()
-{
-
-    MLV_free_window();
-    return EXIT_SUCCESS;
-}
