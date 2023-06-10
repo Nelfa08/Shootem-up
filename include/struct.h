@@ -234,6 +234,7 @@ typedef struct party
     MLV_Image *image_bullet_player;
     MLV_Image *image_bullet_enemy;
     MLV_Image *image_shield_bonus;
+    MLV_Image *image_shield_effect;
     MLV_Image *image_speed_bonus;
     MLV_Image *image_health_bonus;
     MLV_Image *image_bomb_bonus;

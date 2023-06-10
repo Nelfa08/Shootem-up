@@ -66,6 +66,7 @@ int add_bonus(Party *party)
 void init_tab_bonus(Party *party)
 {
     party->image_shield_bonus = MLV_load_image(PATH_IMG_SHIELD_BONUS);
+    party->image_shield_effect = MLV_load_image(PATH_IMG_FORCE_FIELD);
     party->image_speed_bonus = MLV_load_image(PATH_IMG_SPEED_BONUS);
     party->image_health_bonus = MLV_load_image(PATH_IMG_HEALTH_BONUS);
     party->image_bomb_bonus = MLV_load_image(PATH_IMG_BOMB_BONUS);
@@ -179,6 +180,7 @@ void free_bonus(Party *party)
         printf("free_bonus\n");
     }
     MLV_free_image(party->image_shield_bonus);
+    MLV_free_image(party->image_shield_effect);
     MLV_free_image(party->image_speed_bonus);
     MLV_free_image(party->image_health_bonus);
     MLV_free_image(party->image_bomb_bonus);

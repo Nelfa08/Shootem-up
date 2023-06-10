@@ -591,8 +591,8 @@ int draw_penalties(Party *party)
  */
 int draw_shield(Party *party)
 {
-    MLV_resize_image_with_proportions(party->image_shield_bonus, party->player->width, party->player->height);
-    MLV_draw_image(party->image_shield_bonus, party->player->position->x, party->player->position->y);
+    MLV_resize_image_with_proportions(party->image_shield_effect, party->player->width, party->player->height);
+    MLV_draw_image(party->image_shield_effect, party->player->position->x, party->player->position->y);
     /* dessine les hitbox */
     if (party->hitbox_flag == 1)
     {

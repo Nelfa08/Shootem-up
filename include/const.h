@@ -21,7 +21,7 @@
 #define PATH_IMG_SOUND_OFF "data/img/sound_off.png"
 #define PATH_FONT_MENU "data/font/Talk_Comic.ttf"
 #define PATH_MUSIC_MENU "data/music/music.wav"
-#define VOL_MUSIC_MENU 1 
+#define VOL_MUSIC_MENU 0
 #define SIZE_ICON_MUSIC 50
 
 /* FRAME CREDITS */
@@ -50,7 +50,6 @@
 #define SPAWN_PLAYER_X 0
 #define SPAWN_PLAYER_Y 285
 #define DELAY_SHOOT_PLAYER 10
-#define PATH_IMG_SHIELD "data/img/force-field.png"
 #define PATH_IMG_HEART_FULL "data/img/heart_full.png"
 #define PATH_IMG_HEART_EMPTY "data/img/heart.png"
 #define SIZE_HEART 30
@@ -84,6 +83,7 @@
 #define MAX_BONUS 20
 #define SPEED_BONUS 1
 #define PATH_IMG_SHIELD_BONUS "data/img/bonus/shield.png"
+#define PATH_IMG_FORCE_FIELD "data/img/bonus/force-field.png"
 #define PATH_IMG_SPEED_BONUS "data/img/bonus/speed.png"
 #define PATH_IMG_HEALTH_BONUS "data/img/bonus/health.png"
 #define PATH_IMG_BOMB_BONUS "data/img/bonus/bomb.png"

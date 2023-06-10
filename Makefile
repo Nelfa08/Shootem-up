@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -pthread -lm -g
+CFLAGS=-Wall -lm
 LDFLAGS=-lMLV
 BIN= bin/
 SRC=src/
