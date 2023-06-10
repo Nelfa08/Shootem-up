@@ -17,7 +17,7 @@
 
 /**
  * @brief Create a bonus object
- * 
+ *
  * @return Bonus*
  */
 Bonus *create_bonus()
@@ -35,33 +35,34 @@ Bonus *create_bonus()
 
 /**
  * @brief add a bonus in array of bonus
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int add_bonus(Party *party)
 {
-    Bonus *new_bonus = create_bonus();
+
     int rand_y = (rand() % (BOTTOM_BORDER - TOP_BORDER + 1)) + TOP_BORDER;
-    new_bonus->visible = 1;
-    new_bonus->position->y = rand_y;
-    new_bonus->kind = rand() % 5;
+
     for (int i = 0; i < MAX_BONUS; i++)
     {
         if (party->bonus[i]->visible == 0)
         {
-            party->bonus[i] = new_bonus;
+            party->bonus[i]->kind = rand() % 5;
+            party->bonus[i]->position->x = WIDTH_FRAME_GAME;
+            party->bonus[i]->position->y = rand_y;
+            party->bonus[i]->visible = 1;
             return 0;
         }
     }
     fprintf(stderr, "Error: No more space for bonus\n");
-    exit(1);
+    return -1;
 }
 
 /**
  * @brief init the array of bonus
- * 
- * @param party 
+ *
+ * @param party
  */
 void init_tab_bonus(Party *party)
 {
@@ -80,8 +81,8 @@ void init_tab_bonus(Party *party)
 
 /**
  * @brief move the bonus if it's visible
- * 
- * @param party 
+ *
+ * @param party
  */
 void move_bonus(Party *party)
 {
@@ -96,9 +97,9 @@ void move_bonus(Party *party)
 
 /**
  * @brief check if player collide with a bonus
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int collision_bonus(Party *party)
 {
@@ -120,10 +121,10 @@ int collision_bonus(Party *party)
 }
 
 /**
- * @brief add effect of bonus to player 
- * 
- * @param party 
- * @return int 
+ * @brief add effect of bonus to player
+ *
+ * @param party
+ * @return int
  */
 int player_get_bonus(Party *party)
 {
@@ -132,12 +133,18 @@ int player_get_bonus(Party *party)
     {
         if (party->bonus[bonus_collision]->kind == 0)
         {
-            printf("player_win_bonus: SHIELD\n");
+            if (party->verbose_flag)
+            {
+                printf("player_win_bonus: SHIELD\n");
+            }
             party->player->shield = 3;
         }
         else if (party->bonus[bonus_collision]->kind == 1)
         {
-            printf("player_win_bonus: SPEED\n");
+            if (party->verbose_flag)
+            {
+                printf("player_win_bonus: SPEED\n");
+            }
             if (party->player->speed < 20)
             {
                 party->player->speed += 2;
@@ -145,7 +152,10 @@ int player_get_bonus(Party *party)
         }
         else if (party->bonus[bonus_collision]->kind == 2)
         {
-            printf("player_win_bonus: HEALTH\n");
+            if (party->verbose_flag)
+            {
+                printf("player_win_bonus: HEALTH\n");
+            }
             if (party->player->health < 3)
             {
                 party->player->health += 1;
@@ -153,7 +163,10 @@ int player_get_bonus(Party *party)
         }
         else if (party->bonus[bonus_collision]->kind == 3)
         {
-            printf("player_win_bonus: BOMB\n");
+            if (party->verbose_flag)
+            {
+                printf("player_win_bonus: BOMB\n");
+            }
             kill_all_enemies(party);
             if (party->sound == 1)
             {
@@ -162,7 +175,10 @@ int player_get_bonus(Party *party)
         }
         else if (party->bonus[bonus_collision]->kind == 4)
         {
-            printf("player_win_bonus: ATTACK\n");
+            if (party->verbose_flag)
+            {
+                printf("player_win_bonus: ATTACK\n");
+            }
             for (int i = 0; i < MAX_BULLET_PLAYER; i++)
             {
                 party->bullets_player[i]->damage += 1;
@@ -175,7 +191,7 @@ int player_get_bonus(Party *party)
 
 void free_bonus(Party *party)
 {
-    if(party->verbose_flag)
+    if (party->verbose_flag)
     {
         printf("free_bonus\n");
     }

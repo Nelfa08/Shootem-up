@@ -18,8 +18,8 @@
 
 /**
  * @brief Create a penalty object
- * 
- * @return Penalty* 
+ *
+ * @return Penalty*
  */
 Penalty *create_penalty()
 {
@@ -36,33 +36,32 @@ Penalty *create_penalty()
 
 /**
  * @brief add a penalty in array of penalty
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int add_penalty(Party *party)
 {
-    Penalty *new_penalty = create_penalty();
     int rand_y = (rand() % (BOTTOM_BORDER - TOP_BORDER + 1)) + TOP_BORDER;
-    new_penalty->visible = 1;
-    new_penalty->position->y = rand_y;
-    new_penalty->kind = rand() % 3;
     for (int i = 0; i < MAX_PENALTY; i++)
     {
         if (party->penalty[i]->visible == 0)
         {
-            party->penalty[i] = new_penalty;
+            party->penalty[i]->kind = rand() % 3;
+            party->penalty[i]->position->x = WIDTH_FRAME_GAME;
+            party->penalty[i]->position->y = rand_y;
+            party->penalty[i]->visible = 1;
             return 0;
         }
     }
     fprintf(stderr, "Error: No more space for penalty\n");
-    exit(1);
+    return -1;
 }
 
 /**
  * @brief init the array of penalty
- * 
- * @param party 
+ *
+ * @param party
  */
 void init_tab_penalty(Party *party)
 {
@@ -78,8 +77,8 @@ void init_tab_penalty(Party *party)
 
 /**
  * @brief move the penalty
- * 
- * @param party 
+ *
+ * @param party
  */
 void move_penalty(Party *party)
 {
@@ -94,9 +93,9 @@ void move_penalty(Party *party)
 
 /**
  * @brief check if player collide with a penalty
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int collision_penalty(Party *party)
 {
@@ -119,9 +118,9 @@ int collision_penalty(Party *party)
 
 /**
  * @brief check if player collide with a penalty and apply the penalty effect
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int player_get_penalty(Party *party)
 {
@@ -130,25 +129,38 @@ int player_get_penalty(Party *party)
     {
         if (party->penalty[penalty_collision]->kind == 0)
         {
-            printf("player_get_penalty: SLOW\n");
-            if(party->player->speed - 5 >= 5) {
+            if (party->verbose_flag)
+            {
+                printf("player_get_penalty: SLOW\n");
+            }
+            if (party->player->speed - 5 >= 5)
+            {
                 party->player->speed -= 5;
             }
-            else{
+            else
+            {
                 party->player->speed = 5;
             }
         }
         else if (party->penalty[penalty_collision]->kind == 1)
         {
-            printf("player_get_penalty: REVERSE\n");
-            if(party->player->is_reversed == 0)party->player->is_reversed = 1;
-            else party->player->is_reversed = 0;
-
+            if (party->verbose_flag)
+            {
+                printf("player_get_penalty: REVERSE\n");
+            }
+            if (party->player->is_reversed == 0)
+                party->player->is_reversed = 1;
+            else
+                party->player->is_reversed = 0;
         }
         else if (party->penalty[penalty_collision]->kind == 2)
         {
-            printf("player_get_penalty: BOSS\n");
-            for(int i = 0 ; i < 10 ; i++) { 
+            if (party->verbose_flag)
+            {
+                printf("player_get_penalty: BOSS\n");
+            }
+            for (int i = 0; i < 10; i++)
+            {
                 add_enemy(party);
             }
         }
@@ -156,10 +168,9 @@ int player_get_penalty(Party *party)
     return 0;
 }
 
-
 void free_penalty(Party *party)
 {
-    if(party->verbose_flag)
+    if (party->verbose_flag)
     {
         printf("free_penalty\n");
     }

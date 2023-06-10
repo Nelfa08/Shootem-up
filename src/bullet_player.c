@@ -57,20 +57,18 @@ int init_bullets_player(Party *party)
  */
 int add_bullet_player(Party *party)
 {
-    Bullet_player *new_bullet = create_bullet_player();
-    new_bullet->visible = 1;
-    new_bullet->position->x = party->player->position->x + party->player->width;
-    new_bullet->position->y = party->player->position->y + (party->player->height / 2);
     for (int i = 0; i < MAX_BULLET_PLAYER; i++)
     {
         if (party->bullets_player[i]->visible == 0)
         {
-            party->bullets_player[i] = new_bullet;
+            party->bullets_player[i]->position->x = party->player->position->x + party->player->width;
+            party->bullets_player[i]->position->y = party->player->position->y + (party->player->height / 2);
+            party->bullets_player[i]->visible = 1;
             return 0;
         }
     }
     fprintf(stderr, "Error: No more space for bullet player\n");
-    exit(1);
+    return -1;
 }
 
 /**

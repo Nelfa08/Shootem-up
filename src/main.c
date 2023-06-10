@@ -252,8 +252,12 @@ int main(int argc, char *argv[])
 
         if (party->score % 500 == 0)
         {
-            generate_bonus_or_penalty(party);
             party->enemies_density *= 2;
+        }
+
+        if(party->score % 250 == 0)
+        {
+            generate_bonus_or_penalty(party);
         }
 
         /* Si le joueur n'a plus de vie : il perd */

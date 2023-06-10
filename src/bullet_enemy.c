@@ -17,8 +17,8 @@
 
 /**
  * @brief Create a bullet enemy object
- * 
- * @return Bullet_enemy* 
+ *
+ * @return Bullet_enemy*
  */
 Bullet_enemy *create_bullet_enemy()
 {
@@ -36,9 +36,9 @@ Bullet_enemy *create_bullet_enemy()
 
 /**
  * @brief Initialize the array of bullets enemy
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int init_bullets_enemy(Party *party)
 {
@@ -53,35 +53,32 @@ int init_bullets_enemy(Party *party)
 
 /**
  * @brief add a bullet enemy in array of bullets enemy
- * 
- * @param party 
- * @param enemy 
- * @return int 
+ *
+ * @param party
+ * @param enemy
+ * @return int
  */
 int add_bullet_enemy(Party *party, Enemy *enemy)
 {
-    Bullet_enemy *new_bullet = create_bullet_enemy();
-    new_bullet->visible = 1;
-    new_bullet->position->x = enemy->position->x - new_bullet->width;
-    new_bullet->position->y = enemy->position->y + (enemy->height / 4);
     for (int i = 0; i < MAX_BULLET_ENEMY; i++)
     {
         if (party->bullets_enemy[i]->visible == 0)
         {
-            party->bullets_enemy[i] = new_bullet;
+            party->bullets_enemy[i]->position->x = enemy->position->x - party->bullets_enemy[i]->width;
+            party->bullets_enemy[i]->position->y = enemy->position->y + (enemy->height / 4);
+            party->bullets_enemy[i]->visible = 1;
             return 0;
         }
     }
     fprintf(stderr, "Error: No more space for bullet enemy\n");
-    exit(1);
-    return 0;
+    return -1;
 }
 
 /**
  * @brief move the bullets enemy
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int move_bullets_enemy(Party *party)
 {
@@ -101,10 +98,10 @@ int move_bullets_enemy(Party *party)
 
 /**
  * @brief check if the bullet enemy is in collision with the player
- * 
- * @param bullet 
- * @param player 
- * @return int 
+ *
+ * @param bullet
+ * @param player
+ * @return int
  */
 int check_collisions_bullet_enemy(Bullet_enemy *bullet, Player *player)
 {
@@ -119,10 +116,10 @@ int check_collisions_bullet_enemy(Bullet_enemy *bullet, Player *player)
 }
 
 /**
- * @brief decrease the health of the player or the shield when the player is in collision with a bullet enemy 
- * 
- * @param party 
- * @return int 
+ * @brief decrease the health of the player or the shield when the player is in collision with a bullet enemy
+ *
+ * @param party
+ * @return int
  */
 int enemy_kill_player(Party *party)
 {
@@ -149,9 +146,9 @@ int enemy_kill_player(Party *party)
 
 /**
  * @brief add a bullet enemy when the enemy shoot
- * 
- * @param party 
- * @return int 
+ *
+ * @param party
+ * @return int
  */
 int fire_enemy(Party *party)
 {
@@ -167,7 +164,7 @@ int fire_enemy(Party *party)
 
 void free_bullet_enemy(Party *party)
 {
-    if(party->verbose_flag)
+    if (party->verbose_flag)
     {
         printf("free_bullet_enemy\n");
     }

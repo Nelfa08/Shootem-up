@@ -65,23 +65,25 @@ void init_enemies(Party *party)
  */
 int add_enemy(Party *party)
 {
-    Enemy *new_enemy = create_enemy(party);
     int rand_y = (rand() % (BOTTOM_BORDER - TOP_BORDER + 1)) + TOP_BORDER;
 
-    new_enemy->visible = 1;
-    new_enemy->health = (party->score / 500) + 1;
-    new_enemy->position->y = rand_y;
-    new_enemy->original_y = rand_y;
     for (int i = 0; i < MAX_ENEMY; i++)
     {
         if (party->enemies[i]->visible == 0)
         {
-            party->enemies[i] = new_enemy;
+            party->enemies[i]->current_frame = 0;
+            party->enemies[i]->health = (party->score / 500) + 1;
+            party->enemies[i]->original_y = rand_y;
+            party->enemies[i]->position->y = rand_y;
+            party->enemies[i]->position->x = WIDTH_FRAME_GAME;
+            party->enemies[i]->status = 0;
+            party->enemies[i]->visible = 1;
+
             return 0;
         }
     }
     fprintf(stderr, "Error: No more space for enemy\n");
-    exit(1);
+    return -1;
 }
 
 /**
